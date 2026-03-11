@@ -702,7 +702,11 @@
           <a href="#visa-readiness">Visa Readiness</a>
           <a href="#for-who">For You</a>
           <a href="#faq">FAQ</a>
-          <a href="#contact" class="nav-cta">Get Started</a>
+          @auth
+            <a href="{{ route('dashboard') }}" class="nav-cta">Dashboard</a>
+          @else
+            <a href="{{ route('login') }}" class="nav-cta">Login</a>
+          @endauth
         </nav>
       </div>
     </div>
