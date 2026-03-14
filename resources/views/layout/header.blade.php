@@ -816,7 +816,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="#" class="logo">Edu<span>Bridge</span></a>
+          <a href="{{ url('/') }}" class="logo">Edu<span>Bridge</span></a>
           <p class="footer-tagline" style="margin-top:16px">Transparent, verified, and accountable overseas education guidance — eliminating fraud from the study abroad process.</p>
         </div>
         <div>
@@ -832,19 +832,19 @@
         <div>
           <div class="footer-col-title">Company</div>
           <div class="footer-links">
-            <a href="#">About EduBridge</a>
-            <a href="#">Research</a>
+            <a href="{{ route('pages.for-you') }}">About EduBridge</a>
+            <a href="{{ url('/') }}">Research</a>
             <a href="{{ route('pages.faq') }}">FAQ</a>
-            <a href="#">Contact</a>
+            <a href="{{ route('login') }}">Contact</a>
           </div>
         </div>
         <div>
           <div class="footer-col-title">Legal</div>
           <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Data Security</a>
-            <a href="#">Complaint Policy</a>
+            <a href="{{ url('/') }}">Privacy Policy</a>
+            <a href="{{ url('/') }}">Terms of Service</a>
+            <a href="{{ url('/') }}">Data Security</a>
+            <a href="{{ url('/') }}">Complaint Policy</a>
           </div>
         </div>
       </div>
