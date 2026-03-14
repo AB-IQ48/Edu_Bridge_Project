@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EduBridge — Verified Education Consultancy</title>
+  <title>@yield('title', 'EduBridge — Verified Education Consultancy')</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -35,7 +35,100 @@
       overflow-x: hidden;
     }
 
-    /* ── HEADER ── */
+    /* ── GENERIC PAGE / FORM LAYOUT ─ */
+    .content {
+      padding-top: 96px;
+      min-height: 100vh;
+    }
+    .page-shell {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 48px 16px 80px;
+    }
+    .page-card {
+      background: var(--white);
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+    .page-card h1 {
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+      font-family: var(--font-serif);
+      letter-spacing: -0.02em;
+    }
+    .page-card .sub {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .page-card .grid { display: grid; gap: 12px; }
+    .page-card .row { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 560px) {
+      .page-card .row { grid-template-columns: 1fr; }
+    }
+    .page-card label {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .page-card input,
+    .page-card textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.14);
+      background: #fff;
+      outline: none;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+    }
+    .page-card input:focus,
+    .page-card textarea:focus {
+      border-color: rgba(74,124,107,0.7);
+      box-shadow: 0 0 0 3px rgba(74,124,107,0.15);
+    }
+    .page-card .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.14);
+      background: var(--ink);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .page-card .btn:hover { opacity: 0.92; }
+    .page-card .inline { display:flex; align-items:center; gap: 10px; }
+    .page-card .error {
+      background: rgba(220,38,38,0.08);
+      border: 1px solid rgba(220,38,38,0.25);
+      color: var(--danger);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+    .page-card .error ul { margin: 0; padding-left: 18px; }
+    .page-card .toplinks {
+      display:flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+    }
+    .page-card .hint {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+
+    /* ── HEADER ─ */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -695,13 +788,13 @@
   <header id="header">
     <div class="container">
       <div class="header-inner">
-        <a href="#" class="logo">Edu<span>Bridge</span></a>
+        <a href="{{ url('/') }}" class="logo">Edu<span>Bridge</span></a>
         <nav>
-          <a href="#how-it-works">How It Works</a>
-          <a href="#verification">Verification</a>
-          <a href="#visa-readiness">Visa Readiness</a>
-          <a href="#for-who">For You</a>
-          <a href="#faq">FAQ</a>
+          <a href="{{ route('pages.how-it-works') }}">How It Works</a>
+          <a href="{{ route('pages.verification') }}">Verification</a>
+          <a href="{{ route('pages.visa-readiness') }}">Visa Readiness</a>
+          <a href="{{ route('pages.for-you') }}">For You</a>
+          <a href="{{ route('pages.faq') }}">FAQ</a>
           @auth
             <a href="{{ route('dashboard') }}" class="nav-cta">Dashboard</a>
           @else
@@ -729,11 +822,11 @@
         <div>
           <div class="footer-col-title">Platform</div>
           <div class="footer-links">
-            <a href="#how-it-works">How It Works</a>
-            <a href="#verification">Verification</a>
-            <a href="#visa-readiness">Visa Readiness</a>
-            <a href="#for-who">For Students</a>
-            <a href="#for-who">For Counsellors</a>
+            <a href="{{ route('pages.how-it-works') }}">How It Works</a>
+            <a href="{{ route('pages.verification') }}">Verification</a>
+            <a href="{{ route('pages.visa-readiness') }}">Visa Readiness</a>
+            <a href="{{ route('pages.for-you') }}">For Students</a>
+            <a href="{{ route('pages.for-you') }}">For Counsellors</a>
           </div>
         </div>
         <div>
@@ -741,7 +834,7 @@
           <div class="footer-links">
             <a href="#">About EduBridge</a>
             <a href="#">Research</a>
-            <a href="#faq">FAQ</a>
+            <a href="{{ route('pages.faq') }}">FAQ</a>
             <a href="#">Contact</a>
           </div>
         </div>
