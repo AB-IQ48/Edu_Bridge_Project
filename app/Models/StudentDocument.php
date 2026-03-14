@@ -10,6 +10,8 @@ class StudentDocument extends Model
 {
     use HasFactory;
 
+    protected $table = 'student_documents';
+
     protected $fillable = [
         'user_id',
         'document_name',

@@ -10,6 +10,8 @@ class StudentProfile extends Model
 {
     use HasFactory;
 
+    protected $table = 'student_profiles';
+
     protected $fillable = [
         'user_id',
         'intended_country',
