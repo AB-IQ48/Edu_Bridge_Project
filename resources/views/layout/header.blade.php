@@ -790,6 +790,7 @@
       <div class="header-inner">
         <a href="{{ url('/') }}" class="logo">Edu<span>Bridge</span></a>
         <nav>
+          <a href="{{ route('counsellors.index') }}">Find Counsellors</a>
           <a href="{{ route('pages.how-it-works') }}">How It Works</a>
           <a href="{{ route('pages.verification') }}">Verification</a>
           <a href="{{ route('pages.visa-readiness') }}">Visa Readiness</a>
@@ -822,6 +823,7 @@
         <div>
           <div class="footer-col-title">Platform</div>
           <div class="footer-links">
+            <a href="{{ route('counsellors.index') }}">Find Counsellors</a>
             <a href="{{ route('pages.how-it-works') }}">How It Works</a>
             <a href="{{ route('pages.verification') }}">Verification</a>
             <a href="{{ route('pages.visa-readiness') }}">Visa Readiness</a>

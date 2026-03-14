@@ -12,6 +12,7 @@
     </div>
     <h2 class="section-title">How EduBridge works</h2>
     <p class="section-sub">A structured four-step workflow that protects students and ensures only qualified, verified counsellors operate on our platform.</p>
+    <p style="max-width:720px;margin-top:24px;font-size:1rem;color:var(--muted);line-height:1.75">From the moment a counsellor applies to the day you receive your visa decision, every touchpoint is designed for transparency and accountability. We believe study abroad should be exciting, not risky — so we built a process that removes guesswork and puts verified data at the centre.</p>
   </div>
   <div style="max-width:1200px;margin:0 auto;padding:0 32px">
     <div class="steps-grid">
@@ -48,6 +49,36 @@
         <p>Connect with counsellors whose verified specialisations match your destination and field. All advice is logged, reviewable, and tied to real accountability metrics.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="trust-section" style="padding:80px 0">
+  <div class="container">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">—</span>
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-tag">What to expect</span>
+    </div>
+    <h2 class="section-title" style="font-size:1.75rem">Typical timeline</h2>
+    <p class="section-sub" style="margin-bottom:32px">While every case is different, here’s a rough guide so you know what to expect at each stage.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;max-width:900px">
+      <div style="background:var(--cream);border-radius:8px;padding:24px;border:1px solid rgba(0,0,0,0.06)">
+        <div style="font-family:var(--font-serif);font-size:1.5rem;color:var(--sage);margin-bottom:8px">Week 1–2</div>
+        <h4 style="font-size:0.95rem;margin-bottom:8px">Counsellor onboarding</h4>
+        <p style="font-size:0.875rem;color:var(--muted);line-height:1.6">New counsellors complete registration and submit ID, credentials, and business documents. Our team begins verification.</p>
+      </div>
+      <div style="background:var(--cream);border-radius:8px;padding:24px;border:1px solid rgba(0,0,0,0.06)">
+        <div style="font-family:var(--font-serif);font-size:1.5rem;color:var(--sage);margin-bottom:8px">Week 2–3</div>
+        <h4 style="font-size:0.95rem;margin-bottom:8px">Document & score setup</h4>
+        <p style="font-size:0.875rem;color:var(--muted);line-height:1.6">Students upload documents and run their first Visa Readiness Score. Counsellors get access only after verification is complete.</p>
+      </div>
+      <div style="background:var(--cream);border-radius:8px;padding:24px;border:1px solid rgba(0,0,0,0.06)">
+        <div style="font-family:var(--font-serif);font-size:1.5rem;color:var(--sage);margin-bottom:8px">Ongoing</div>
+        <h4 style="font-size:0.95rem;margin-bottom:8px">Matched guidance</h4>
+        <p style="font-size:0.875rem;color:var(--muted);line-height:1.6">Verified counsellors guide you through applications, and outcomes are tracked to keep trust scores and ratings up to date.</p>
+      </div>
+    </div>
+    <p style="max-width:640px;margin-top:40px;font-size:0.9rem;color:var(--muted);line-height:1.7">We do not charge students for browsing counsellors or generating a Visa Readiness Score. Counsellors pay a platform fee; there are no hidden charges passed to you without your consent.</p>
   </div>
 </section>
 

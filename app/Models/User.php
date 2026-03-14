@@ -16,6 +16,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'role_id',
+        'assigned_counsellor_profile_id',
         'name',
         'email',
         'password',
@@ -41,9 +42,24 @@ class User extends Authenticatable
         return $this->hasOne(CounsellorProfile::class);
     }
 
+    public function studentProfile(): HasOne
+    {
+        return $this->hasOne(StudentProfile::class);
+    }
+
     public function visaScores(): HasMany
     {
         return $this->hasMany(VisaScore::class, 'student_id');
+    }
+
+    public function assignedCounsellorProfile(): BelongsTo
+    {
+        return $this->belongsTo(CounsellorProfile::class, 'assigned_counsellor_profile_id');
+    }
+
+    public function studentDocuments(): HasMany
+    {
+        return $this->hasMany(StudentDocument::class);
     }
 
     public function isStudent(): bool

@@ -31,4 +31,12 @@ class CounsellorProfile extends Model
     {
         return $this->hasMany(Document::class);
     }
+
+    /**
+     * Students who have attached to this counsellor.
+     */
+    public function assignedStudents(): HasMany
+    {
+        return $this->hasMany(User::class, 'assigned_counsellor_profile_id');
+    }
 }

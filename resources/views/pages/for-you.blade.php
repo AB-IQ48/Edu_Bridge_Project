@@ -11,6 +11,8 @@
       <span class="eyebrow-tag">Who It's For</span>
     </div>
     <h2 class="section-title">Designed for every side of the equation</h2>
+    <p class="section-sub" style="margin-bottom:16px">Whether you're a student planning your first move abroad or a counsellor building a reputation for integrity, EduBridge is built for you.</p>
+    <p style="max-width:720px;font-size:1rem;color:var(--muted);line-height:1.75">We serve two core groups: students who want verified guidance and transparent visa readiness, and education consultants who want to stand out through verification and accountability. Both sides benefit from the same infrastructure — secure documents, clear scores, and real outcomes.</p>
   </div>
   <div style="max-width:1200px;margin:0 auto;padding:0 32px">
     <div class="roles-grid">
@@ -39,6 +41,36 @@
         <a href="{{ route('register.company') }}" class="role-cta">Apply as a Counsellor →</a>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="trust-section" style="padding:80px 0;background:var(--white)">
+  <div class="container">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">—</span>
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-tag">By the numbers</span>
+    </div>
+    <h2 class="section-title" style="font-size:1.75rem">Why students and counsellors choose EduBridge</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:40px;max-width:1000px">
+      <div style="text-align:center;padding:24px">
+        <div style="font-family:var(--font-serif);font-size:2.5rem;font-weight:600;color:var(--sage);line-height:1">4,200+</div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-top:8px">Students placed at verified universities</p>
+      </div>
+      <div style="text-align:center;padding:24px">
+        <div style="font-family:var(--font-serif);font-size:2.5rem;font-weight:600;color:var(--sage);line-height:1">320+</div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-top:8px">Identity-verified counsellors</p>
+      </div>
+      <div style="text-align:center;padding:24px">
+        <div style="font-family:var(--font-serif);font-size:2.5rem;font-weight:600;color:var(--sage);line-height:1">98.6%</div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-top:8px">Student satisfaction rate</p>
+      </div>
+      <div style="text-align:center;padding:24px">
+        <div style="font-family:var(--font-serif);font-size:2.5rem;font-weight:600;color:var(--sage);line-height:1">Zero</div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-top:8px">Unresolved fraud complaints</p>
+      </div>
+    </div>
+    <p style="max-width:640px;margin:40px auto 0;font-size:0.9rem;color:var(--muted);line-height:1.7;text-align:center">Our platform is built for transparency. Every counsellor is verified; every score is explainable; every document access is logged. That’s how we keep trust at the centre of study abroad.</p>
   </div>
 </section>
 

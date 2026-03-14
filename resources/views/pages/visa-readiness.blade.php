@@ -12,6 +12,7 @@
     </div>
     <h2 class="section-title">Your Visa Readiness Score — explained</h2>
     <p class="section-sub">No black boxes. Our rule-based scoring model breaks down exactly why your score is what it is and how to improve it.</p>
+    <p style="max-width:720px;margin-top:24px;font-size:1rem;color:var(--muted);line-height:1.75">The score is built from five weighted dimensions: academic eligibility, financial proof, language proficiency, document completeness, and interview readiness. Each dimension uses published rules so you can see how every point is calculated and what to do next.</p>
     <div class="visa-grid">
       <div class="visa-factors">
         <div class="factor-card">
@@ -77,6 +78,33 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="trust-section" style="padding:80px 0;background:var(--white)">
+  <div class="container">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">—</span>
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-tag">Score bands</span>
+    </div>
+    <h2 class="section-title" style="font-size:1.75rem">What your score means</h2>
+    <p class="section-sub" style="margin-bottom:28px">We use three bands so you know where you stand and what to focus on.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:900px">
+      <div style="background:var(--cream);padding:24px;border-radius:8px;border-left:4px solid var(--sage)">
+        <div style="font-weight:600;color:var(--sage);margin-bottom:6px">Ready (75–100)</div>
+        <p style="font-size:0.875rem;color:var(--muted);line-height:1.6">Your profile meets typical requirements. Focus on polishing your application and preparing for the interview.</p>
+      </div>
+      <div style="background:var(--cream);padding:24px;border-radius:8px;border-left:4px solid var(--gold)">
+        <div style="font-weight:600;color:var(--gold);margin-bottom:6px">Conditionally ready (50–74)</div>
+        <p style="font-size:0.875rem;color:var(--muted);line-height:1.6">One or more areas need work. Follow the tips in your dashboard and upload missing documents or improve weak areas.</p>
+      </div>
+      <div style="background:var(--cream);padding:24px;border-radius:8px;border-left:4px solid var(--danger)">
+        <div style="font-weight:600;color:var(--danger);margin-bottom:6px">Not yet ready (0–49)</div>
+        <p style="font-size:0.875rem;color:var(--muted);line-height:1.6">Significant gaps remain. Your counsellor can help you build a plan to improve each dimension before you apply.</p>
+      </div>
+    </div>
+    <p style="max-width:640px;margin-top:32px;font-size:0.9rem;color:var(--muted);line-height:1.7">Scores are recalculated whenever you update your profile or documents. There is no limit to how often you can run the assessment — use it to track your progress over time.</p>
   </div>
 </section>
 

@@ -10,7 +10,7 @@
       <h1 class="hero-h1">Study abroad with <em>verified</em> guidance you can trust</h1>
       <p class="hero-sub">EduBridge connects students with identity-verified education counsellors, transparent visa readiness scoring, and secure document handling — eliminating fraud from the overseas study process.</p>
       <div class="hero-actions">
-        <a href="{{ route('login') }}" class="btn-primary-hero">Find a Counsellor</a>
+        <a href="{{ route('counsellors.index') }}" class="btn-primary-hero">Find a Counsellor</a>
         <a href="{{ route('pages.how-it-works') }}" class="btn-ghost-hero">How it works</a>
       </div>
     </div>
@@ -479,7 +479,7 @@
       <h2>Ready to study abroad,<br><em style="font-style:italic">the right way?</em></h2>
       <p>Join thousands of students who chose verification over risk.</p>
       <div class="cta-actions">
-        <a href="{{ route('register.student') }}" class="cta-btn-white">Find a Verified Counsellor</a>
+        <a href="{{ route('counsellors.index') }}" class="cta-btn-white">Find a Verified Counsellor</a>
         <a href="{{ route('register.company') }}" class="cta-btn-outline">Apply as a Counsellor</a>
       </div>
     </div>

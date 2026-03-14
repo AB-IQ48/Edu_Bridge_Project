@@ -12,6 +12,7 @@
     </div>
     <h2 class="section-title">Rigorous counsellor verification</h2>
     <p class="section-sub">Every counsellor undergoes a five-layer verification process before they can advise a single student. No exceptions.</p>
+    <p style="max-width:640px;margin-top:20px;font-size:0.95rem;color:rgba(255,255,255,0.6);line-height:1.7">In many markets, anyone can call themselves an education consultant. EduBridge changes that: we verify identity, credentials, and business registration, and we keep monitoring outcomes so the badge on a profile reflects real, up-to-date trust.</p>
     <div class="veri-grid">
       <div class="veri-checks">
         <div class="veri-check">
@@ -84,6 +85,25 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="trust-section" style="padding:80px 0;background:var(--cream)">
+  <div class="container">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">—</span>
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-tag">After verification</span>
+    </div>
+    <h2 class="section-title" style="font-size:1.75rem">What verified counsellors get</h2>
+    <p class="section-sub" style="margin-bottom:28px">Once all five checks are complete, counsellors receive a verified badge and full access to the platform.</p>
+    <ul style="max-width:600px;padding-left:20px;font-size:0.95rem;color:var(--muted);line-height:1.9">
+      <li><strong style="color:var(--ink)">Verified badge</strong> — Shown on profile and in search so students can filter for verified-only counsellors.</li>
+      <li><strong style="color:var(--ink)">Trust score</strong> — A single number (0–100) based on identity, credentials, outcomes, and complaint history, updated quarterly.</li>
+      <li><strong style="color:var(--ink)">Secure document access</strong> — Role-based access to documents only for students who have explicitly assigned them.</li>
+      <li><strong style="color:var(--ink)">Ongoing monitoring</strong> — Re-verification and score updates so that profiles stay accurate over time.</li>
+    </ul>
+    <p style="max-width:640px;margin-top:24px;font-size:0.9rem;color:var(--muted);line-height:1.7">Counsellors with unresolved complaints are restricted from taking new students until the matter is closed. We take accountability seriously.</p>
   </div>
 </section>
 

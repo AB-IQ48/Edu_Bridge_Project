@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterCompanyController;
 use App\Http\Controllers\Auth\RegisterStudentController;
 use App\Http\Controllers\CounsellorController;
+use App\Http\Controllers\CounsellorListingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ScoreController;
@@ -27,6 +28,11 @@ Route::get('/verification', fn () => view('pages.verification'))->name('pages.ve
 Route::get('/visa-readiness', fn () => view('pages.visa-readiness'))->name('pages.visa-readiness');
 Route::get('/for-you', fn () => view('pages.for-you'))->name('pages.for-you');
 Route::get('/faq', fn () => view('pages.faq'))->name('pages.faq');
+
+// Verified counsellors listing (public). Students attach via POST (auth required).
+Route::get('/counsellors', [CounsellorListingController::class, 'index'])->name('counsellors.index');
+Route::post('/counsellors/detach', [CounsellorListingController::class, 'detach'])->middleware('auth')->name('counsellors.detach');
+Route::post('/counsellors/{counsellorProfile}/attach', [CounsellorListingController::class, 'attach'])->middleware('auth')->name('counsellors.attach');
 
 // Guest: login and registration
 Route::middleware('guest')->group(function () {
