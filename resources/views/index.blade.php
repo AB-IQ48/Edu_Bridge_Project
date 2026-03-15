@@ -71,6 +71,19 @@
     </div>
   </section>
 
+  <!-- Digital trust strip -->
+  <section style="background: var(--ink); padding: 24px 0;">
+    <div class="container" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 24px 32px;">
+      <span style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">Transparent system architecture</span>
+      <span style="color: rgba(255,255,255,0.35);">·</span>
+      <span style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">Structured verification workflows</span>
+      <span style="color: rgba(255,255,255,0.35);">·</span>
+      <span style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">Rule-based visa scoring (interpretable, not opaque AI)</span>
+      <span style="color: rgba(255,255,255,0.35);">·</span>
+      <span style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">Role-based governance</span>
+    </div>
+  </section>
+
   <!-- How It Works -->
   <section class="how-it-works" id="how-it-works">
     <div class="container">

@@ -177,6 +177,17 @@
       transition: background 0.2s !important;
     }
     .nav-cta:hover { background: var(--sage) !important; color: var(--white) !important; }
+    .role-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 4px 10px;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 4px;
+      background: var(--cream);
+    }
 
     /* ── HERO ── */
     .hero {
@@ -797,6 +808,10 @@
           <a href="{{ route('pages.for-you') }}">For You</a>
           <a href="{{ route('pages.faq') }}">FAQ</a>
           @auth
+            <span class="role-badge" title="Role-based access">{{ ucfirst(auth()->user()->role?->name ?? 'User') }}</span>
+            @if(auth()->user()->isAdministrator())
+              <a href="{{ route('admin.index') }}" class="nav-cta">Admin</a>
+            @endif
             <a href="{{ route('dashboard') }}" class="nav-cta">Dashboard</a>
           @else
             <a href="{{ route('login') }}" class="nav-cta">Login</a>
@@ -852,7 +867,7 @@
       </div>
       <div class="footer-bottom">
         <div class="footer-copy">© 2026 EduBridge. All rights reserved.</div>
-        <div class="footer-copy">Protecting students through verified digital governance.</div>
+        <div class="footer-copy">Structured verification, rule-based visa scoring, and role-based access — transparent digital trust for overseas education.</div>
       </div>
     </div>
   </footer>

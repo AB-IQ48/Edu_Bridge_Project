@@ -6,7 +6,7 @@
   <div class="page-shell">
     <div class="page-card">
       <h1>Student Registration</h1>
-      <p class="sub">Create a student account (name, email, password).</p>
+      <p class="sub">Create a student account. You will have role-based access as a Student: visa scoring, documents, and verified counsellor matching.</p>
 
       @if ($errors->any())
         <div class="error">

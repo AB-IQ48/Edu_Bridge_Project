@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentDocumentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,9 +56,12 @@ Route::get('/dashboard', DashboardController::class)
     ->middleware('auth')
     ->name('dashboard');
 
-// Administrator
+// Administrator: dashboard, counsellors, documents
 Route::middleware(['auth', 'role:administrator'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/counsellors', [AdminController::class, 'counsellorsIndex'])->name('counsellors.index');
+    Route::get('/counsellors/{counsellorProfile}', [AdminController::class, 'counsellorShow'])->name('counsellors.show');
+    Route::get('/documents', [AdminController::class, 'documentsIndex'])->name('documents.index');
     Route::post('/profiles/{counsellorProfile}/review', [AdminController::class, 'reviewProfile'])->name('profiles.review');
     Route::post('/documents/{document}/review', [AdminController::class, 'reviewDocument'])->name('documents.review');
 });
@@ -71,14 +75,19 @@ Route::middleware(['auth', 'role:counsellor'])->prefix('counsellor')->name('coun
 
 Route::middleware(['auth', 'role:counsellor'])->resource('documents', DocumentController::class)->except(['edit', 'update']);
 
-// Student: profile and visa scores
+// Student: profile, documents, and visa scores
 Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
     Route::get('/', [StudentController::class, 'index'])->name('index');
     Route::get('/profile', [StudentController::class, 'profile'])->name('profile');
+    Route::get('/documents', [StudentDocumentController::class, 'index'])->name('documents.index');
+    Route::get('/documents/create', [StudentDocumentController::class, 'create'])->name('documents.create');
+    Route::post('/documents', [StudentDocumentController::class, 'store'])->name('documents.store');
 });
 
 Route::middleware(['auth', 'role:student'])->prefix('scores')->name('scores.')->group(function () {
     Route::get('/', [ScoreController::class, 'index'])->name('index');
+    Route::get('/assess', [ScoreController::class, 'assess'])->name('assess');
+    Route::post('/assess', [ScoreController::class, 'storeFromQuestionnaire'])->name('assess.store');
     Route::get('/create', [ScoreController::class, 'create'])->name('create');
     Route::post('/', [ScoreController::class, 'store'])->name('store');
     Route::get('/{score}', [ScoreController::class, 'show'])->name('show');

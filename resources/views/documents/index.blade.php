@@ -4,6 +4,7 @@
 
 @section('content')
     <h1>Verification documents</h1>
+    <p class="sub">Structured verification workflow: upload credentials here. Documents are <strong>reviewed and approved by an administrator</strong> before your verified status is updated. No visibility to students until approved.</p>
     @if (session('message'))
         <p class="error" style="background: rgba(74,124,107,0.15); color: var(--sage); border-color: var(--sage);">{{ session('message') }}</p>
     @endif

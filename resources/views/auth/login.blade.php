@@ -6,7 +6,7 @@
   <div class="page-shell">
     <div class="page-card">
       <h1>Login</h1>
-      <p class="sub">Sign in to your account.</p>
+      <p class="sub">Sign in to your account. Access is role-based (Student, Counsellor, Administrator).</p>
 
       @if ($errors->any())
         <div class="error">

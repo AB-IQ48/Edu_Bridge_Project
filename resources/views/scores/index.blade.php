@@ -8,7 +8,8 @@
         <p class="error" style="background: rgba(74,124,107,0.15); color: var(--sage); border-color: var(--sage);">{{ session('message') }}</p>
     @endif
     <div class="toplinks">
-        <a href="{{ route('scores.create') }}">Calculate new score</a>
+        <a href="{{ route('scores.assess') }}">Visa readiness assessment (answer questions)</a>
+        <a href="{{ route('scores.create') }}">Quick score (enter numbers)</a>
         <a href="{{ route('student.index') }}">Student dashboard</a>
     </div>
     <ul style="margin-top:16px; padding-left:20px">

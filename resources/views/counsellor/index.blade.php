@@ -9,6 +9,9 @@
     @endif
     @if ($profile)
         <p class="sub">{{ $profile->organization_name }} · {{ $profile->experience_years }} years · Verification: {{ $profile->verification_status }}</p>
+
+        <h2 style="font-size:1rem; margin-top:20px; margin-bottom:8px;">Documents (verification workflow)</h2>
+        <p class="hint" style="margin-bottom:12px;">Upload → Administrator reviews → Approved/Rejected. Your profile visibility as verified depends on admin approval. Transparent, documented process.</p>
         <div class="toplinks">
             <a href="{{ route('counsellor.profile.edit') }}">Edit profile</a>
             <a href="{{ route('documents.index') }}">My documents</a>

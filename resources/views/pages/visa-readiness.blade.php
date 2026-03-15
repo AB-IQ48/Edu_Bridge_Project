@@ -11,8 +11,8 @@
       <span class="eyebrow-tag">Eligibility Engine</span>
     </div>
     <h2 class="section-title">Your Visa Readiness Score — explained</h2>
-    <p class="section-sub">No black boxes. Our rule-based scoring model breaks down exactly why your score is what it is and how to improve it.</p>
-    <p style="max-width:720px;margin-top:24px;font-size:1rem;color:var(--muted);line-height:1.75">The score is built from five weighted dimensions: academic eligibility, financial proof, language proficiency, document completeness, and interview readiness. Each dimension uses published rules so you can see how every point is calculated and what to do next.</p>
+    <p class="section-sub">No black boxes. Our <strong>documented, rule-based</strong> scoring model breaks down exactly why your score is what it is and how to improve it. Interpretability over opaque AI — for accountability and student decision-making.</p>
+    <p style="max-width:720px;margin-top:24px;font-size:1rem;color:var(--muted);line-height:1.75">The score is built from five weighted dimensions: academic eligibility (25%), financial proof (25%), language proficiency (20%), document completeness (20%), and interview readiness (10%). Each dimension uses published rules so you can see how every point is calculated and what to do next.</p>
     <div class="visa-grid">
       <div class="visa-factors">
         <div class="factor-card">

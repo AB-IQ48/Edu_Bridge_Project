@@ -6,7 +6,7 @@
   <div class="page-shell">
     <div class="page-card">
       <h1>Counsellor Registration</h1>
-      <p class="sub">Create a counsellor account (organization + login credentials).</p>
+      <p class="sub">Create a counsellor account. Your profile and verification documents will be reviewed by an administrator before you appear as verified — structured workflow for digital trust.</p>
 
       @if ($errors->any())
         <div class="error">
