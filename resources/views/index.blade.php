@@ -10,8 +10,8 @@
       <h1 class="hero-h1">Study abroad with <em>verified</em> guidance you can trust</h1>
       <p class="hero-sub">EduBridge connects students with identity-verified education counsellors, transparent visa readiness scoring, and secure document handling — eliminating fraud from the overseas study process.</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn-primary-hero">Find a Counsellor</a>
-        <a href="#how-it-works" class="btn-ghost-hero">How it works</a>
+        <a href="{{ route('counsellors.index') }}" class="btn-primary-hero">Find a Counsellor</a>
+        <a href="{{ route('pages.how-it-works') }}" class="btn-ghost-hero">How it works</a>
       </div>
     </div>
     <div class="hero-right">
@@ -68,6 +68,19 @@
           <div class="stat-desc">Unresolved fraud complaints</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Digital trust strip -->
+  <section style="background: var(--ink); padding: 24px 0;">
+    <div class="container" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 24px 32px;">
+      <span style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">Transparent system architecture</span>
+      <span style="color: rgba(255,255,255,0.35);">·</span>
+      <span style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">Structured verification workflows</span>
+      <span style="color: rgba(255,255,255,0.35);">·</span>
+      <span style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">Rule-based visa scoring (interpretable, not opaque AI)</span>
+      <span style="color: rgba(255,255,255,0.35);">·</span>
+      <span style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">Role-based governance</span>
     </div>
   </section>
 
@@ -352,7 +365,7 @@
             <div class="role-feature">Secure document upload with access control</div>
             <div class="role-feature">Report issues with guaranteed resolution</div>
           </div>
-          <a href="#contact" class="role-cta">Start as a Student →</a>
+          <a href="{{ route('register.student') }}" class="role-cta">Start as a Student →</a>
         </div>
         <div class="role-card">
           <div class="role-label">For Counsellors</div>
@@ -364,7 +377,7 @@
             <div class="role-feature">Transparent rating system based on outcomes</div>
             <div class="role-feature">Secure document workflow reduces liability</div>
           </div>
-          <a href="#contact" class="role-cta">Apply as a Counsellor →</a>
+          <a href="{{ route('register.company') }}" class="role-cta">Apply as a Counsellor →</a>
         </div>
       </div>
     </div>
@@ -430,7 +443,7 @@
         <div class="faq-side">
           <h2 class="section-title" style="font-size:2rem">Common questions</h2>
           <p class="faq-side-note">Can't find your answer? Contact our team and we'll respond within one business day.</p>
-          <a href="#contact" class="role-cta" style="display:inline-block;margin-top:24px">Contact us →</a>
+          <a href="{{ route('login') }}" class="role-cta" style="display:inline-block;margin-top:24px">Contact us →</a>
         </div>
         <div class="faq-items">
           <div class="faq-item open">
@@ -479,8 +492,8 @@
       <h2>Ready to study abroad,<br><em style="font-style:italic">the right way?</em></h2>
       <p>Join thousands of students who chose verification over risk.</p>
       <div class="cta-actions">
-        <a href="#" class="cta-btn-white">Find a Verified Counsellor</a>
-        <a href="#" class="cta-btn-outline">Apply as a Counsellor</a>
+        <a href="{{ route('counsellors.index') }}" class="cta-btn-white">Find a Verified Counsellor</a>
+        <a href="{{ route('register.company') }}" class="cta-btn-outline">Apply as a Counsellor</a>
       </div>
     </div>
   </section>

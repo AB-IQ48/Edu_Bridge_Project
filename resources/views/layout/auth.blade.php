@@ -34,6 +34,8 @@
         }
         h1 { margin: 0 0 8px; font-size: 1.35rem; }
         .sub { margin: 0 0 18px; color: var(--muted); font-size: 0.95rem; }
+        .role-badge-inline { display: inline-block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--sage); background: rgba(74,124,107,0.12); padding: 2px 8px; border-radius: 4px; }
+        .trust-note { font-size: 0.8rem; color: var(--muted); margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.08); }
         .grid { display: grid; gap: 12px; }
         label { font-size: 0.9rem; font-weight: 600; }
         input, textarea {
@@ -81,6 +83,11 @@
 <div class="wrap">
     <div class="card">
         @yield('content')
+        @hasSection('trust_footer')
+            <p class="trust-note">@yield('trust_footer')</p>
+        @else
+            <p class="trust-note">Secure, role-based access. No opaque AI — transparent verification and rule-based scoring.</p>
+        @endif
     </div>
 </div>
 </body>
