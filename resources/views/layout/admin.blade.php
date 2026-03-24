@@ -124,6 +124,7 @@
         <p style="padding: 12px 24px; font-size: 0.75rem; color: rgba(255,255,255,0.5); line-height: 1.4;">Verification workflow: review counsellor documents and profiles. Role-based access — Administrator only.</p>
         <nav class="admin-nav">
             <a href="{{ route('admin.index') }}" class="{{ request()->routeIs('admin.index') ? 'active' : '' }}">Dashboard</a>
+            <a href="{{ route('admin.profile') }}" class="{{ request()->routeIs('admin.profile*') ? 'active' : '' }}">Profile Settings</a>
             <a href="{{ route('admin.counsellors.index') }}" class="{{ request()->routeIs('admin.counsellors.*') ? 'active' : '' }}">Counsellors</a>
             <a href="{{ route('admin.documents.index') }}" class="{{ request()->routeIs('admin.documents.index') ? 'active' : '' }}">Documents</a>
         </nav>
@@ -143,6 +144,15 @@
             @endif
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul style="padding-left: 18px;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
             @yield('content')
         </div>

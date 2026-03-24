@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisterStudentController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CounsellorController;
 use App\Http\Controllers\CounsellorListingController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ScoreController;
@@ -66,6 +67,8 @@ Route::get('/dashboard', DashboardController::class)
 // Administrator: dashboard, counsellors, documents
 Route::middleware(['auth', 'role:administrator'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
+    Route::put('/profile', [AdminController::class, 'updateProfile'])->name('profile.update');
     Route::get('/counsellors', [AdminController::class, 'counsellorsIndex'])->name('counsellors.index');
     Route::get('/counsellors/{counsellorProfile}', [AdminController::class, 'counsellorShow'])->name('counsellors.show');
     Route::get('/documents', [AdminController::class, 'documentsIndex'])->name('documents.index');
@@ -98,4 +101,11 @@ Route::middleware(['auth', 'role:student'])->prefix('scores')->name('scores.')->
     Route::get('/create', [ScoreController::class, 'create'])->name('create');
     Route::post('/', [ScoreController::class, 'store'])->name('store');
     Route::get('/{score}', [ScoreController::class, 'show'])->name('show');
+});
+
+// Student-Counsellor chat (role restricted)
+Route::middleware(['auth', 'role:student,counsellor'])->prefix('chat')->name('chat.')->group(function () {
+    Route::get('/', [ChatController::class, 'index'])->name('index');
+    Route::get('/{user}', [ChatController::class, 'index'])->name('show');
+    Route::post('/{user}', [ChatController::class, 'store'])->name('store');
 });
