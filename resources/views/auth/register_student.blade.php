@@ -49,6 +49,7 @@
       <div class="toplinks">
         <a href="{{ route('login') }}">Already have an account? Login</a>
         <a href="{{ route('register.company') }}">Register as Counsellor</a>
+        <a href="{{ route('password.request') }}">Forgot password?</a>
       </div>
     </div>
   </div>
