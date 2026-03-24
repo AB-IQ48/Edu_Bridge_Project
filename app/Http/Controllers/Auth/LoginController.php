@@ -30,12 +30,15 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
+        $user = Auth::user();
+        $user->loadMissing('role');
+
         $intended = $request->session()->pull('url.intended', null);
         if ($intended) {
             return redirect($intended);
         }
 
-        return match (Auth::user()->role?->name) {
+        return match ($user->role?->name) {
             'administrator' => redirect()->route('admin.index'),
             'counsellor' => redirect()->route('counsellor.index'),
             'student' => redirect()->route('student.index'),

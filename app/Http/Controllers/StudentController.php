@@ -13,10 +13,17 @@ class StudentController extends Controller
      */
     public function index(Request $request): View
     {
-        $scores = $request->user()->visaScores()->latest()->paginate(10);
+        $user = $request->user();
+        $scores = $user->visaScores()->latest()->paginate(10);
+        $documentCount = $user->studentDocuments()->count();
+        $latestScore = $user->visaScores()->latest()->first();
+        $assignedCounsellor = $user->assignedCounsellorProfile;
 
         return view('student.index', [
             'scores' => $scores,
+            'documentCount' => $documentCount,
+            'latestScore' => $latestScore,
+            'assignedCounsellor' => $assignedCounsellor,
         ]);
     }
 

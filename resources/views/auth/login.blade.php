@@ -8,6 +8,12 @@
       <h1>Login</h1>
       <p class="sub">Sign in to your account. Access is role-based (Student, Counsellor, Administrator).</p>
 
+      @if (session('status'))
+        <div class="hint" style="margin-bottom:12px; color: var(--sage); font-weight: 600;">
+          {{ session('status') }}
+        </div>
+      @endif
+
       @if ($errors->any())
         <div class="error">
           <ul>
@@ -29,6 +35,7 @@
         <div class="grid">
           <label for="password">Password</label>
           <input id="password" name="password" type="password" required autocomplete="current-password">
+          <div class="hint"><a href="{{ route('password.request') }}">Forgot password?</a></div>
         </div>
 
         <div class="inline">
