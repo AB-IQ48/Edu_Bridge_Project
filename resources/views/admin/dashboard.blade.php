@@ -64,7 +64,7 @@
                                 <div class="btn-group">
                                     <a href="{{ route('admin.counsellors.show', $p) }}" class="btn btn-outline btn-sm">View</a>
                                     <form method="POST" action="{{ route('admin.profiles.review', $p) }}" style="display:inline">@csrf<input type="hidden" name="verification_status" value="approved"><button type="submit" class="btn btn-primary btn-sm">Approve</button></form>
-                                    <form method="POST" action="{{ route('admin.profiles.review', $p) }}" style="display:inline">@csrf<input type="hidden" name="verification_status" value="rejected"><button type="submit" class="btn btn-danger btn-sm">Deny</button></form>
+                                    <form method="POST" action="{{ route('admin.profiles.review', $p) }}" style="display:inline-grid; gap:6px;">@csrf<input type="hidden" name="verification_status" value="rejected"><input type="text" name="rejection_reason" placeholder="Reason (required)" required maxlength="1000" style="padding:6px 8px; border-radius:6px; border:1px solid rgba(0,0,0,0.15); min-width:190px;"><button type="submit" class="btn btn-danger btn-sm">Deny</button></form>
                                 </div>
                             </td>
                         </tr>
@@ -99,7 +99,7 @@
                                 <div class="btn-group">
                                     <a href="{{ route('admin.counsellors.show', $d->counsellorProfile) }}#doc-{{ $d->id }}" class="btn btn-outline btn-sm">View</a>
                                     <form method="POST" action="{{ route('admin.documents.review', $d) }}" style="display:inline">@csrf<input type="hidden" name="status" value="approved"><button type="submit" class="btn btn-primary btn-sm">Approve</button></form>
-                                    <form method="POST" action="{{ route('admin.documents.review', $d) }}" style="display:inline">@csrf<input type="hidden" name="status" value="rejected"><button type="submit" class="btn btn-danger btn-sm">Deny</button></form>
+                                    <form method="POST" action="{{ route('admin.documents.review', $d) }}" style="display:inline-grid; gap:6px;">@csrf<input type="hidden" name="status" value="rejected"><input type="text" name="rejection_reason" placeholder="Reason (required)" required maxlength="1000" style="padding:6px 8px; border-radius:6px; border:1px solid rgba(0,0,0,0.15); min-width:190px;"><button type="submit" class="btn btn-danger btn-sm">Deny</button></form>
                                 </div>
                             </td>
                         </tr>

@@ -301,6 +301,11 @@
     font-weight: 500;
     margin-top: 8px;
   }
+  .sd-chat-note {
+    margin-top: 10px;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
 </style>
 
 <div class="sd-wrap">
@@ -359,7 +364,11 @@
     <a href="{{ route('scores.create') }}">Quick score (enter numbers)</a>
     <a href="{{ route('student.documents.create') }}">Upload document</a>
     <a href="{{ route('student.profile') }}">Profile</a>
+    <a href="{{ route('chat.index') }}">Chat with counsellor</a>
   </div>
+  @if(!$assignedCounsellor)
+    <p class="sd-chat-note">Attach to a counsellor first to start chat.</p>
+  @endif
 
   <h2 class="sd-section-title">Recent scores</h2>
   @if($scores->count() > 0)

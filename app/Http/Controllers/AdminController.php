@@ -6,12 +6,19 @@ use App\Models\CounsellorProfile;
 use App\Models\Document;
 use App\Models\User;
 use App\Models\VisaScore;
+use App\Services\VerificationReviewService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
 class AdminController extends Controller
 {
+    public function __construct(private readonly VerificationReviewService $reviewService)
+    {
+    }
+
     /**
      * Admin dashboard: stats and pending items.
      */
@@ -51,6 +58,11 @@ class AdminController extends Controller
      */
     public function counsellorsIndex(Request $request): View
     {
+        $request->validate([
+            'status' => ['nullable', 'in:pending,approved,rejected'],
+            'search' => ['nullable', 'string', 'max:120'],
+        ]);
+
         $query = CounsellorProfile::with('user')->latest();
 
         if ($request->filled('status')) {
@@ -77,7 +89,7 @@ class AdminController extends Controller
      */
     public function counsellorShow(CounsellorProfile $counsellorProfile): View
     {
-        $counsellorProfile->load(['user', 'documents']);
+        $counsellorProfile->load(['user', 'documents.reviewedBy']);
 
         return view('admin.counsellors.show', [
             'profile' => $counsellorProfile,
@@ -89,6 +101,10 @@ class AdminController extends Controller
      */
     public function documentsIndex(Request $request): View
     {
+        $request->validate([
+            'status' => ['nullable', 'in:pending,approved,rejected'],
+        ]);
+
         $query = Document::with('counsellorProfile.user')->latest();
 
         if ($request->filled('status')) {
@@ -107,17 +123,21 @@ class AdminController extends Controller
      */
     public function reviewProfile(Request $request, CounsellorProfile $counsellorProfile): RedirectResponse
     {
-        $request->validate([
+        $data = $request->validate([
             'verification_status' => ['required', 'in:approved,rejected'],
+            'rejection_reason' => ['nullable', 'string', 'max:1000', 'required_if:verification_status,rejected'],
         ]);
 
-        $counsellorProfile->update([
-            'verification_status' => $request->verification_status,
-        ]);
+        $this->reviewService->reviewProfile(
+            admin: $request->user(),
+            profile: $counsellorProfile->loadMissing('user'),
+            status: $data['verification_status'],
+            reason: $data['rejection_reason'] ?? null
+        );
 
-        $status = $request->verification_status === 'approved' ? 'approved' : 'rejected';
+        $status = $data['verification_status'] === 'approved' ? 'approved' : 'rejected';
 
-        return back()->with('message', "Counsellor profile {$status}.");
+        return back()->with('message', "Counsellor profile {$status} successfully.");
     }
 
     /**
@@ -125,14 +145,62 @@ class AdminController extends Controller
      */
     public function reviewDocument(Request $request, Document $document): RedirectResponse
     {
-        $request->validate([
+        $data = $request->validate([
             'status' => ['required', 'in:approved,rejected'],
+            'rejection_reason' => ['nullable', 'string', 'max:1000', 'required_if:status,rejected'],
         ]);
 
-        $document->update(['status' => $request->status]);
+        $this->reviewService->reviewDocument(
+            admin: $request->user(),
+            document: $document->loadMissing('counsellorProfile.user'),
+            status: $data['status'],
+            reason: $data['rejection_reason'] ?? null
+        );
 
-        $status = $request->status === 'approved' ? 'approved' : 'rejected';
+        $status = $data['status'] === 'approved' ? 'approved' : 'rejected';
 
-        return back()->with('message', "Document {$status}.");
+        return back()->with('message', "Document {$status} successfully.");
+    }
+
+    /**
+     * Admin profile settings form.
+     */
+    public function profile(Request $request): View
+    {
+        return view('admin.profile', [
+            'admin' => $request->user(),
+        ]);
+    }
+
+    /**
+     * Update admin profile securely (name, email, optional password).
+     */
+    public function updateProfile(Request $request): RedirectResponse
+    {
+        $admin = $request->user();
+
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($admin->id),
+            ],
+            'password' => ['nullable', 'confirmed', Password::min(8)],
+        ]);
+
+        $updateData = [
+            'name' => $data['name'],
+            'email' => $data['email'],
+        ];
+
+        if (! empty($data['password'])) {
+            $updateData['password'] = $data['password'];
+        }
+
+        $admin->update($updateData);
+
+        return back()->with('message', 'Admin profile updated successfully.');
     }
 }

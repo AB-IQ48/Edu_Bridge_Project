@@ -16,6 +16,7 @@
             <a href="{{ route('counsellor.profile.edit') }}">Edit profile</a>
             <a href="{{ route('documents.index') }}">My documents</a>
             <a href="{{ route('documents.create') }}">Upload document</a>
+            <a href="{{ route('chat.index') }}">Chat with students</a>
         </div>
     @else
         <p class="sub">No profile found.</p>
