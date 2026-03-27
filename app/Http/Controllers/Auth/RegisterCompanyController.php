@@ -44,7 +44,9 @@ class RegisterCompanyController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        return redirect()
+            ->route('dashboard')
+            ->with('message', 'Your counsellor account has been created. Please complete your profile and upload documents for verification.');
     }
 }
 

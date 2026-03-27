@@ -74,6 +74,6 @@ class CounsellorController extends Controller
 
         $profile->update($data);
 
-        return redirect()->route('counsellor.index')->with('message', 'Profile updated.');
+        return redirect()->route('counsellor.index')->with('message', 'Your profile has been saved successfully.');
     }
 }

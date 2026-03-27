@@ -1,6 +1,6 @@
 @extends('layout.header')
 
-@section('title', 'Forgot Password — EduBridge')
+@section('title', 'Forgot password | EduBridge')
 
 @section('content')
   <div class="page-shell">

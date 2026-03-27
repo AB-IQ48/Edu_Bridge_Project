@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\CounsellorProfile;
+use App\Notifications\StudentCounsellorLinkNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class CounsellorListingController extends Controller
@@ -22,6 +24,22 @@ class CounsellorListingController extends Controller
 
         return view('counsellors.listing', [
             'counsellors' => $counsellors,
+        ]);
+    }
+
+    /**
+     * Public profile page for a verified counsellor (helps students compare and choose).
+     */
+    public function show(CounsellorProfile $counsellorProfile): View
+    {
+        if ($counsellorProfile->verification_status !== 'approved') {
+            abort(404);
+        }
+
+        $counsellorProfile->load('user');
+
+        return view('counsellors.show', [
+            'profile' => $counsellorProfile,
         ]);
     }
 
@@ -46,7 +64,18 @@ class CounsellorListingController extends Controller
             'assigned_counsellor_profile_id' => $counsellorProfile->id,
         ]);
 
-        return redirect()->route('counsellors.index')
+        try {
+            $counsellorProfile->user?->notify(new StudentCounsellorLinkNotification($user->name, 'attached'));
+        } catch (\Throwable $e) {
+            Log::warning('Failed to send attach notification.', [
+                'student_id' => $user->id,
+                'counsellor_profile_id' => $counsellorProfile->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        return redirect()
+            ->back()
             ->with('message', 'You are now connected to ' . $counsellorProfile->user->name . '. They can now guide you through your application.');
     }
 
@@ -56,6 +85,7 @@ class CounsellorListingController extends Controller
     public function detach(Request $request): RedirectResponse
     {
         $user = $request->user();
+        $currentCounsellor = $user->assignedCounsellorProfile;
 
         if (! $user->isStudent()) {
             return redirect()->route('dashboard')
@@ -63,6 +93,18 @@ class CounsellorListingController extends Controller
         }
 
         $user->update(['assigned_counsellor_profile_id' => null]);
+
+        if ($currentCounsellor && $currentCounsellor->user) {
+            try {
+                $currentCounsellor->user->notify(new StudentCounsellorLinkNotification($user->name, 'detached'));
+            } catch (\Throwable $e) {
+                Log::warning('Failed to send detach notification.', [
+                    'student_id' => $user->id,
+                    'counsellor_profile_id' => $currentCounsellor->id,
+                    'error' => $e->getMessage(),
+                ]);
+            }
+        }
 
         return redirect()->route('counsellors.index')
             ->with('message', 'You have been disconnected from your counsellor. You can attach to a new one anytime.');

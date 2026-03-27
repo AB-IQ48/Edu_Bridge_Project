@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\User;
+use App\Notifications\AdminVerificationDocumentUploadedNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class DocumentController extends Controller
@@ -60,12 +63,32 @@ class DocumentController extends Controller
 
         $path = $request->file('document')->store('counsellor-documents', 'local');
 
-        Document::create([
+        $document = Document::create([
             'counsellor_profile_id' => $profile->id,
             'document_name' => $data['document_name'],
             'document_path' => $path,
             'status' => 'pending',
         ]);
+
+        $admins = User::query()
+            ->whereHas('role', fn ($q) => $q->where('name', 'administrator'))
+            ->get();
+
+        foreach ($admins as $admin) {
+            try {
+                $admin->notify(new AdminVerificationDocumentUploadedNotification(
+                    counsellorName: $request->user()->name,
+                    organizationName: $profile->organization_name,
+                    documentName: $document->document_name
+                ));
+            } catch (\Throwable $e) {
+                Log::warning('Failed to notify admin for uploaded verification document.', [
+                    'admin_id' => $admin->id,
+                    'document_id' => $document->id,
+                    'error' => $e->getMessage(),
+                ]);
+            }
+        }
 
         return redirect()->route('documents.index')->with('message', 'Document uploaded for review.');
     }

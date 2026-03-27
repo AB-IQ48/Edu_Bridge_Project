@@ -1,6 +1,6 @@
 @extends('layout.header')
 
-@section('title', 'Verification — EduBridge')
+@section('title', 'Verification | EduBridge')
 
 @section('content')
 <section class="verification">
@@ -40,7 +40,7 @@
           <div class="check-badge pending">⏳</div>
           <div>
             <h4>Ongoing Outcome Monitoring</h4>
-            <p>Student success rates, visa approval ratios, and complaints tracked continuously — scores updated quarterly.</p>
+            <p>We track how students do, visa results, and complaints, and we refresh scores every few months.</p>
           </div>
         </div>
         <div class="veri-check">
@@ -91,17 +91,17 @@
 <section class="trust-section" style="padding:80px 0;background:var(--cream)">
   <div class="container">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">—</span>
+      <span class="eyebrow-num">•</span>
       <span class="eyebrow-line"></span>
       <span class="eyebrow-tag">After verification</span>
     </div>
     <h2 class="section-title" style="font-size:1.75rem">What verified counsellors get</h2>
     <p class="section-sub" style="margin-bottom:28px">Once all five checks are complete, counsellors receive a verified badge and full access to the platform.</p>
     <ul style="max-width:600px;padding-left:20px;font-size:0.95rem;color:var(--muted);line-height:1.9">
-      <li><strong style="color:var(--ink)">Verified badge</strong> — Shown on profile and in search so students can filter for verified-only counsellors.</li>
-      <li><strong style="color:var(--ink)">Trust score</strong> — A single number (0–100) based on identity, credentials, outcomes, and complaint history, updated quarterly.</li>
-      <li><strong style="color:var(--ink)">Secure document access</strong> — Role-based access to documents only for students who have explicitly assigned them.</li>
-      <li><strong style="color:var(--ink)">Ongoing monitoring</strong> — Re-verification and score updates so that profiles stay accurate over time.</li>
+      <li><strong style="color:var(--ink)">Verified badge:</strong> shows on the profile and in search so students can pick verified counsellors.</li>
+      <li><strong style="color:var(--ink)">Trust score:</strong> one number from 0 to 100 based on ID, papers, results, and complaints (updated every few months).</li>
+      <li><strong style="color:var(--ink)">Secure document access:</strong> only the students who assigned you can share files with you.</li>
+      <li><strong style="color:var(--ink)">Ongoing monitoring:</strong> we re-check things so profiles do not go stale.</li>
     </ul>
     <p style="max-width:640px;margin-top:24px;font-size:0.9rem;color:var(--muted);line-height:1.7">Counsellors with unresolved complaints are restricted from taking new students until the matter is closed. We take accountability seriously.</p>
   </div>

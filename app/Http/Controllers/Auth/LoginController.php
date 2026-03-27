@@ -35,14 +35,14 @@ class LoginController extends Controller
 
         $intended = $request->session()->pull('url.intended', null);
         if ($intended) {
-            return redirect($intended);
+            return redirect($intended)->with('message', 'Welcome back. You are logged in.');
         }
 
         return match ($user->role?->name) {
-            'administrator' => redirect()->route('admin.index'),
-            'counsellor' => redirect()->route('counsellor.index'),
-            'student' => redirect()->route('student.index'),
-            default => redirect()->route('dashboard'),
+            'administrator' => redirect()->route('admin.index')->with('message', 'Welcome back, admin.'),
+            'counsellor' => redirect()->route('counsellor.index')->with('message', 'Welcome back to your counsellor dashboard.'),
+            'student' => redirect()->route('student.index')->with('message', 'Welcome back to your student dashboard.'),
+            default => redirect()->route('dashboard')->with('message', 'Welcome back.'),
         };
     }
 
@@ -53,7 +53,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect()->route('login')->with('message', 'You have logged out successfully.');
     }
 }
 
