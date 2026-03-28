@@ -1,6 +1,6 @@
 @extends('layout.admin')
 
-@section('title', 'Counsellor — ' . $profile->user->name)
+@section('title', 'Counsellor | ' . $profile->user->name)
 @section('header', 'Counsellor: ' . $profile->user->name)
 
 @section('content')
@@ -37,15 +37,15 @@
             </tr>
             <tr>
                 <th>Rejection reason</th>
-                <td>{{ $profile->rejection_reason ?: '—' }}</td>
+                <td>{{ $profile->rejection_reason ?: '-' }}</td>
             </tr>
             <tr>
                 <th>Reviewed at</th>
-                <td>{{ $profile->reviewed_at?->format('M j, Y H:i') ?: '—' }}</td>
+                <td>{{ $profile->reviewed_at?->format('M j, Y H:i') ?: '-' }}</td>
             </tr>
             <tr>
                 <th>Reviewed by</th>
-                <td>{{ $profile->reviewedBy?->name ?: '—' }}</td>
+                <td>{{ $profile->reviewedBy?->name ?: '-' }}</td>
             </tr>
             <tr>
                 <th>Assigned students</th>
@@ -105,7 +105,7 @@
                                 @endif
                                 @if($doc->reviewed_at || $doc->reviewedBy)
                                     <div style="font-size:.78rem; color: var(--muted); margin-top:4px;">
-                                        Reviewed {{ $doc->reviewed_at?->format('M j, Y H:i') ?: '—' }} by {{ $doc->reviewedBy?->name ?: '—' }}
+                                        Reviewed {{ $doc->reviewed_at?->format('M j, Y H:i') ?: '-' }} by {{ $doc->reviewedBy?->name ?: '-' }}
                                     </div>
                                 @endif
                             </td>

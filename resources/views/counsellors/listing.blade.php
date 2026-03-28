@@ -1,29 +1,18 @@
 @extends('layout.header')
 
-@section('title', 'Verified Counsellors — EduBridge')
+@section('title', 'Verified counsellors | EduBridge')
 
 @section('content')
 <section class="trust-section" style="padding:80px 0 60px">
   <div class="container">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">—</span>
+      <span class="eyebrow-num">•</span>
       <span class="eyebrow-line"></span>
       <span class="eyebrow-tag">Find a counsellor</span>
     </div>
     <h2 class="section-title">Verified education counsellors</h2>
     <p class="section-sub" style="margin-bottom:16px">Every counsellor below has passed our verification process. Students can attach to one counsellor to receive guided support for their application.</p>
     <p style="max-width:720px;font-size:0.95rem;color:var(--muted);line-height:1.7">Once you attach to a counsellor, they can access the documents you share and guide you through visa readiness and application steps. You can change your attached counsellor at any time from this page.</p>
-
-    @if (session('message'))
-      <div style="margin-top:24px;padding:14px 18px;background:rgba(74,124,107,0.12);border:1px solid rgba(74,124,107,0.3);color:var(--sage);border-radius:8px;font-size:0.9rem">
-        {{ session('message') }}
-      </div>
-    @endif
-    @if (session('error'))
-      <div style="margin-top:24px;padding:14px 18px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.25);color:var(--danger);border-radius:8px;font-size:0.9rem">
-        {{ session('error') }}
-      </div>
-    @endif
 
     @auth
       @if(auth()->user()->isStudent() && auth()->user()->assignedCounsellorProfile)
@@ -59,27 +48,31 @@
               </div>
               <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
                 <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,124,107,0.12);border:1px solid rgba(74,124,107,0.35);color:var(--sage);font-size:0.72rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;padding:4px 10px;border-radius:20px">✓ Verified</span>
-                <span style="font-size:0.85rem;color:var(--muted)">{{ $profile->experience_years }} years experience</span>
+                <span style="font-size:0.85rem;color:var(--muted)">{{ $profile->experience_years }}+ years · @if($profile->city){{ $profile->city }}@else Pakistan @endif</span>
               </div>
+              @if($profile->bio)
+                <p style="margin:12px 0 0;font-size:0.9rem;color:var(--muted);line-height:1.55;max-width:560px">{{ \Illuminate\Support\Str::limit($profile->bio, 160) }}</p>
+              @endif
             </div>
-            <div style="flex-shrink:0">
+            <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:stretch;gap:10px;min-width:200px">
+              <a href="{{ route('counsellors.show', $profile) }}" style="text-align:center;padding:10px 18px;border:1px solid rgba(74,124,107,0.45);border-radius:8px;color:var(--sage);font-weight:600;font-size:0.875rem;text-decoration:none;background:rgba(74,124,107,0.06)">View full profile</a>
               @auth
                 @if(auth()->user()->isStudent())
                   @if(auth()->user()->assigned_counsellor_profile_id == $profile->id)
-                    <span style="display:inline-block;padding:10px 20px;background:var(--cream);color:var(--muted);font-size:0.875rem;font-weight:500;border-radius:8px">Connected</span>
+                    <span style="display:inline-block;padding:10px 20px;background:var(--cream);color:var(--muted);font-size:0.875rem;font-weight:500;border-radius:8px;text-align:center">Connected</span>
                   @else
                     <form method="POST" action="{{ route('counsellors.attach', $profile) }}" style="display:inline">
                       @csrf
-                      <button type="submit" style="padding:10px 22px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:0.875rem;cursor:pointer">
-                        Attach to this counsellor
+                      <button type="submit" style="width:100%;padding:10px 22px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:0.875rem;cursor:pointer">
+                        Connect
                       </button>
                     </form>
                   @endif
                 @else
-                  <span style="font-size:0.85rem;color:var(--muted)">Students can attach from a student account.</span>
+                  <span style="font-size:0.85rem;color:var(--muted);text-align:center">Students can connect from a student account.</span>
                 @endif
               @else
-                <a href="{{ route('login') }}" class="nav-cta" style="display:inline-block;padding:10px 22px;text-decoration:none;font-size:0.8rem">Login to connect</a>
+                <a href="{{ route('login') }}" class="nav-cta" style="display:inline-block;padding:10px 22px;text-decoration:none;font-size:0.8rem;text-align:center">Login to connect</a>
               @endauth
             </div>
           </div>

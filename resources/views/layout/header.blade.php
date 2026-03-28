@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>@yield('title', 'EduBridge — Verified Education Consultancy')</title>
+  <title>@yield('title', 'EduBridge | Verified education consultancy')</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -177,6 +177,60 @@
       transition: background 0.2s !important;
     }
     .nav-cta:hover { background: var(--sage) !important; color: var(--white) !important; }
+    .menu-toggle {
+      display: none;
+      border: 1px solid rgba(0,0,0,0.15);
+      background: rgba(255,255,255,0.9);
+      color: var(--ink);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: .85rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      opacity: 0;
+      visibility: hidden;
+      transition: .2s ease;
+      z-index: 120;
+    }
+    .menu-overlay.open { opacity: 1; visibility: visible; }
+    .flash-stack {
+      position: fixed;
+      top: 88px;
+      right: 14px;
+      z-index: 140;
+      display: grid;
+      gap: 8px;
+      width: min(92vw, 380px);
+    }
+    .flash-toast {
+      border-radius: 10px;
+      padding: 11px 12px 11px 14px;
+      border: 1px solid rgba(0,0,0,.12);
+      box-shadow: 0 10px 24px rgba(0,0,0,.15);
+      background: #fff;
+      font-size: .9rem;
+      line-height: 1.35;
+      position: relative;
+      overflow: hidden;
+    }
+    .flash-toast::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: currentColor;
+      opacity: .7;
+    }
+    .flash-toast--success { color: #166534; background: #f0fdf4; border-color: rgba(22,163,74,.28); }
+    .flash-toast--error { color: #b91c1c; background: #fef2f2; border-color: rgba(220,38,38,.28); }
+    .flash-toast--info { color: #1d4ed8; background: #eff6ff; border-color: rgba(59,130,246,.3); }
 
     /* ── HERO ── */
     .hero {
@@ -772,7 +826,28 @@
       .footer-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-      nav { display: none; }
+      .menu-toggle { display: inline-flex; align-items: center; gap: 6px; }
+      nav {
+        position: fixed;
+        right: 12px;
+        top: 72px;
+        width: min(88vw, 320px);
+        background: #fff;
+        border: 1px solid rgba(0,0,0,0.09);
+        border-radius: 12px;
+        box-shadow: 0 16px 36px rgba(0,0,0,0.18);
+        padding: 12px;
+        display: none;
+        z-index: 130;
+      }
+      nav.open { display: grid; gap: 6px; }
+      nav a { padding: 9px 10px; border-radius: 8px; }
+      nav a:hover { background: rgba(74,124,107,0.08); }
+      .nav-cta {
+        width: 100%;
+        text-align: center;
+        margin-top: 4px;
+      }
       .steps-grid { grid-template-columns: 1fr; }
       .trust-grid { grid-template-columns: 1fr; }
       .faq-grid { grid-template-columns: 1fr; }
@@ -783,13 +858,28 @@
   </style>
 </head>
 <body>
+  @php
+    $flashItems = [];
+    if (session('message')) $flashItems[] = ['text' => session('message'), 'type' => 'success'];
+    if (session('success')) $flashItems[] = ['text' => session('success'), 'type' => 'success'];
+    if (session('error')) $flashItems[] = ['text' => session('error'), 'type' => 'error'];
+    if (session('warning')) $flashItems[] = ['text' => session('warning'), 'type' => 'info'];
+  @endphp
+  @if(!empty($flashItems))
+    <div class="flash-stack" id="flashStack">
+      @foreach($flashItems as $item)
+        <div class="flash-toast flash-toast--{{ $item['type'] }}">{{ $item['text'] }}</div>
+      @endforeach
+    </div>
+  @endif
 
   <!-- Header -->
   <header id="header">
     <div class="container">
       <div class="header-inner">
         <a href="{{ url('/') }}" class="logo">Edu<span>Bridge</span></a>
-        <nav>
+        <button id="menuToggle" class="menu-toggle" type="button" aria-label="Open menu">☰ Menu</button>
+        <nav id="mainNav">
           <a href="{{ route('counsellors.index') }}">Find Counsellors</a>
           <a href="{{ route('pages.how-it-works') }}">How It Works</a>
           <a href="{{ route('pages.verification') }}">Verification</a>
@@ -820,13 +910,15 @@
 </div>
 
 
+  <div id="menuOverlay" class="menu-overlay"></div>
+
   <!-- Footer -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="{{ url('/') }}" class="logo">Edu<span>Bridge</span></a>
-          <p class="footer-tagline" style="margin-top:16px">Transparent, verified, and accountable overseas education guidance — eliminating fraud from the study abroad process.</p>
+          <p class="footer-tagline" style="margin-top:16px">Straightforward, checked, overseas study help with less room for scams.</p>
         </div>
         <div>
           <div class="footer-col-title">Platform</div>
@@ -860,7 +952,7 @@
       </div>
       <div class="footer-bottom">
         <div class="footer-copy">© 2026 EduBridge. All rights reserved.</div>
-        <div class="footer-copy">Structured verification, rule-based visa scoring, and role-based access — transparent digital trust for overseas education.</div>
+        <div class="footer-copy">Verified counsellors, clear visa scoring rules, and accounts that only see what they should. Built so students know what is going on.</div>
       </div>
     </div>
   </footer>
@@ -881,7 +973,33 @@
     }, { threshold: 0.3 });
     bars.forEach(b => obs.observe(b));
 
-    // FAQ already handled with CSS toggle via JS onclick
+    // Mobile nav
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const menuOverlay = document.getElementById('menuOverlay');
+    if (menuToggle && mainNav && menuOverlay) {
+      const closeMenu = () => {
+        mainNav.classList.remove('open');
+        menuOverlay.classList.remove('open');
+      };
+      menuToggle.addEventListener('click', () => {
+        const open = mainNav.classList.toggle('open');
+        menuOverlay.classList.toggle('open', open);
+      });
+      menuOverlay.addEventListener('click', closeMenu);
+      mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) closeMenu();
+      });
+    }
+    const flashStack = document.getElementById('flashStack');
+    if (flashStack) {
+      setTimeout(() => {
+        flashStack.querySelectorAll('.flash-toast').forEach((node, i) => {
+          setTimeout(() => node.remove(), i * 120);
+        });
+      }, 3800);
+    }
   </script>
 </body>
 </html>

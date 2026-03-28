@@ -2,34 +2,64 @@
 
 @section('title', 'Chat')
 
+@push('auth_styles')
+<style>
+    .chat-shell { display:grid; grid-template-columns: 260px 1fr; gap:14px; }
+    .chat-col { border:1px solid rgba(0,0,0,.09); border-radius:12px; padding:12px; background:#fff; box-shadow:0 4px 12px rgba(0,0,0,.05); }
+    .chat-contact { display:block; margin-bottom:6px; padding:9px; border-radius:8px; text-decoration:none; color:var(--ink); border:1px solid transparent; }
+    .chat-contact:hover { background:#f8fafc; border-color:rgba(74,124,107,.2); }
+    .chat-box { height:360px; overflow:auto; border:1px solid rgba(0,0,0,.08); border-radius:10px; padding:12px; margin-bottom:10px; background:#f8faf8; }
+    .chat-status { font-size:.75rem; }
+    .chat-status--on { color:#15803d; }
+    .chat-status--off { color:var(--muted); }
+    .chat-unread { float:right; min-width:20px; text-align:center; font-size:.72rem; padding:2px 6px; border-radius:999px; background:#dc2626; color:#fff; font-weight:700; }
+    @media (max-width: 860px) { .chat-shell { grid-template-columns: 1fr; } }
+</style>
+@endpush
+
 @section('content')
     <h1>Student-Counsellor Chat</h1>
     <p class="sub">Secure direct messaging between assigned students and counsellors.</p>
-
-    @if (session('message'))
-        <p class="error" style="background: rgba(74,124,107,0.15); color: var(--sage); border-color: var(--sage);">{{ session('message') }}</p>
+    @if(($totalUnread ?? 0) > 0)
+        <p class="hint" style="margin-bottom:8px;">Unread messages: <strong>{{ $totalUnread }}</strong></p>
     @endif
 
-    <div style="display:grid; grid-template-columns: 220px 1fr; gap:14px;">
-        <div style="border:1px solid rgba(0,0,0,0.1); border-radius:8px; padding:10px; background:#fff;">
+    <div class="chat-shell">
+        <div class="chat-col">
             <strong style="display:block; margin-bottom:8px;">Contacts</strong>
             @forelse($contacts as $contact)
                 <a href="{{ route('chat.show', $contact) }}"
-                   style="display:block; margin-bottom:6px; padding:8px; border-radius:6px; text-decoration:none; color:var(--ink); background: {{ $selectedUser && $selectedUser->id === $contact->id ? 'rgba(74,124,107,0.12)' : 'transparent' }};">
+                   class="chat-contact"
+                   style="background: {{ $selectedUser && $selectedUser->id === $contact->id ? 'rgba(74,124,107,0.12)' : 'transparent' }};">
                     {{ $contact->name }}
+                    @if(!empty($onlineMap[$contact->id]))
+                        <span class="chat-status chat-status--on">● online</span>
+                    @else
+                        <span class="chat-status chat-status--off">● offline</span>
+                    @endif
+                    @if(($unreadByContact[$contact->id] ?? 0) > 0)
+                        <span class="chat-unread">
+                            {{ $unreadByContact[$contact->id] }}
+                        </span>
+                    @endif
                 </a>
             @empty
                 <p class="hint">No contact available yet.</p>
             @endforelse
         </div>
 
-        <div style="border:1px solid rgba(0,0,0,0.1); border-radius:8px; padding:10px; background:#fff;">
+        <div class="chat-col">
             @if($selectedUser)
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                     <strong>Conversation with {{ $selectedUser->name }}</strong>
+                    @if(!empty($onlineMap[$selectedUser->id]))
+                        <span style="font-size:.78rem; color:#15803d;">● online now</span>
+                    @else
+                        <span style="font-size:.78rem; color:var(--muted);">● offline</span>
+                    @endif
                 </div>
 
-                <div style="height:320px; overflow:auto; border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:10px; margin-bottom:10px; background: #f8f8f8;">
+                <div class="chat-box">
                     @forelse($messages as $msg)
                         @php $mine = $msg->sender_id === auth()->id(); @endphp
                         <div style="display:flex; justify-content: {{ $mine ? 'flex-end' : 'flex-start' }}; margin-bottom:8px;">

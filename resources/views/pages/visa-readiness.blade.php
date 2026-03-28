@@ -1,6 +1,6 @@
 @extends('layout.header')
 
-@section('title', 'Visa Readiness — EduBridge')
+@section('title', 'Visa readiness | EduBridge')
 
 @section('content')
 <section class="visa-readiness">
@@ -10,8 +10,8 @@
       <span class="eyebrow-line"></span>
       <span class="eyebrow-tag">Eligibility Engine</span>
     </div>
-    <h2 class="section-title">Your Visa Readiness Score — explained</h2>
-    <p class="section-sub">No black boxes. Our <strong>documented, rule-based</strong> scoring model breaks down exactly why your score is what it is and how to improve it. Interpretability over opaque AI — for accountability and student decision-making.</p>
+    <h2 class="section-title">How your visa readiness score works</h2>
+    <p class="section-sub">No hidden tricks. Our score uses <strong>fixed rules</strong> you can read, so you see why you got a number and what to improve. Built so students can decide what to do next.</p>
     <p style="max-width:720px;margin-top:24px;font-size:1rem;color:var(--muted);line-height:1.75">The score is built from five weighted dimensions: academic eligibility (25%), financial proof (25%), language proficiency (20%), document completeness (20%), and interview readiness (10%). Each dimension uses published rules so you can see how every point is calculated and what to do next.</p>
     <div class="visa-grid">
       <div class="visa-factors">
@@ -84,7 +84,7 @@
 <section class="trust-section" style="padding:80px 0;background:var(--white)">
   <div class="container">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">—</span>
+      <span class="eyebrow-num">•</span>
       <span class="eyebrow-line"></span>
       <span class="eyebrow-tag">Score bands</span>
     </div>
@@ -104,7 +104,7 @@
         <p style="font-size:0.875rem;color:var(--muted);line-height:1.6">Significant gaps remain. Your counsellor can help you build a plan to improve each dimension before you apply.</p>
       </div>
     </div>
-    <p style="max-width:640px;margin-top:32px;font-size:0.9rem;color:var(--muted);line-height:1.7">Scores are recalculated whenever you update your profile or documents. There is no limit to how often you can run the assessment — use it to track your progress over time.</p>
+    <p style="max-width:640px;margin-top:32px;font-size:0.9rem;color:var(--muted);line-height:1.7">Scores update when you change your profile or documents. Run the assessment as often as you like and watch how you improve.</p>
   </div>
 </section>
 

@@ -4,30 +4,40 @@
 @section('header', 'Dashboard')
 
 @section('content')
-    <p class="hint" style="margin-bottom: 20px; padding: 12px 16px; background: rgba(74,124,107,0.1); border-radius: 8px; border-left: 4px solid var(--sage);">
+    <p class="hint" style="margin-bottom: 20px; padding: 12px 16px; background: rgba(74,124,107,0.1); border-radius: 10px; border: 1px solid rgba(74,124,107,.24); border-left: 4px solid var(--sage);">
         <strong>Verification workflow:</strong> Counsellors upload documents → you review and approve or reject. Profile verification and document visibility are updated only after your approval. Structured process for digital trust.
     </p>
     <div class="stat-grid" style="margin-bottom: 28px;">
+        <a href="{{ route('admin.counsellors.index') }}" style="text-decoration:none; color:inherit;">
         <div class="stat-box">
             <div class="num">{{ $stats['counsellors_total'] }}</div>
             <div class="label">Total Counsellors</div>
         </div>
+        </a>
+        <a href="{{ route('admin.counsellors.index', ['status' => 'pending']) }}" style="text-decoration:none; color:inherit;">
         <div class="stat-box pending">
             <div class="num">{{ $stats['counsellors_pending'] }}</div>
             <div class="label">Pending Verification</div>
         </div>
+        </a>
+        <a href="{{ route('admin.counsellors.index', ['status' => 'approved']) }}" style="text-decoration:none; color:inherit;">
         <div class="stat-box approved">
             <div class="num">{{ $stats['counsellors_approved'] }}</div>
             <div class="label">Approved Counsellors</div>
         </div>
+        </a>
+        <a href="{{ route('admin.counsellors.index', ['status' => 'rejected']) }}" style="text-decoration:none; color:inherit;">
         <div class="stat-box rejected">
             <div class="num">{{ $stats['counsellors_rejected'] }}</div>
             <div class="label">Rejected</div>
         </div>
+        </a>
+        <a href="{{ route('admin.documents.index', ['status' => 'pending']) }}" style="text-decoration:none; color:inherit;">
         <div class="stat-box pending">
             <div class="num">{{ $stats['documents_pending'] }}</div>
             <div class="label">Pending Documents</div>
         </div>
+        </a>
         <div class="stat-box">
             <div class="num">{{ $stats['students_total'] }}</div>
             <div class="label">Students</div>

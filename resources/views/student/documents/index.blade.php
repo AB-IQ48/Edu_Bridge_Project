@@ -2,39 +2,43 @@
 
 @section('title', 'My documents')
 
+@section('card_class', 'card--wide')
+
 @section('content')
+    <p class="role-badge-inline" style="margin-bottom:10px;">Secure uploads</p>
     <h1>My documents</h1>
-    <p class="sub">Upload and manage your application documents (transcripts, financial proof, passport, etc.). Access is role-gated — only you and your assigned counsellor can see these; secure web design for digital trust.</p>
+    <p class="sub">Keep transcripts, bank letters, passport scans, and other files here. Only you and your assigned counsellor can open them.</p>
 
-    @if (session('message'))
-        <p class="error" style="background: rgba(74,124,107,0.15); color: var(--sage); border-color: var(--sage);">{{ session('message') }}</p>
-    @endif
-
-    <div class="toplinks">
-        <a href="{{ route('student.documents.create') }}">Upload document</a>
-        <a href="{{ route('student.index') }}">Student dashboard</a>
+    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px;">
+        <a href="{{ route('student.documents.create') }}" class="btn btn--sage" style="width:auto; padding:10px 18px; font-size:0.88rem;">+ Upload document</a>
+        <a href="{{ route('student.index') }}" style="align-self:center; font-size:0.9rem;">← Dashboard</a>
     </div>
 
-    <ul style="margin-top:20px; list-style:none; padding:0;">
+    <ul style="list-style:none; padding:0; margin:0;">
         @forelse($documents as $d)
-            <li style="background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <li style="margin-bottom:12px; padding:16px 18px; border-radius:14px; border:1px solid rgba(0,0,0,0.08); background:linear-gradient(135deg,#fff,#f9faf9); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
                 <div>
-                    <strong>{{ $d->document_name }}</strong>
+                    <strong style="font-size:1.02rem;">{{ $d->document_name }}</strong>
                     @if($d->document_type)
-                        <span style="font-size:0.85rem; color: var(--muted);"> ({{ $d->document_type }})</span>
+                        <span style="font-size:0.8rem; color:var(--muted);"> · {{ $d->document_type }}</span>
                     @endif
-                    <br>
-                    <span style="font-size:0.8rem; color: var(--muted);">
-                        @if($d->status === 'pending') Pending review
-                        @elseif($d->status === 'approved') Approved
-                        @else Rejected
+                    <div style="font-size:0.82rem; color:var(--muted); margin-top:6px;">
+                        @if($d->status === 'pending')
+                            <span style="color:#ca8a04; font-weight:600;">Pending review</span>
+                        @elseif($d->status === 'approved')
+                            <span style="color:#15803d; font-weight:600;">Approved</span>
+                        @else
+                            <span style="color:#b91c1c; font-weight:600;">Rejected</span>
                         @endif
                         · {{ $d->created_at->format('M j, Y') }}
-                    </span>
+                    </div>
                 </div>
             </li>
         @empty
-            <li style="color: var(--muted); padding: 20px;">No documents yet. Upload transcripts, financial proof, or other required files.</li>
+            <li style="text-align:center; padding:40px 20px; border-radius:14px; border:2px dashed rgba(0,0,0,0.1); background:rgba(255,255,255,0.7);">
+                <p style="margin:0 0 14px; color:var(--muted);">No documents yet. Upload your first file to get started.</p>
+                <a href="{{ route('student.documents.create') }}" class="btn btn--sage" style="width:auto; display:inline-flex; padding:12px 22px;">Upload now</a>
+            </li>
         @endforelse
     </ul>
 
@@ -44,8 +48,8 @@
         </div>
     @endif
 
-    <div class="toplinks" style="margin-top:24px">
-        <a href="{{ route('scores.index') }}">Visa readiness scores</a>
+    <div class="toplinks" style="margin-top:20px;">
+        <a href="{{ route('scores.index') }}">Visa scores</a>
         <a href="{{ route('counsellors.index') }}">Find a counsellor</a>
     </div>
 @endsection

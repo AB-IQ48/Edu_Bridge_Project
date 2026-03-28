@@ -1,6 +1,6 @@
 @extends('layout.header')
 
-@section('title', 'FAQ — EduBridge')
+@section('title', 'FAQ | EduBridge')
 
 @section('content')
 <section class="faq">
@@ -29,7 +29,7 @@
             Who can see my documents after I upload them?
             <div class="faq-toggle"></div>
           </div>
-          <div class="faq-a">Only you and the specific counsellor you explicitly assign can access your documents. Our role-based access control system prevents any other party — including EduBridge administrators unless legally required — from viewing your files. Every access event is logged.</div>
+          <div class="faq-a">Only you and the counsellor you assign can open your files. Nobody else (including most EduBridge staff) can view them unless the law requires it. We log when someone opens a document.</div>
         </div>
         <div class="faq-item">
           <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
@@ -50,14 +50,14 @@
             Is EduBridge free for students?
             <div class="faq-toggle"></div>
           </div>
-          <div class="faq-a">Browsing verified counsellors, checking their ratings, and generating your Visa Readiness Score are all free. Counsellors pay a platform fee — they are never permitted to pass hidden charges to students without full transparency and your written consent.</div>
+          <div class="faq-a">Browsing counsellors, reading ratings, and running your visa readiness score is free for students. Counsellors pay the platform. They cannot hide extra fees from you without telling you clearly and getting your written OK.</div>
         </div>
         <div class="faq-item">
           <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
             Which countries and universities does EduBridge support?
             <div class="faq-toggle"></div>
           </div>
-          <div class="faq-a">We support study-abroad applications to major destinations including the UK, Canada, Australia, USA, and several European and Asian countries. Our counsellors specialise by region and institution — you can filter by destination and see which counsellors have verified experience there. University lists are updated as we add new partners.</div>
+          <div class="faq-a">We cover big destinations like the UK, Canada, Australia, the USA, plus parts of Europe and Asia. Filter by country to see counsellors with experience there. We add universities as we partner with more schools.</div>
         </div>
         <div class="faq-item">
           <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">

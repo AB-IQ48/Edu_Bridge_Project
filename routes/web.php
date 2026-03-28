@@ -33,8 +33,9 @@ Route::get('/visa-readiness', fn () => view('pages.visa-readiness'))->name('page
 Route::get('/for-you', fn () => view('pages.for-you'))->name('pages.for-you');
 Route::get('/faq', fn () => view('pages.faq'))->name('pages.faq');
 
-// Verified counsellors listing (public). Students attach via POST (auth required).
+// Verified counsellors listing & public profiles. Students attach via POST (auth required).
 Route::get('/counsellors', [CounsellorListingController::class, 'index'])->name('counsellors.index');
+Route::get('/counsellors/{counsellorProfile}', [CounsellorListingController::class, 'show'])->name('counsellors.show');
 Route::post('/counsellors/detach', [CounsellorListingController::class, 'detach'])->middleware('auth')->name('counsellors.detach');
 Route::post('/counsellors/{counsellorProfile}/attach', [CounsellorListingController::class, 'attach'])->middleware('auth')->name('counsellors.attach');
 
@@ -98,8 +99,6 @@ Route::middleware(['auth', 'role:student'])->prefix('scores')->name('scores.')->
     Route::get('/', [ScoreController::class, 'index'])->name('index');
     Route::get('/assess', [ScoreController::class, 'assess'])->name('assess');
     Route::post('/assess', [ScoreController::class, 'storeFromQuestionnaire'])->name('assess.store');
-    Route::get('/create', [ScoreController::class, 'create'])->name('create');
-    Route::post('/', [ScoreController::class, 'store'])->name('store');
     Route::get('/{score}', [ScoreController::class, 'show'])->name('show');
 });
 

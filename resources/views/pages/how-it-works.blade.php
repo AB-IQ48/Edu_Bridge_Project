@@ -1,6 +1,6 @@
 @extends('layout.header')
 
-@section('title', 'How It Works — EduBridge')
+@section('title', 'How it works | EduBridge')
 
 @section('content')
 <section class="how-it-works">
@@ -12,7 +12,7 @@
     </div>
     <h2 class="section-title">How EduBridge works</h2>
     <p class="section-sub">A structured four-step workflow that protects students and ensures only qualified, verified counsellors operate on our platform.</p>
-    <p style="max-width:720px;margin-top:24px;font-size:1rem;color:var(--muted);line-height:1.75">From the moment a counsellor applies to the day you receive your visa decision, every touchpoint is designed for transparency and accountability. We believe study abroad should be exciting, not risky — so we built a process that removes guesswork and puts verified data at the centre.</p>
+    <p style="max-width:720px;margin-top:24px;font-size:1rem;color:var(--muted);line-height:1.75">From when a counsellor signs up to when you hear back on your visa, the steps are meant to be clear. Studying abroad should feel exciting, not sketchy, so we try to cut guesswork and show real checked info instead.</p>
   </div>
   <div style="max-width:1200px;margin:0 auto;padding:0 32px">
     <div class="steps-grid">
@@ -55,7 +55,7 @@
 <section class="trust-section" style="padding:80px 0">
   <div class="container">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">—</span>
+      <span class="eyebrow-num">•</span>
       <span class="eyebrow-line"></span>
       <span class="eyebrow-tag">What to expect</span>
     </div>

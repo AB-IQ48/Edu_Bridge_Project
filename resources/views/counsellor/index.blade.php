@@ -2,27 +2,112 @@
 
 @section('title', 'Counsellor Dashboard')
 
+@push('auth_styles')
+<style>
+    .cs-hero {
+        border-radius: 16px;
+        padding: 18px;
+        margin-bottom: 14px;
+        background: linear-gradient(135deg, #0f172a 0%, #1f3a2f 45%, #1e293b 100%);
+        color: #fff;
+        box-shadow: 0 14px 38px rgba(15,23,42,.25);
+    }
+    .cs-hero h1 { color: #fff; margin-bottom: 6px; }
+    .cs-hero .sub { color: rgba(255,255,255,.82); margin-bottom: 0; }
+    .cs-actions a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: .87rem;
+        font-weight: 600;
+    }
+    .cs-doc-help { margin-top: 8px; }
+    .stat-mini-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+    .stat-mini-link .stat-mini:hover {
+        border-color: rgba(74,124,107,.45);
+        box-shadow: 0 8px 18px rgba(74,124,107,.12);
+        transform: translateY(-1px);
+    }
+    .cs-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.28);
+        background: rgba(255,255,255,.1);
+        color: #fff;
+        text-decoration: none;
+        font-size: .84rem;
+        font-weight: 700;
+    }
+    .cs-back:hover {
+        background: rgba(255,255,255,.18);
+        text-decoration: none;
+    }
+</style>
+@endpush
+
 @section('content')
-    <h1>Counsellor Dashboard</h1>
-    @if (session('message'))
-        <p class="error" style="background: rgba(74,124,107,0.15); color: var(--sage); border-color: var(--sage);">{{ session('message') }}</p>
-    @endif
+    <div class="cs-hero">
+        <a class="cs-back" href="{{ url()->previous() !== url()->current() ? url()->previous() : route('dashboard') }}">← Back</a>
+        <p class="role-badge-inline" style="margin-bottom:8px; background:rgba(255,255,255,.16); color:#fff;">Counsellor</p>
+        <h1>Counsellor Dashboard</h1>
+        <p class="sub">Manage your public profile, verification documents, and student chat from one place.</p>
+    </div>
+
     @if ($profile)
-        <p class="sub">{{ $profile->organization_name }} · {{ $profile->experience_years }} years · Verification: {{ $profile->verification_status }}</p>
+        <div class="panel">
+            <p class="sub" style="margin-bottom:10px;">
+                <strong>{{ $profile->organization_name }}</strong> · {{ $profile->experience_years }} years experience
+            </p>
+            <div class="chip {{ $profile->verification_status === 'approved' ? 'chip--ok' : ($profile->verification_status === 'pending' ? 'chip--warn' : 'chip--danger') }}">
+                Verification: {{ ucfirst($profile->verification_status) }}
+            </div>
+            <div class="stat-mini-grid">
+                <div class="stat-mini">
+                    <div class="num">{{ $profile->experience_years }}</div>
+                    <div class="lbl">Years experience</div>
+                </div>
+                <a href="{{ route('chat.index') }}" class="stat-mini-link" title="Open chat inbox">
+                    <div class="stat-mini">
+                        <div class="num">{{ $unreadChatCount ?? 0 }}</div>
+                        <div class="lbl">Unread chat messages</div>
+                    </div>
+                </a>
+            </div>
+        </div>
 
         <h2 style="font-size:1rem; margin-top:20px; margin-bottom:8px;">Documents (verification workflow)</h2>
-        <p class="hint" style="margin-bottom:12px;">Upload → Administrator reviews → Approved/Rejected. Your profile visibility as verified depends on admin approval. Transparent, documented process.</p>
-        <div class="toplinks">
-            <a href="{{ route('counsellor.profile.edit') }}">Edit profile</a>
+        <p class="hint cs-doc-help">Upload documents, wait for admin review, then get approved/rejected. Your public "verified" status depends on this.</p>
+        <div class="toplinks cs-actions">
+            <a href="{{ route('counsellor.profile.edit') }}">Edit public profile</a>
+            @if($profile->verification_status === 'approved')
+                <a href="{{ route('counsellors.show', $profile) }}">View public profile page</a>
+            @endif
             <a href="{{ route('documents.index') }}">My documents</a>
             <a href="{{ route('documents.create') }}">Upload document</a>
-            <a href="{{ route('chat.index') }}">Chat with students</a>
+            <a href="{{ route('chat.index') }}">
+                Chat with students
+                @if(($unreadChatCount ?? 0) > 0)
+                    <span class="chip chip--danger" style="margin-left:4px; padding:2px 7px;">{{ $unreadChatCount }}</span>
+                @endif
+            </a>
         </div>
     @else
-        <p class="sub">No profile found.</p>
+        <div class="alert alert--error">No counsellor profile found yet.</div>
     @endif
+
     <div class="toplinks" style="margin-top:16px">
         <a href="{{ route('dashboard') }}">Dashboard</a>
-        <form method="POST" action="{{ route('logout') }}" style="display:inline">@csrf<button type="submit" class="btn" style="width:auto; padding:8px 16px">Logout</button></form>
+        <form method="POST" action="{{ route('logout') }}" style="display:inline">
+            @csrf
+            <button type="submit" class="btn btn--ghost" style="width:auto; padding:8px 16px">Logout</button>
+        </form>
     </div>
 @endsection

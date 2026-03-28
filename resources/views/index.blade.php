@@ -8,7 +8,7 @@
     <div class="hero-left">
       <div class="hero-badge">Verified Consultancy Platform</div>
       <h1 class="hero-h1">Study abroad with <em>verified</em> guidance you can trust</h1>
-      <p class="hero-sub">EduBridge connects students with identity-verified education counsellors, transparent visa readiness scoring, and secure document handling — eliminating fraud from the overseas study process.</p>
+      <p class="hero-sub">EduBridge hooks you up with checked education counsellors, clear visa readiness scores, and safe document storage so you are less likely to get scammed when you apply abroad.</p>
       <div class="hero-actions">
         <a href="{{ route('counsellors.index') }}" class="btn-primary-hero">Find a Counsellor</a>
         <a href="{{ route('pages.how-it-works') }}" class="btn-ghost-hero">How it works</a>
@@ -170,7 +170,7 @@
             <div class="check-badge pending">⏳</div>
             <div>
               <h4>Ongoing Outcome Monitoring</h4>
-              <p>Student success rates, visa approval ratios, and complaints tracked continuously — scores updated quarterly.</p>
+              <p>We keep an eye on student outcomes, visa results, and complaints, and we refresh counsellor scores every few months.</p>
             </div>
           </div>
           <div class="veri-check">
@@ -226,7 +226,7 @@
         <span class="eyebrow-line"></span>
         <span class="eyebrow-tag">Eligibility Engine</span>
       </div>
-      <h2 class="section-title">Your Visa Readiness Score — explained</h2>
+      <h2 class="section-title">How your visa readiness score works</h2>
       <p class="section-sub">No black boxes. Our rule-based scoring model breaks down exactly why your score is what it is and how to improve it.</p>
       <div class="visa-grid">
         <div class="visa-factors">
@@ -322,7 +322,7 @@
         <div class="trust-item">
           <div class="trust-item-num">03</div>
           <h3>Transparent Scoring Logic</h3>
-          <p>Our visa readiness engine uses published rule sets — no proprietary black boxes. You can read exactly how every point is calculated before submitting anything.</p>
+          <p>Our visa readiness tool uses fixed rules you can actually read. Nothing is hidden, so you see how each part of the score is worked out before you send anything.</p>
         </div>
         <div class="trust-item">
           <div class="trust-item-num">04</div>
@@ -332,12 +332,12 @@
         <div class="trust-item">
           <div class="trust-item-num">05</div>
           <h3>Continuous Outcome Tracking</h3>
-          <p>We follow up with students post-placement to verify actual outcomes — university enrolment, visa approval, and satisfaction. Counsellor scores reflect reality.</p>
+          <p>After you move forward we check what really happened (did you enrol, get the visa, are you happy). That keeps counsellor scores closer to real life.</p>
         </div>
         <div class="trust-item">
           <div class="trust-item-num">06</div>
           <h3>Audit Trail for Everything</h3>
-          <p>Every message, document action, score change, and session note is timestamped and logged — creating a verifiable record that protects both students and counsellors.</p>
+          <p>Messages, uploads, score updates, and session notes are saved with a time stamp so there is a clear record if students or counsellors ever need it.</p>
         </div>
       </div>
     </div>
@@ -418,7 +418,7 @@
         </div>
         <div class="testi-card">
           <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <p class="testi-text">"Knowing my counsellor had been verified and their success rate was real — not self-reported — gave my parents the confidence to support my application."</p>
+          <p class="testi-text">"Knowing my counsellor was verified and the success rate was real, not just something they typed on a website, helped my parents trust the process."</p>
           <div class="testi-author">
             <div class="testi-avatar">RN</div>
             <div>
@@ -458,7 +458,7 @@
               Who can see my documents after I upload them?
               <div class="faq-toggle"></div>
             </div>
-            <div class="faq-a">Only you and the specific counsellor you explicitly assign can access your documents. Our role-based access control system prevents any other party — including EduBridge administrators unless legally required — from viewing your files. Every access event is logged.</div>
+            <div class="faq-a">Only you and the counsellor you pick can open your documents. Other people, including most EduBridge staff, cannot see them unless the law says we must. We log every time a file is opened.</div>
           </div>
           <div class="faq-item">
             <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
@@ -479,7 +479,7 @@
               Is EduBridge free for students?
               <div class="faq-toggle"></div>
             </div>
-            <div class="faq-a">Browsing verified counsellors, checking their ratings, and generating your Visa Readiness Score are all free. Counsellors pay a platform fee — they are never permitted to pass hidden charges to students without full transparency and your written consent.</div>
+            <div class="faq-a">Browsing counsellors, reading ratings, and running your visa readiness score is free for students. Counsellors pay us; they are not allowed to sneak extra fees past you without being upfront and getting your OK in writing.</div>
           </div>
         </div>
       </div>

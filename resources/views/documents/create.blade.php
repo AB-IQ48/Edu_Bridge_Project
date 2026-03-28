@@ -4,7 +4,7 @@
 
 @section('content')
     <h1>Upload verification document</h1>
-    <p class="sub">Upload professional credentials for admin verification. Documents enter a <strong>pending</strong> state until an administrator approves them — part of our structured verification workflow for digital trust.</p>
+    <p class="sub">Upload your professional credentials for admin review. They stay <strong>pending</strong> until an administrator approves them.</p>
     <form class="grid" method="POST" action="{{ route('documents.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="grid">

@@ -1,6 +1,6 @@
 @extends('layout.header')
 
-@section('title', 'For You — EduBridge')
+@section('title', 'For you | EduBridge')
 
 @section('content')
 <section class="for-who">
@@ -12,7 +12,7 @@
     </div>
     <h2 class="section-title">Designed for every side of the equation</h2>
     <p class="section-sub" style="margin-bottom:16px">Whether you're a student planning your first move abroad or a counsellor building a reputation for integrity, EduBridge is built for you.</p>
-    <p style="max-width:720px;font-size:1rem;color:var(--muted);line-height:1.75">We serve two core groups: students who want verified guidance and transparent visa readiness, and education consultants who want to stand out through verification and accountability. Both sides benefit from the same infrastructure — secure documents, clear scores, and real outcomes.</p>
+    <p style="max-width:720px;font-size:1rem;color:var(--muted);line-height:1.75">Students get checked guidance and a clear visa score. Consultants get a way to show they are legit. Everyone uses the same tools: safe file storage, readable scores, and outcome data.</p>
   </div>
   <div style="max-width:1200px;margin:0 auto;padding:0 32px">
     <div class="roles-grid">
@@ -47,7 +47,7 @@
 <section class="trust-section" style="padding:80px 0;background:var(--white)">
   <div class="container">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">—</span>
+      <span class="eyebrow-num">•</span>
       <span class="eyebrow-line"></span>
       <span class="eyebrow-tag">By the numbers</span>
     </div>

@@ -13,7 +13,7 @@
     </div>
 
     <p class="hint" style="margin-bottom: 20px; padding: 10px 12px; background: rgba(74,124,107,0.08); border-radius: 8px; border-left: 3px solid var(--sage);">
-        EduBridge uses role-based governance: your access is limited to your role (Student, Counsellor, or Administrator). No opaque systems — verification and scoring are documented and transparent.
+        EduBridge limits what you can see by your role (student, counsellor, or admin). Verification steps and scoring rules are written down so people know how things work.
     </p>
 
     @if (auth()->user()->counsellorProfile)

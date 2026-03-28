@@ -1,12 +1,12 @@
 @extends('layout.header')
 
-@section('title', 'Counsellor Registration — EduBridge')
+@section('title', 'Counsellor registration | EduBridge')
 
 @section('content')
   <div class="page-shell">
     <div class="page-card">
       <h1>Counsellor Registration</h1>
-      <p class="sub">Create a counsellor account. Your profile and verification documents will be reviewed by an administrator before you appear as verified — structured workflow for digital trust.</p>
+      <p class="sub">Create a counsellor account. An admin checks your profile and documents before you show up as verified.</p>
 
       @if ($errors->any())
         <div class="error">

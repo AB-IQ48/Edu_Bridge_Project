@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Admin') — EduBridge</title>
+    <title>@yield('title', 'Admin') | EduBridge</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -67,11 +67,11 @@
         .admin-content { padding: 24px 32px 48px; flex: 1; }
         .admin-card {
             background: var(--white);
-            border-radius: 8px;
+            border-radius: 12px;
             border: 1px solid rgba(0,0,0,0.08);
             padding: 24px;
             margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
         .admin-card h2 { font-size: 1.1rem; margin-bottom: 16px; font-weight: 600; }
         .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
@@ -101,7 +101,8 @@
         .btn-danger { background: var(--danger); color: var(--white); border-color: var(--danger); }
         .btn-outline { background: transparent; color: var(--ink); border-color: rgba(0,0,0,0.2); }
         .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
-        .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; }
+        .alert { padding: 12px 16px 12px 18px; border-radius: 10px; margin-bottom: 20px; font-size: 0.9rem; position: relative; overflow: hidden; }
+        .alert::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: currentColor; opacity: .7; }
         .alert-success { background: rgba(22,163,74,0.12); color: var(--success); border: 1px solid rgba(22,163,74,0.3); }
         .alert-danger { background: rgba(220,38,38,0.08); color: var(--danger); border: 1px solid rgba(220,38,38,0.25); }
         .filter-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
@@ -121,7 +122,7 @@
 <div class="admin-wrap">
     <aside class="admin-sidebar">
         <div class="brand"><a href="{{ route('admin.index') }}">Edu<span>Bridge</span> Admin</a></div>
-        <p style="padding: 12px 24px; font-size: 0.75rem; color: rgba(255,255,255,0.5); line-height: 1.4;">Verification workflow: review counsellor documents and profiles. Role-based access — Administrator only.</p>
+        <p style="padding: 12px 24px; font-size: 0.75rem; color: rgba(255,255,255,0.5); line-height: 1.4;">Review counsellor documents and profiles. Admin access only.</p>
         <nav class="admin-nav">
             <a href="{{ route('admin.index') }}" class="{{ request()->routeIs('admin.index') ? 'active' : '' }}">Dashboard</a>
             <a href="{{ route('admin.profile') }}" class="{{ request()->routeIs('admin.profile*') ? 'active' : '' }}">Profile Settings</a>
@@ -139,8 +140,8 @@
             </div>
         </header>
         <div class="admin-content">
-            @if (session('message'))
-                <div class="alert alert-success">{{ session('message') }}</div>
+            @if (session('message') || session('success'))
+                <div class="alert alert-success">{{ session('message') ?? session('success') }}</div>
             @endif
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
