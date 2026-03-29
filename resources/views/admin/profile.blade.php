@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="admin-card" style="max-width: 760px;">
-        <h2>Update profile</h2>
+        <h2><a href="{{ route('admin.index') }}" class="admin-card-title-link">Admin overview</a> · Update profile</h2>
         <p class="hint" style="margin-bottom: 14px; color: var(--muted);">Keep your admin credentials secure. Password change is optional.</p>
 
         <form method="POST" action="{{ route('admin.profile.update') }}">
@@ -41,7 +41,7 @@
 
             <div class="btn-group" style="margin-top: 18px;">
                 <button type="submit" class="btn btn-primary">Save profile</button>
-                <a href="{{ route('admin.index') }}" class="btn btn-outline">Back to dashboard</a>
+                <a href="{{ route('admin.index') }}" class="btn btn-outline">Admin dashboard</a>
             </div>
         </form>
     </div>

@@ -1,4 +1,4 @@
--- EduBridge — MySQL Schema Reference
+-- EduBridge - MySQL Schema Reference
 -- This file is for documentation/reference only. Do not run as-is (table order and FKs
 -- depend on Laravel migration order). Use: php artisan migrate
 

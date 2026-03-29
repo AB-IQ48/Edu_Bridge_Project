@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\VisaScore;
+use Illuminate\Validation\Rule;
 
 /**
  * Visa readiness questionnaire: real questions mapped to dimension scores.
@@ -62,6 +62,28 @@ class VisaQuestionnaire
     public static function optionLabel(string $key): string
     {
         return self::optionLabels()[$key] ?? str_replace('_', ' ', $key);
+    }
+
+    /** @return array<string, string> code => human label (must match {@see VisaContextualAdvice::officialLinks()} keys where links exist) */
+    public static function destinationCountries(): array
+    {
+        return [
+            'uk' => 'United Kingdom',
+            'usa' => 'United States',
+            'canada' => 'Canada',
+            'australia' => 'Australia',
+            'germany' => 'Germany',
+            'france' => 'France',
+            'netherlands' => 'Netherlands',
+            'ireland' => 'Ireland',
+            'new_zealand' => 'New Zealand',
+            'italy' => 'Italy',
+            'spain' => 'Spain',
+            'sweden' => 'Sweden',
+            'uae' => 'United Arab Emirates',
+            'malaysia' => 'Malaysia',
+            'other' => 'Other / not listed',
+        ];
     }
 
     /** @return array<string, array{label: string, dimension: string, options: array<string, int>}> */
@@ -286,10 +308,12 @@ class VisaQuestionnaire
         return $result;
     }
 
-    /** Validation rules for all question keys. */
+    /** Validation rules for destination + all question keys. */
     public static function validationRules(): array
     {
-        $rules = [];
+        $rules = [
+            'destination_country' => ['required', 'string', Rule::in(array_keys(self::destinationCountries()))],
+        ];
         foreach (self::questions() as $key => $config) {
             $rules[$key] = ['required', 'string', 'in:' . implode(',', array_keys($config['options']))];
         }

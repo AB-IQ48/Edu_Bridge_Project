@@ -1,10 +1,10 @@
-@extends('layout.auth')
+@extends('layout.panel')
 
 @section('title', 'Upload document')
 
 @section('card_class', 'card--wide')
 
-@section('content')
+@section('auth_content')
     <p class="role-badge-inline" style="margin-bottom:10px;">New upload</p>
     <h1>Upload a document</h1>
     <p class="sub">Add a file for your application (transcript, bank statement, passport, language test, or something else).</p>
@@ -56,7 +56,7 @@
     </form>
 
     <div class="toplinks">
-        <a href="{{ route('student.documents.index') }}">← My documents</a>
-        <a href="{{ route('student.index') }}">Dashboard</a>
+        <a href="{{ route('student.documents.index') }}">My documents</a>
+        <a href="{{ route('student.index') }}">Student hub</a>
     </div>
 @endsection

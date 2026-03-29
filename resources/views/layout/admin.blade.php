@@ -112,11 +112,39 @@
         .pagination a:hover { background: var(--cream); }
         .pagination .current { background: var(--sage); color: var(--white); border-color: var(--sage); }
         .pagination .disabled { color: var(--muted); cursor: not-allowed; }
+        .stat-grid a { text-decoration: none; color: inherit; display: block; }
+        .stat-grid a .stat-box {
+            transition: border-color 0.2s, transform 0.18s ease, box-shadow 0.2s ease;
+            height: 100%;
+        }
+        .stat-grid a:hover .stat-box {
+            border-color: rgba(74,124,107,0.45);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+        }
+        .table-link { color: var(--sage); font-weight: 600; text-decoration: none; }
+        .table-link:hover { text-decoration: underline; }
+        .admin-card-title-link { color: inherit; text-decoration: none; }
+        .admin-card-title-link:hover { color: var(--sage); text-decoration: underline; }
+        .admin-workflow-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            border-radius: 10px;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .admin-workflow-link:hover {
+            background: rgba(74,124,107,0.06);
+            box-shadow: 0 4px 16px rgba(74,124,107,0.08);
+        }
+        .admin-header-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; flex: 1; min-width: 0; }
+        .admin-header-row h1 { margin: 0; }
         @media (max-width: 768px) {
             .admin-sidebar { width: 100%; position: relative; }
             .admin-main { margin-left: 0; }
         }
     </style>
+    @include('partials.back-button-styles')
 </head>
 <body>
 <div class="admin-wrap">
@@ -128,11 +156,18 @@
             <a href="{{ route('admin.profile') }}" class="{{ request()->routeIs('admin.profile*') ? 'active' : '' }}">Profile Settings</a>
             <a href="{{ route('admin.counsellors.index') }}" class="{{ request()->routeIs('admin.counsellors.*') ? 'active' : '' }}">Counsellors</a>
             <a href="{{ route('admin.documents.index') }}" class="{{ request()->routeIs('admin.documents.index') ? 'active' : '' }}">Documents</a>
+            <a href="{{ route('admin.students.index') }}" class="{{ request()->routeIs('admin.students.index') ? 'active' : '' }}">Students</a>
+            <a href="{{ route('admin.scores.index') }}" class="{{ request()->routeIs('admin.scores.index') ? 'active' : '' }}">Visa scores</a>
         </nav>
     </aside>
     <main class="admin-main">
         <header class="admin-header">
-            <h1>@yield('header', 'Admin')</h1>
+            <div class="admin-header-row">
+                @unless(request()->routeIs('admin.index'))
+                    @include('partials.back-button', ['href' => route('admin.index'), 'title' => 'Return to admin dashboard'])
+                @endunless
+                <h1>@yield('header', 'Admin')</h1>
+            </div>
             <div class="user">
                 {{ auth()->user()->name }}
                 <a href="{{ route('dashboard') }}">Main site</a>

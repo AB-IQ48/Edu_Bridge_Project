@@ -1,10 +1,10 @@
-@extends('layout.auth')
+@extends('layout.panel')
 
 @section('title', 'Visa score')
 
 @section('card_class', 'card--wide')
 
-@section('content')
+@section('auth_content')
     <p class="role-badge-inline" style="margin-bottom:10px;">Result</p>
     <h1>Your visa readiness result</h1>
     <p class="sub">Recorded <strong>{{ $score->created_at->format('M j, Y · H:i') }}</strong>
@@ -35,7 +35,7 @@
             ['k' => 'interview_score', 'label' => 'Interview', 'w' => '10%', 'c' => '#e07a5f'],
         ]; @endphp
         @foreach($dims as $d)
-            <div style="text-align:center; padding:14px 10px; border-radius:12px; background:#fff; border:1px solid rgba(0,0,0,0.06); box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+            <div style="text-align:center; padding:14px 10px; border-radius:12px; background:#fff; border:1px solid rgba(0,0,0,0.06); box-shadow:0 2px 8px rgba(0,0,0,0.04); color:inherit;">
                 <div style="font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:{{ $d['c'] }};">{{ $d['label'] }}</div>
                 <div style="font-weight:800; font-size:1.5rem; margin:6px 0 2px;">{{ $score->{$d['k']} ?? 0 }}</div>
                 <div style="font-size:0.7rem; color:var(--muted);">{{ $d['w'] }} weight</div>
@@ -43,7 +43,7 @@
         @endforeach
     </div>
 
-    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #fff; padding: 28px 22px; border-radius: 16px; margin-bottom: 22px; text-align: center; box-shadow: 0 12px 40px rgba(15,23,42,0.35);">
+    <a href="{{ route('scores.index') }}" style="display:block; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #fff; padding: 28px 22px; border-radius: 16px; margin-bottom: 22px; text-align: center; box-shadow: 0 12px 40px rgba(15,23,42,0.35); text-decoration:none; transition: transform .18s, box-shadow .2s;">
         <div style="font-size: 3rem; font-weight: 800; line-height:1; letter-spacing:-0.03em;">{{ $score->total_score }}</div>
         <div style="font-size: 0.95rem; opacity: 0.85; margin-top: 6px;">Overall visa readiness</div>
         <div style="margin-top: 14px; display: inline-block; padding: 8px 18px; border-radius: 999px; font-size: 0.88rem; font-weight: 700;
@@ -52,7 +52,8 @@
             @else background: rgba(248,113,113,0.2); color: #fecaca;
             @endif
         ">{{ $score->band }}</div>
-    </div>
+        <div style="font-size:0.78rem; opacity:0.75; margin-top:12px;">All assessments →</div>
+    </a>
 
     @php
         $tips = $score->contextual_tips;

@@ -1,4 +1,4 @@
-# EduBridge — Laravel MVC Base Structure
+# EduBridge - Laravel MVC Base Structure
 
 This document describes the Model–View–Controller layout for the application, aligned with the schema in `database/SCHEMA.md`.
 
@@ -55,13 +55,13 @@ Views are in `resources/views/`, organised by feature. Layouts and shared compon
 
 ### Layouts
 
-- **layout/header.blade.php** — Main app layout (header, nav, footer, styles).
-- **layout/auth.blade.php** — Auth pages layout (login, register).
+- **layout/header.blade.php** - Main app layout (header, nav, footer, styles).
+- **layout/auth.blade.php** - Auth pages layout (login, register).
 
 ### Public / marketing
 
-- **index.blade.php** — Homepage (hero, how it works, verification, visa readiness, testimonials, FAQ, CTA).
-- **pages/how-it-works.blade.php**, **verification.blade.php**, **visa-readiness.blade.php**, **for-you.blade.php**, **faq.blade.php** — Info pages.
+- **index.blade.php** - Homepage (hero, how it works, verification, visa readiness, testimonials, FAQ, CTA).
+- **pages/how-it-works.blade.php**, **verification.blade.php**, **visa-readiness.blade.php**, **for-you.blade.php**, **faq.blade.php** - Info pages.
 
 ### Auth
 
@@ -70,11 +70,11 @@ Views are in `resources/views/`, organised by feature. Layouts and shared compon
 
 ### Dashboard & role-specific
 
-- **dashboard.blade.php** — Role-based redirect.
-- **admin/index.blade.php** — Admin review queue.
-- **counsellor/index.blade.php**, **counsellor/edit.blade.php** — Counsellor dashboard and profile edit.
-- **student/index.blade.php**, **student/profile.blade.php** — Student dashboard and profile.
-- **counsellors/listing.blade.php** — Verified counsellors list and attach/detach.
+- **dashboard.blade.php** - Role-based redirect.
+- **admin/index.blade.php** - Admin review queue.
+- **counsellor/index.blade.php**, **counsellor/edit.blade.php** - Counsellor dashboard and profile edit.
+- **student/index.blade.php**, **student/profile.blade.php** - Student dashboard and profile.
+- **counsellors/listing.blade.php** - Verified counsellors list and attach/detach.
 
 ### Documents & scores
 
@@ -89,13 +89,13 @@ Summary of named routes and middleware.
 
 | Method | URI | Name | Middleware |
 |--------|-----|------|------------|
-| GET | `/` | — | — |
-| GET | `/how-it-works` | pages.how-it-works | — |
-| GET | `/verification` | pages.verification | — |
-| GET | `/visa-readiness` | pages.visa-readiness | — |
-| GET | `/for-you` | pages.for-you | — |
-| GET | `/faq` | pages.faq | — |
-| GET | `/counsellors` | counsellors.index | — |
+| GET | `/` | - | - |
+| GET | `/how-it-works` | pages.how-it-works | - |
+| GET | `/verification` | pages.verification | - |
+| GET | `/visa-readiness` | pages.visa-readiness | - |
+| GET | `/for-you` | pages.for-you | - |
+| GET | `/faq` | pages.faq | - |
+| GET | `/counsellors` | counsellors.index | - |
 | POST | `/counsellors/detach` | counsellors.detach | auth |
 | POST | `/counsellors/{counsellorProfile}/attach` | counsellors.attach | auth |
 | GET | `/login` | login | guest |
@@ -121,9 +121,9 @@ Summary of named routes and middleware.
 
 ## 5. Middleware
 
-- **auth** — Require authenticated user.
-- **guest** — Redirect authenticated users away from login/register.
-- **role:administrator | counsellor | student** — `EnsureUserHasRole` (or equivalent); restrict by role.
+- **auth** - Require authenticated user.
+- **guest** - Redirect authenticated users away from login/register.
+- **role:administrator | counsellor | student** - `EnsureUserHasRole` (or equivalent); restrict by role.
 
 ---
 

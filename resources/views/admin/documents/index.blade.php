@@ -24,15 +24,16 @@
                     <th>Organization</th>
                     <th>Status</th>
                     <th>Uploaded</th>
+                    <th>File</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($documents as $d)
                     <tr>
-                        <td>{{ $d->document_name }}</td>
-                        <td>{{ $d->counsellorProfile->user->name }}</td>
-                        <td>{{ $d->counsellorProfile->organization_name }}</td>
+                        <td><a href="{{ route('admin.counsellors.show', $d->counsellorProfile) }}#doc-{{ $d->id }}" class="table-link">{{ $d->document_name }}</a></td>
+                        <td><a href="{{ route('admin.counsellors.show', $d->counsellorProfile) }}" class="table-link">{{ $d->counsellorProfile->user->name }}</a></td>
+                        <td><a href="{{ route('admin.counsellors.show', $d->counsellorProfile) }}" class="table-link">{{ $d->counsellorProfile->organization_name }}</a></td>
                         <td>
                             @if($d->status === 'pending')
                                 <span class="badge badge-pending">Pending</span>
@@ -43,6 +44,9 @@
                             @endif
                         </td>
                         <td>{{ $d->created_at->format('M j, Y H:i') }}</td>
+                        <td>
+                            <a href="{{ route('admin.documents.file', $d) }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Open file</a>
+                        </td>
                         <td>
                             <div class="btn-group">
                                 <a href="{{ route('admin.counsellors.show', $d->counsellorProfile) }}#doc-{{ $d->id }}" class="btn btn-outline btn-sm">View counsellor</a>
@@ -57,7 +61,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" style="text-align: center; color: var(--muted); padding: 24px;">No documents found.</td>
+                        <td colspan="7" style="text-align: center; color: var(--muted); padding: 24px;">No documents found.</td>
                     </tr>
                 @endforelse
             </tbody>

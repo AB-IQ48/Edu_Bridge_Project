@@ -1,4 +1,4 @@
-# EduBridge — Complete MySQL Schema
+# EduBridge - Complete MySQL Schema
 
 This document describes the full relational schema for Users, Roles, Profiles, Documents, and Scores.
 
@@ -57,7 +57,7 @@ counsellor_profiles (1) ───< users (N)        [assigned students]
 
 ---
 
-### 3. `counsellor_profiles` (Profiles — Counsellor)
+### 3. `counsellor_profiles` (Profiles - Counsellor)
 
 | Column               | Type             | Attributes        | Description                    |
 |----------------------|------------------|-------------------|--------------------------------|
@@ -74,7 +74,7 @@ counsellor_profiles (1) ───< users (N)        [assigned students]
 
 ---
 
-### 4. `student_profiles` (Profiles — Student)
+### 4. `student_profiles` (Profiles - Student)
 
 | Column           | Type             | Attributes        | Description                    |
 |------------------|------------------|-------------------|--------------------------------|

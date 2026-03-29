@@ -58,7 +58,7 @@
             <div class="counsellor-avatar">AR</div>
             <div>
               <div class="counsellor-name">Aisha Rahman</div>
-              <div class="counsellor-org">Global Study Advisors · Lahore, Pakistan</div>
+              <div class="counsellor-org">Global Study Advisors · Singapore</div>
             </div>
           </div>
           <div style="margin-bottom:16px">

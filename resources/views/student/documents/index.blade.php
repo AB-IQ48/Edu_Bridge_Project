@@ -1,17 +1,16 @@
-@extends('layout.auth')
+@extends('layout.panel')
 
 @section('title', 'My documents')
 
 @section('card_class', 'card--wide')
 
-@section('content')
+@section('auth_content')
     <p class="role-badge-inline" style="margin-bottom:10px;">Secure uploads</p>
     <h1>My documents</h1>
     <p class="sub">Keep transcripts, bank letters, passport scans, and other files here. Only you and your assigned counsellor can open them.</p>
 
     <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px;">
         <a href="{{ route('student.documents.create') }}" class="btn btn--sage" style="width:auto; padding:10px 18px; font-size:0.88rem;">+ Upload document</a>
-        <a href="{{ route('student.index') }}" style="align-self:center; font-size:0.9rem;">← Dashboard</a>
     </div>
 
     <ul style="list-style:none; padding:0; margin:0;">

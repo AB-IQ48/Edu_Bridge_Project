@@ -52,15 +52,22 @@ class ChatController extends Controller
         $totalUnread = 0;
         $onlineMap = [];
 
-        foreach ($contacts as $contact) {
-            $count = ChatMessage::query()
-                ->where('sender_id', $contact->id)
+        if ($contacts->isNotEmpty()) {
+            $senderIds = $contacts->pluck('id');
+            $countsBySender = ChatMessage::query()
                 ->where('receiver_id', $authUser->id)
                 ->whereNull('read_at')
-                ->count();
-            $unreadByContact[$contact->id] = $count;
-            $totalUnread += $count;
-            $onlineMap[$contact->id] = $contact->last_seen_at && $contact->last_seen_at->gte(now()->subMinutes(3));
+                ->whereIn('sender_id', $senderIds)
+                ->selectRaw('sender_id, COUNT(*) as c')
+                ->groupBy('sender_id')
+                ->pluck('c', 'sender_id');
+
+            foreach ($contacts as $contact) {
+                $count = (int) ($countsBySender[$contact->id] ?? 0);
+                $unreadByContact[$contact->id] = $count;
+                $totalUnread += $count;
+                $onlineMap[$contact->id] = $contact->last_seen_at && $contact->last_seen_at->gte(now()->subMinutes(3));
+            }
         }
 
         return view('chat.index', [

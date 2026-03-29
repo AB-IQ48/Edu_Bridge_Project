@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <th>Email</th>
-                <td>{{ $profile->user->email }}</td>
+                <td><a href="mailto:{{ $profile->user->email }}" class="table-link">{{ $profile->user->email }}</a></td>
             </tr>
             <tr>
                 <th>Organization</th>
@@ -49,7 +49,7 @@
             </tr>
             <tr>
                 <th>Assigned students</th>
-                <td>{{ $profile->assignedStudents()->count() }}</td>
+                <td>{{ $profile->assigned_students_count }}</td>
             </tr>
         </table>
 
@@ -64,7 +64,7 @@
     </div>
 
     <div class="admin-card" id="documents">
-        <h2>Verification documents</h2>
+        <h2><a href="{{ route('admin.documents.index') }}" class="admin-card-title-link">Verification documents</a></h2>
         @if($profile->documents->isEmpty())
             <p style="color: var(--muted);">No documents uploaded.</p>
         @else
@@ -74,6 +74,7 @@
                         <th>Document name</th>
                         <th>Status</th>
                         <th>Uploaded</th>
+                        <th>File</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -91,6 +92,9 @@
                                 @endif
                             </td>
                             <td>{{ $doc->created_at->format('M j, Y') }}</td>
+                            <td>
+                                <a href="{{ route('admin.documents.file', $doc) }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Open file</a>
+                            </td>
                             <td>
                                 <div class="btn-group">
                                     @if($doc->status !== 'approved')
@@ -116,5 +120,5 @@
         @endif
     </div>
 
-    <p><a href="{{ route('admin.counsellors.index') }}" class="btn btn-outline">← Back to counsellors list</a></p>
+    <p style="margin-top: 8px;"><a href="{{ route('admin.counsellors.index') }}" class="btn btn-outline">Counsellors list</a></p>
 @endsection

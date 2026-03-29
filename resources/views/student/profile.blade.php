@@ -1,10 +1,10 @@
-@extends('layout.auth')
+@extends('layout.panel')
 
 @section('title', 'Student profile')
 
 @section('card_class', 'card--wide')
 
-@section('content')
+@section('auth_content')
     <p class="role-badge-inline" style="margin-bottom:10px;">Student</p>
     <h1>Your profile</h1>
     <p class="sub">Quick links: visa assessment, your documents, and counsellor search.</p>
@@ -20,10 +20,14 @@
             <strong style="display:block; margin-bottom:4px;">Documents</strong>
             <span style="font-size:0.85rem; color:var(--muted);">Upload & track files</span>
         </a>
+        <a href="{{ route('counsellors.index') }}" style="padding:18px; border-radius:14px; text-decoration:none; color:inherit; background:linear-gradient(135deg, rgba(200,168,75,0.14), #fff); border:1px solid rgba(200,168,75,0.35); box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+            <div style="font-size:1.5rem; margin-bottom:6px;">🤝</div>
+            <strong style="display:block; margin-bottom:4px;">Verified counsellors</strong>
+            <span style="font-size:0.85rem; color:var(--muted);">Browse &amp; connect</span>
+        </a>
     </div>
 
     <div class="toplinks">
-        <a href="{{ route('student.index') }}">← Student dashboard</a>
         <a href="{{ route('counsellors.index') }}">Find a counsellor</a>
     </div>
 @endsection

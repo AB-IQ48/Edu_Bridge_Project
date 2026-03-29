@@ -32,9 +32,9 @@
             <tbody>
                 @forelse($counsellors as $p)
                     <tr>
-                        <td>{{ $p->user->name }}</td>
-                        <td>{{ $p->user->email }}</td>
-                        <td>{{ $p->organization_name }}</td>
+                        <td><a href="{{ route('admin.counsellors.show', $p) }}" class="table-link">{{ $p->user->name }}</a></td>
+                        <td><a href="{{ route('admin.counsellors.show', $p) }}" class="table-link">{{ $p->user->email }}</a></td>
+                        <td><a href="{{ route('admin.counsellors.show', $p) }}" class="table-link">{{ $p->organization_name }}</a></td>
                         <td>{{ $p->experience_years }} yrs</td>
                         <td>
                             @if($p->verification_status === 'pending')
@@ -45,7 +45,7 @@
                                 <span class="badge badge-rejected">Rejected</span>
                             @endif
                         </td>
-                        <td>{{ $p->assignedStudents()->count() }}</td>
+                        <td><a href="{{ route('admin.counsellors.show', $p) }}" class="table-link">{{ $p->assigned_students_count }}</a></td>
                         <td>
                             <a href="{{ route('admin.counsellors.show', $p) }}" class="btn btn-primary btn-sm">Review</a>
                         </td>

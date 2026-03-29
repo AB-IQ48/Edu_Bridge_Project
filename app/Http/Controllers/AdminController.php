@@ -9,9 +9,11 @@ use App\Models\VisaScore;
 use App\Services\VerificationReviewService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AdminController extends Controller
 {
@@ -63,7 +65,7 @@ class AdminController extends Controller
             'search' => ['nullable', 'string', 'max:120'],
         ]);
 
-        $query = CounsellorProfile::with('user')->latest();
+        $query = CounsellorProfile::with('user')->withCount('assignedStudents')->latest();
 
         if ($request->filled('status')) {
             $query->where('verification_status', $request->status);
@@ -90,6 +92,7 @@ class AdminController extends Controller
     public function counsellorShow(CounsellorProfile $counsellorProfile): View
     {
         $counsellorProfile->load(['user', 'documents.reviewedBy']);
+        $counsellorProfile->loadCount('assignedStudents');
 
         return view('admin.counsellors.show', [
             'profile' => $counsellorProfile,
@@ -116,6 +119,22 @@ class AdminController extends Controller
         return view('admin.documents.index', [
             'documents' => $documents,
         ]);
+    }
+
+    /**
+     * Stream a counsellor verification file for admin review (stored on local disk).
+     */
+    public function downloadCounsellorDocument(Document $document): StreamedResponse
+    {
+        if (! Storage::disk('local')->exists($document->document_path)) {
+            abort(404, 'File not found.');
+        }
+
+        $safeBase = preg_replace('/[^a-zA-Z0-9._\-\s]+/u', '_', $document->document_name) ?: 'document';
+        $ext = pathinfo($document->document_path, PATHINFO_EXTENSION);
+        $downloadName = $ext !== '' ? "{$safeBase}.{$ext}" : $safeBase;
+
+        return Storage::disk('local')->response($document->document_path, $downloadName, [], 'inline');
     }
 
     /**
@@ -202,5 +221,55 @@ class AdminController extends Controller
         $admin->update($updateData);
 
         return back()->with('message', 'Admin profile updated successfully.');
+    }
+
+    public function studentsIndex(Request $request): View
+    {
+        $request->validate([
+            'search' => ['nullable', 'string', 'max:120'],
+        ]);
+
+        $query = User::query()
+            ->whereHas('role', fn ($q) => $q->where('name', 'student'))
+            ->orderByDesc('created_at');
+
+        if ($request->filled('search')) {
+            $term = $request->search;
+            $query->where(function ($q) use ($term) {
+                $q->where('name', 'like', "%{$term}%")
+                    ->orWhere('email', 'like', "%{$term}%");
+            });
+        }
+
+        $students = $query->paginate(20)->withQueryString();
+
+        return view('admin.students.index', [
+            'students' => $students,
+        ]);
+    }
+
+    public function scoresIndex(Request $request): View
+    {
+        $request->validate([
+            'search' => ['nullable', 'string', 'max:120'],
+        ]);
+
+        $query = VisaScore::query()
+            ->with('student')
+            ->latest();
+
+        if ($request->filled('search')) {
+            $term = $request->search;
+            $query->whereHas('student', function ($q) use ($term) {
+                $q->where('name', 'like', "%{$term}%")
+                    ->orWhere('email', 'like', "%{$term}%");
+            });
+        }
+
+        $scores = $query->paginate(20)->withQueryString();
+
+        return view('admin.scores.index', [
+            'scores' => $scores,
+        ]);
     }
 }

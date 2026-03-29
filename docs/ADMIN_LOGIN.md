@@ -1,4 +1,4 @@
-# Admin Dashboard — Login & Redirect
+# Admin Dashboard - Login & Redirect
 
 ## First-time setup (run this first)
 

@@ -23,7 +23,7 @@
           </div>
           <div class="score-meta">
             <h4>Aisha Rahman</h4>
-            <p>Senior Education Advisor · Lahore</p>
+            <p>Senior Education Advisor · London, UK</p>
             <div class="badge-verified-full" style="margin-top:8px">✓ Verified</div>
           </div>
         </div>
@@ -188,7 +188,7 @@
               <div class="counsellor-avatar">AR</div>
               <div>
                 <div class="counsellor-name">Aisha Rahman</div>
-                <div class="counsellor-org">Global Study Advisors · Lahore, Pakistan</div>
+                <div class="counsellor-org">Global Study Advisors · Toronto, Canada</div>
               </div>
             </div>
             <div style="margin-bottom:16px">
@@ -401,7 +401,7 @@
             <div class="testi-avatar">FH</div>
             <div>
               <div class="testi-name">Fatima Hussain</div>
-              <div class="testi-from">Lahore → University of Edinburgh</div>
+              <div class="testi-from">Dubai → University of Edinburgh</div>
             </div>
           </div>
         </div>

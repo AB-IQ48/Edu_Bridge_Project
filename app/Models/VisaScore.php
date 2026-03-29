@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Services\VisaContextualAdvice;
+use App\Services\VisaQuestionnaire;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,12 +14,14 @@ class VisaScore extends Model
 
     protected $fillable = [
         'student_id',
+        'destination_country',
         'education_score',
         'financial_score',
         'language_score',
         'documentation_score',
         'interview_score',
         'total_score',
+        'questionnaire_json',
     ];
 
     protected $casts = [
@@ -27,6 +31,7 @@ class VisaScore extends Model
         'documentation_score' => 'integer',
         'interview_score' => 'integer',
         'total_score' => 'integer',
+        'questionnaire_json' => 'array',
     ];
 
     /** Weights for total: academic 25%, financial 25%, language 20%, documentation 20%, interview 10%. */
@@ -81,6 +86,27 @@ class VisaScore extends Model
             }
         }
         return $out;
+    }
+
+    /**
+     * Personalised tips for the result page (from destination + questionnaire + weak areas).
+     *
+     * @return list<array{title: string, body: string, priority?: string}>
+     */
+    public function getContextualTipsAttribute(): array
+    {
+        return VisaContextualAdvice::tipsFor($this);
+    }
+
+    /** Human-readable destination from stored country code. */
+    public function getDestinationLabelAttribute(): ?string
+    {
+        $code = $this->destination_country;
+        if ($code === null || $code === '') {
+            return null;
+        }
+
+        return VisaQuestionnaire::destinationCountries()[$code] ?? $code;
     }
 
     public function student(): BelongsTo

@@ -42,7 +42,7 @@
       </form>
 
       <div class="toplinks">
-        <a href="{{ route('login') }}">Back to Login</a>
+        <a href="{{ route('login') }}">Back to login</a>
         <a href="{{ route('register.student') }}">Register as Student</a>
       </div>
     </div>

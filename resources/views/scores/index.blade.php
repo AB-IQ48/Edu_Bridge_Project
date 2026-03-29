@@ -1,10 +1,10 @@
-@extends('layout.auth')
+@extends('layout.panel')
 
 @section('title', 'Visa scores')
 
 @section('card_class', 'card--wide')
 
-@section('content')
+@section('auth_content')
     <p class="role-badge-inline" style="margin-bottom:10px;">Your history</p>
     <h1>Visa readiness scores</h1>
     <p class="sub">Every entry below is a saved assessment. Open one to see bands, weights, and <strong>where you need to improve</strong>.</p>
