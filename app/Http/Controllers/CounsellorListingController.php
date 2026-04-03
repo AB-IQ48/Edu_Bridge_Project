@@ -60,9 +60,9 @@ class CounsellorListingController extends Controller
                 ->with('error', 'You can only attach to verified counsellors.');
         }
 
-        $user->update([
+        $user->forceFill([
             'assigned_counsellor_profile_id' => $counsellorProfile->id,
-        ]);
+        ])->save();
 
         try {
             $counsellorProfile->user?->notify(new StudentCounsellorLinkNotification($user->name, 'attached'));
@@ -92,7 +92,7 @@ class CounsellorListingController extends Controller
                 ->with('error', 'Only students can detach from a counsellor.');
         }
 
-        $user->update(['assigned_counsellor_profile_id' => null]);
+        $user->forceFill(['assigned_counsellor_profile_id' => null])->save();
 
         if ($currentCounsellor && $currentCounsellor->user) {
             try {

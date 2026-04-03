@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\StudentDocument;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class StudentDocumentController extends Controller
 {
@@ -41,6 +43,21 @@ class StudentDocumentController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->route('student.documents.index')->with('message', 'Document uploaded. It may be reviewed by your counsellor or admin.');
+        return redirect()->route('student.documents.index')->with('message', 'Document uploaded. Your assigned counsellor can view it from their dashboard.');
+    }
+
+    public function download(Request $request, StudentDocument $document): StreamedResponse
+    {
+        abort_unless($document->user_id === $request->user()->id, 403);
+
+        if (! Storage::disk('local')->exists($document->document_path)) {
+            abort(404, 'File not found.');
+        }
+
+        $safeBase = preg_replace('/[^a-zA-Z0-9._\-\s]+/u', '_', $document->document_name) ?: 'document';
+        $ext = pathinfo($document->document_path, PATHINFO_EXTENSION);
+        $downloadName = $ext !== '' ? "{$safeBase}.{$ext}" : $safeBase;
+
+        return Storage::disk('local')->response($document->document_path, $downloadName, [], 'inline');
     }
 }

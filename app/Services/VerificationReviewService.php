@@ -61,7 +61,7 @@ class VerificationReviewService
                 reason: $reason
             ));
         } catch (\Throwable $e) {
-            Log::warning('Failed to send counsellor verification email.', [
+            Log::warning('Failed to send counsellor verification notification.', [
                 'user_id' => $counsellor->id,
                 'item_type' => $itemType,
                 'status' => $status,

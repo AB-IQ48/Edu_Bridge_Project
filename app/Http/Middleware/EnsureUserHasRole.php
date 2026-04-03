@@ -19,7 +19,7 @@ class EnsureUserHasRole
 
         $roleName = $request->user()->role?->name;
 
-        if (! $roleName || ! in_array($roleName, $roles, true)) {
+        if ($roleName === null || $roleName === '' || ! in_array($roleName, $roles, true)) {
             abort(403, 'Unauthorized.');
         }
 

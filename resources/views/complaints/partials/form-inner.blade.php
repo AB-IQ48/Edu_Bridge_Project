@@ -1,0 +1,28 @@
+<p class="role-badge-inline" style="margin-bottom:10px;">{{ $panel === 'student' ? 'Student' : 'Counsellor' }}</p>
+<h1>Make a complaint</h1>
+<p class="sub">Describe what happened. Include dates and any relevant detail. See our <a href="{{ route('pages.complaints') }}">complaint policy</a> for what we can handle.</p>
+
+<form method="POST" action="{{ route($panel.'.complaints.store') }}" class="grid" style="gap:14px;">
+    @csrf
+    <div>
+        <label for="category">Category</label>
+        <select id="category" name="category" required style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.14);">
+            <option value="" disabled {{ old('category') ? '' : 'selected' }}>Choose one</option>
+            @foreach($categories as $key => $label)
+                <option value="{{ $key }}" @selected(old('category') === $key)>{{ $label }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div>
+        <label for="subject">Subject</label>
+        <input id="subject" name="subject" type="text" required maxlength="255" value="{{ old('subject') }}" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.14);">
+    </div>
+    <div>
+        <label for="body">Details</label>
+        <textarea id="body" name="body" rows="8" required maxlength="8000" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.14); resize:vertical;">{{ old('body') }}</textarea>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:10px;">
+        <button type="submit" class="btn btn--sage" style="width:auto; padding:11px 20px;">Submit complaint</button>
+        <a href="{{ route($panel.'.complaints.index') }}" class="toplinks" style="margin:0; align-self:center;">Cancel</a>
+    </div>
+</form>

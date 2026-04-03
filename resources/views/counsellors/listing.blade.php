@@ -48,7 +48,7 @@
               </div>
               <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
                 <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,124,107,0.12);border:1px solid rgba(74,124,107,0.35);color:var(--sage);font-size:0.72rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;padding:4px 10px;border-radius:20px">✓ Verified</span>
-                <span style="font-size:0.85rem;color:var(--muted)">{{ $profile->experience_years }}+ years · @if($profile->city){{ $profile->city }}@else Pakistan @endif</span>
+                <span style="font-size:0.85rem;color:var(--muted)">{{ $profile->experience_years }}+ years · @if($profile->city){{ $profile->city }}@else<span style="color:var(--muted)">Not specified</span>@endif</span>
               </div>
               @if($profile->bio)
                 <p style="margin:12px 0 0;font-size:0.9rem;color:var(--muted);line-height:1.55;max-width:560px">{{ \Illuminate\Support\Str::limit($profile->bio, 160) }}</p>

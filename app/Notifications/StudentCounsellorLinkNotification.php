@@ -18,7 +18,25 @@ class StudentCounsellorLinkNotification extends Notification
 
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database', 'mail'];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function toArray(object $notifiable): array
+    {
+        $body = $this->action === 'attached'
+            ? "{$this->studentName} attached to your profile."
+            : "{$this->studentName} detached from your profile.";
+
+        return [
+            'category' => 'student_link',
+            'title' => $this->action === 'attached' ? 'Student connected' : 'Student disconnected',
+            'body' => $body,
+            'action_url' => route('counsellor.index'),
+            'action_label' => 'Dashboard',
+        ];
     }
 
     public function toMail(object $notifiable): MailMessage

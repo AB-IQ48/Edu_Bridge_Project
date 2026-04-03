@@ -34,8 +34,11 @@ class LoginController extends Controller
         $user->loadMissing('role');
 
         $intended = $request->session()->pull('url.intended', null);
-        if ($intended) {
-            return redirect($intended)->with('message', 'Welcome back. You are logged in.');
+        if (is_string($intended) && $intended !== '') {
+            $base = rtrim((string) config('app.url'), '/');
+            if (str_starts_with($intended, $base) || str_starts_with($intended, '/')) {
+                return redirect()->to($intended)->with('message', 'Welcome back. You are logged in.');
+            }
         }
 
         return match ($user->role?->name) {

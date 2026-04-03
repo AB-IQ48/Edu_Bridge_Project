@@ -17,7 +17,7 @@
         </div>
         <button class="btn" type="submit">Upload</button>
     </form>
-    <div class="toplinks" style="margin-top:16px">
-        <a href="{{ route('documents.index') }}">Back to documents</a>
+    <div class="toplinks" style="margin-top:16px;">
+        <a href="{{ route('documents.index') }}">Document list</a>
     </div>
 @endsection

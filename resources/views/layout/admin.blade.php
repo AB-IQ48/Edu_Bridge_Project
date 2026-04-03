@@ -158,6 +158,7 @@
             <a href="{{ route('admin.documents.index') }}" class="{{ request()->routeIs('admin.documents.index') ? 'active' : '' }}">Documents</a>
             <a href="{{ route('admin.students.index') }}" class="{{ request()->routeIs('admin.students.index') ? 'active' : '' }}">Students</a>
             <a href="{{ route('admin.scores.index') }}" class="{{ request()->routeIs('admin.scores.index') ? 'active' : '' }}">Visa scores</a>
+            <a href="{{ route('admin.complaints.index') }}" class="{{ request()->routeIs('admin.complaints.*') ? 'active' : '' }}">Complaints</a>
         </nav>
     </aside>
     <main class="admin-main">

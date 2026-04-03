@@ -18,8 +18,16 @@ class CounsellorController extends Controller
         $profile = $user->counsellorProfile;
         $unreadChatCount = 0;
 
+        $assignedStudents = collect();
+
         if ($profile) {
-            $studentIds = $profile->assignedStudents()->pluck('id');
+            $assignedStudents = $profile->assignedStudents()
+                ->whereHas('role', fn ($q) => $q->where('name', 'student'))
+                ->withCount('studentDocuments')
+                ->orderBy('name')
+                ->get();
+
+            $studentIds = $assignedStudents->pluck('id');
             if ($studentIds->isNotEmpty()) {
                 $unreadChatCount = ChatMessage::query()
                     ->whereIn('sender_id', $studentIds)
@@ -32,6 +40,7 @@ class CounsellorController extends Controller
         return view('counsellor.index', [
             'profile' => $profile,
             'unreadChatCount' => $unreadChatCount,
+            'assignedStudents' => $assignedStudents,
         ]);
     }
 

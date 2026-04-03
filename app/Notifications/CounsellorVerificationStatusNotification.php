@@ -20,7 +20,37 @@ class CounsellorVerificationStatusNotification extends Notification
 
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database', 'mail'];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function toArray(object $notifiable): array
+    {
+        $isApproved = $this->status === 'approved';
+        $title = $isApproved
+            ? ($this->itemType === 'profile' ? 'Profile approved' : 'Document approved')
+            : ($this->itemType === 'profile' ? 'Profile not approved' : 'Document not approved');
+
+        $body = "{$this->itemName} — " . ucfirst($this->status) . '.';
+        if (! $isApproved && $this->reason) {
+            $body .= ' Reason: '.$this->reason;
+        }
+
+        $actionUrl = $this->itemType === 'document'
+            ? route('documents.index')
+            : route('counsellor.index');
+
+        return [
+            'category' => 'verification',
+            'title' => $title,
+            'body' => $body,
+            'action_url' => $actionUrl,
+            'action_label' => $this->itemType === 'document' ? 'My documents' : 'Dashboard',
+            'item_type' => $this->itemType,
+            'status' => $this->status,
+        ];
     }
 
     public function toMail(object $notifiable): MailMessage
@@ -40,8 +70,12 @@ class CounsellorVerificationStatusNotification extends Notification
             $mail->line("Reason: {$this->reason}");
         }
 
+        $dashboardUrl = $this->itemType === 'document'
+            ? route('documents.index')
+            : route('counsellor.index');
+
         return $mail
-            ->line('You can update your details and submit again.')
-            ->action('Login to EduBridge', route('login'));
+            ->line('You can review your account and update details in the dashboard when needed.')
+            ->action('Open your EduBridge dashboard', $dashboardUrl);
     }
 }

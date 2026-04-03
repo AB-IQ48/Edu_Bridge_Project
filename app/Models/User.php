@@ -14,9 +14,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    /**
+     * Never allow role_id or assigned_counsellor_profile_id via mass assignment (privilege / data isolation).
+     * Set those only in trusted application code (registration, attach/detach, seeders).
+     */
     protected $fillable = [
-        'role_id',
-        'assigned_counsellor_profile_id',
         'name',
         'email',
         'password',
@@ -65,6 +67,11 @@ class User extends Authenticatable
         return $this->hasMany(StudentDocument::class);
     }
 
+    public function complaints(): HasMany
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
     public function isStudent(): bool
     {
         return $this->role && $this->role->name === 'student';
@@ -78,5 +85,20 @@ class User extends Authenticatable
     public function isAdministrator(): bool
     {
         return $this->role && $this->role->name === 'administrator';
+    }
+
+    /**
+     * Whether this user (counsellor) is the assigned counsellor for the given student.
+     */
+    public function servesAsCounsellorFor(User $student): bool
+    {
+        if (! $this->isCounsellor() || ! $student->isStudent()) {
+            return false;
+        }
+
+        $profile = $this->counsellorProfile;
+
+        return $profile
+            && (int) $student->assigned_counsellor_profile_id === (int) $profile->id;
     }
 }

@@ -1,4 +1,4 @@
-@extends('layout.auth')
+@extends('layout.panel')
 
 @section('title', 'Chat')
 
@@ -17,7 +17,7 @@
 </style>
 @endpush
 
-@section('content')
+@section('auth_content')
     <h1>Student-Counsellor Chat</h1>
     <p class="sub">Secure direct messaging between assigned students and counsellors.</p>
     @if(($totalUnread ?? 0) > 0)
@@ -86,13 +86,5 @@
                 <p class="hint">No active chat yet. Students: attach with a counsellor first. Counsellors: wait for students to attach.</p>
             @endif
         </div>
-    </div>
-
-    <div class="toplinks" style="margin-top:16px;">
-        @if(auth()->user()->isStudent())
-            <a href="{{ route('student.index') }}">Back to student dashboard</a>
-        @elseif(auth()->user()->isCounsellor())
-            <a href="{{ route('counsellor.index') }}">Back to counsellor dashboard</a>
-        @endif
     </div>
 @endsection

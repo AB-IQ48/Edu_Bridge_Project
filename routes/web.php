@@ -7,8 +7,11 @@ use App\Http\Controllers\Auth\RegisterCompanyController;
 use App\Http\Controllers\Auth\RegisterStudentController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CounsellorController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\CounsellorListingController;
+use App\Http\Controllers\CounsellorNotificationController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\AdminComplaintController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ScoreController;
@@ -32,6 +35,13 @@ Route::get('/verification', fn () => view('pages.verification'))->name('pages.ve
 Route::get('/visa-readiness', fn () => view('pages.visa-readiness'))->name('pages.visa-readiness');
 Route::get('/for-you', fn () => view('pages.for-you'))->name('pages.for-you');
 Route::get('/faq', fn () => view('pages.faq'))->name('pages.faq');
+Route::get('/about', fn () => view('pages.about'))->name('pages.about');
+Route::get('/research', fn () => view('pages.research'))->name('pages.research');
+Route::get('/contact', fn () => view('pages.contact'))->name('pages.contact');
+Route::get('/privacy', fn () => view('pages.privacy'))->name('pages.privacy');
+Route::get('/terms', fn () => view('pages.terms'))->name('pages.terms');
+Route::get('/data-security', fn () => view('pages.data-security'))->name('pages.data-security');
+Route::get('/complaints', fn () => view('pages.complaints'))->name('pages.complaints');
 
 // Verified counsellors listing & public profiles. Students attach via POST (auth required).
 Route::get('/counsellors', [CounsellorListingController::class, 'index'])->name('counsellors.index');
@@ -42,7 +52,9 @@ Route::post('/counsellors/{counsellorProfile}/attach', [CounsellorListingControl
 // Guest: login and registration
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'create'])->name('login');
-    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+    Route::post('/login', [LoginController::class, 'store'])
+        ->middleware('throttle:8,1')
+        ->name('login.store');
 
     Route::get('/forgot-password', [ForgotPasswordController::class, 'create'])->name('password.request');
     Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])->name('password.email');
@@ -73,8 +85,14 @@ Route::middleware(['auth', 'role:administrator'])->prefix('admin')->name('admin.
     Route::get('/counsellors', [AdminController::class, 'counsellorsIndex'])->name('counsellors.index');
     Route::get('/counsellors/{counsellorProfile}', [AdminController::class, 'counsellorShow'])->name('counsellors.show');
     Route::get('/documents', [AdminController::class, 'documentsIndex'])->name('documents.index');
+    Route::get('/documents/{document}/file', [AdminController::class, 'downloadCounsellorDocument'])->name('documents.file');
+    Route::get('/students', [AdminController::class, 'studentsIndex'])->name('students.index');
+    Route::get('/visa-scores', [AdminController::class, 'scoresIndex'])->name('scores.index');
     Route::post('/profiles/{counsellorProfile}/review', [AdminController::class, 'reviewProfile'])->name('profiles.review');
     Route::post('/documents/{document}/review', [AdminController::class, 'reviewDocument'])->name('documents.review');
+    Route::get('/complaints', [AdminComplaintController::class, 'index'])->name('complaints.index');
+    Route::get('/complaints/{complaint}', [AdminComplaintController::class, 'show'])->name('complaints.show');
+    Route::post('/complaints/{complaint}', [AdminComplaintController::class, 'update'])->name('complaints.update');
 });
 
 // Counsellor: profile and documents
@@ -82,9 +100,21 @@ Route::middleware(['auth', 'role:counsellor'])->prefix('counsellor')->name('coun
     Route::get('/', [CounsellorController::class, 'index'])->name('index');
     Route::get('/profile/edit', [CounsellorController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [CounsellorController::class, 'update'])->name('profile.update');
+    Route::get('/notifications', [CounsellorNotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/{id}/open', [CounsellorNotificationController::class, 'open'])
+        ->whereUuid('id')
+        ->name('notifications.open');
+    Route::post('/notifications/read-all', [CounsellorNotificationController::class, 'readAll'])->name('notifications.read-all');
+    Route::get('/complaints', [ComplaintController::class, 'index'])->defaults('panel', 'counsellor')->name('complaints.index');
+    Route::get('/complaints/create', [ComplaintController::class, 'create'])->defaults('panel', 'counsellor')->name('complaints.create');
+    Route::post('/complaints', [ComplaintController::class, 'store'])
+        ->middleware('throttle:10,60')
+        ->defaults('panel', 'counsellor')
+        ->name('complaints.store');
+    Route::get('/complaints/{complaint}', [ComplaintController::class, 'show'])->defaults('panel', 'counsellor')->name('complaints.show');
 });
 
-Route::middleware(['auth', 'role:counsellor'])->resource('documents', DocumentController::class)->except(['edit', 'update']);
+Route::middleware(['auth', 'role:counsellor'])->resource('documents', DocumentController::class)->only(['index', 'create', 'store', 'show']);
 
 // Student: profile, documents, and visa scores
 Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function () {
@@ -93,6 +123,13 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
     Route::get('/documents', [StudentDocumentController::class, 'index'])->name('documents.index');
     Route::get('/documents/create', [StudentDocumentController::class, 'create'])->name('documents.create');
     Route::post('/documents', [StudentDocumentController::class, 'store'])->name('documents.store');
+    Route::get('/complaints', [ComplaintController::class, 'index'])->defaults('panel', 'student')->name('complaints.index');
+    Route::get('/complaints/create', [ComplaintController::class, 'create'])->defaults('panel', 'student')->name('complaints.create');
+    Route::post('/complaints', [ComplaintController::class, 'store'])
+        ->middleware('throttle:10,60')
+        ->defaults('panel', 'student')
+        ->name('complaints.store');
+    Route::get('/complaints/{complaint}', [ComplaintController::class, 'show'])->defaults('panel', 'student')->name('complaints.show');
 });
 
 Route::middleware(['auth', 'role:student'])->prefix('scores')->name('scores.')->group(function () {

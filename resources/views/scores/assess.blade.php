@@ -1,10 +1,10 @@
-@extends('layout.auth')
+@extends('layout.panel')
 
 @section('title', 'Visa Readiness Assessment')
 
 @section('card_class', 'card--wide')
 
-@section('content')
+@section('auth_content')
     <p class="role-badge-inline" style="margin-bottom:10px;">Student · Visa readiness</p>
     <h1>Visa readiness assessment</h1>
     <p class="sub">Pick where you want to study first, then answer honestly. Your score follows <strong>fixed rules</strong> (no hidden AI). Weights: academic 25%, financial 25%, language 20%, documents 20%, interview 10%. Rules change, so always check the <strong>official immigration or embassy page</strong> for your country. We put useful official links on your result page.</p>

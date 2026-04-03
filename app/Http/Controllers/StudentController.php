@@ -34,6 +34,7 @@ class StudentController extends Controller
             'latestScore' => $latestScore,
             'assignedCounsellor' => $assignedCounsellor,
             'unreadChatCount' => $unreadChatCount,
+            'recentComplaints' => $user->complaints()->latest()->limit(8)->get(),
         ]);
     }
 

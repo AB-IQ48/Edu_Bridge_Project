@@ -11,12 +11,14 @@
     </div>
     <ul style="margin-top:16px; padding-left:0; list-style:none;">
         @forelse($documents as $d)
-            <li style="padding:12px 14px; border:1px solid rgba(0,0,0,.08); border-radius:10px; margin-bottom:10px; background:#fff; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+            <li style="margin-bottom:10px;">
+                <a href="{{ route('documents.show', $d) }}" style="padding:12px 14px; border:1px solid rgba(0,0,0,.08); border-radius:10px; background:#fff; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; text-decoration:none; color:inherit; transition:border-color .2s, box-shadow .2s;">
                 <span>
                     <strong>{{ $d->document_name }}</strong>
                     <span class="hint" style="margin-left:6px;">({{ ucfirst($d->status) }})</span>
                 </span>
-                <a href="{{ route('documents.show', $d) }}">View</a>
+                <span style="color:var(--sage); font-weight:700; font-size:0.88rem;">View →</span>
+                </a>
             </li>
         @empty
             <li>No documents yet.</li>

@@ -138,7 +138,7 @@
           <span class="cp-badge">✓ EduBridge verified</span>
           </div>
         <div class="cp-meta" style="margin-top:10px;">
-          <span class="cp-pill">📍 {{ $profile->city ?: 'Pakistan' }}</span>
+          <span class="cp-pill">📍 {{ $profile->city ?: 'Location not specified' }}</span>
           <span class="cp-pill">⏱ {{ $profile->experience_years }}+ years experience</span>
           </div>
         <div class="cp-actions">
@@ -158,7 +158,7 @@
           @else
             <a href="{{ route('login') }}" class="cp-btn-primary">Login to connect</a>
           @endauth
-          <a href="{{ route('counsellors.index') }}" class="cp-btn-outline">← All counsellors</a>
+          <a href="{{ route('counsellors.index') }}" class="cp-btn-outline">All counsellors</a>
         </div>
       </div>
     </div>

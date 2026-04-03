@@ -100,7 +100,11 @@ class ChatController extends Controller
 
         try {
             $preview = mb_strimwidth(trim($data['message']), 0, 120, '...');
-            $user->notify(new ChatMessageReceivedNotification($authUser->name, $preview));
+            $user->notify(new ChatMessageReceivedNotification(
+                senderName: $authUser->name,
+                messagePreview: $preview,
+                senderUserId: $authUser->id
+            ));
         } catch (\Throwable $e) {
             Log::warning('Chat message notification failed.', [
                 'sender_id' => $authUser->id,

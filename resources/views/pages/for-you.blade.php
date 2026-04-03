@@ -16,7 +16,7 @@
   </div>
   <div style="max-width:1200px;margin:0 auto;padding:0 32px">
     <div class="roles-grid">
-      <div class="role-card">
+      <div class="role-card" id="for-students">
         <div class="role-label">For Students</div>
         <h3 class="role-title">Study abroad without fear of fraud</h3>
         <p class="role-desc">You're making one of the biggest decisions of your life. EduBridge ensures the person guiding you has been verified, accountable, and is measured on your actual success.</p>
@@ -28,7 +28,7 @@
         </div>
         <a href="{{ route('register.student') }}" class="role-cta">Start as a Student →</a>
       </div>
-      <div class="role-card">
+      <div class="role-card" id="for-counsellors">
         <div class="role-label">For Counsellors</div>
         <h3 class="role-title">Differentiate through verified credibility</h3>
         <p class="role-desc">Stand out in a crowded market by proving your legitimacy. EduBridge verification gives ethical consultants a competitive edge over fraudulent operators.</p>

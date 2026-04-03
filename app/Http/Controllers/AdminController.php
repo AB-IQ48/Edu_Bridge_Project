@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Complaint;
 use App\Models\CounsellorProfile;
 use App\Models\Document;
 use App\Models\User;
@@ -46,6 +47,7 @@ class AdminController extends Controller
             'documents_pending' => Document::where('status', 'pending')->count(),
             'students_total' => User::whereHas('role', fn ($q) => $q->where('name', 'student'))->count(),
             'scores_total' => VisaScore::count(),
+            'complaints_pending' => Complaint::where('status', Complaint::STATUS_PENDING)->count(),
         ];
 
         return view('admin.dashboard', [

@@ -377,6 +377,7 @@
   <div class="sd-quick-actions">
     <a href="{{ route('scores.assess') }}" class="primary">Visa assessment (questions)</a>
     <a href="{{ route('student.documents.create') }}">Upload document</a>
+    <a href="{{ route('student.complaints.create') }}">Make a complaint</a>
     <a href="{{ route('student.profile') }}">Profile hub</a>
     <a href="{{ route('chat.index') }}">Chat
       @if(($unreadChatCount ?? 0) > 0)<span class="sd-badge">{{ $unreadChatCount }}</span>@endif
@@ -429,9 +430,9 @@
     </ul>
   </section>
 
-  <div class="sd-footer-actions">
+  <div class="sd-footer-actions" style="align-items:center; flex-wrap:wrap;">
     <a href="{{ url('/') }}">Home</a>
-    <a href="{{ route('dashboard') }}">Dashboard</a>
+    <a href="{{ route('dashboard') }}">Account</a>
     <form method="POST" action="{{ route('logout') }}">@csrf<button type="submit" class="btn-logout">Log out</button></form>
   </div>
 </div>

@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="grid">
                         <label for="city">City / region</label>
-                        <input id="city" name="city" value="{{ old('city', $profile->city) }}" placeholder="e.g. Lahore">
+                        <input id="city" name="city" value="{{ old('city', $profile->city) }}" placeholder="e.g. Manchester, Singapore, Dubai">
                     </div>
                     <div class="grid">
                         <label for="experience_years">Years of experience</label>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="grid">
                     <label for="languages">Languages (comma-separated)</label>
-                    <input id="languages" name="languages" value="{{ old('languages', $profile->languages) }}" placeholder="e.g. English, Urdu">
+                    <input id="languages" name="languages" value="{{ old('languages', $profile->languages) }}" placeholder="e.g. English, Spanish, Arabic">
                 </div>
             </div>
         </div>
@@ -89,12 +89,11 @@
 
         <button class="btn btn--sage" type="submit">Save profile</button>
     </form>
-    <div class="toplinks" style="margin-top:16px">
+    <div class="toplinks" style="margin-top:16px; align-items:center;">
         @if($profile->verification_status === 'approved')
             <a href="{{ route('counsellors.show', $profile) }}">Preview public profile</a>
         @else
             <span class="hint" style="display:inline-block;padding-top:4px;">Your public page goes live after verification.</span>
         @endif
-        <a href="{{ route('counsellor.index') }}">Counsellor dashboard</a>
     </div>
 @endsection

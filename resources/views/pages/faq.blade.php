@@ -14,7 +14,7 @@
       <div class="faq-side">
         <h2 class="section-title" style="font-size:2rem">Common questions</h2>
         <p class="faq-side-note">We've collected the most frequent questions from students and counsellors. Can't find your answer? Contact our team and we'll respond within one business day.</p>
-        <a href="{{ route('login') }}" class="role-cta" style="display:inline-block;margin-top:24px">Contact us →</a>
+        <a href="{{ route('pages.contact') }}" class="role-cta" style="display:inline-block;margin-top:24px">Contact us →</a>
       </div>
       <div class="faq-items">
         <div class="faq-item open">

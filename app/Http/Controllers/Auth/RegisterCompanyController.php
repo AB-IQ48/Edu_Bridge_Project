@@ -10,7 +10,6 @@ use App\Notifications\AdminVerificationDocumentUploadedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules\Password;
 
@@ -49,12 +48,13 @@ class RegisterCompanyController extends Controller
         }
 
         $user = DB::transaction(function () use ($data, $website, $request) {
-            $user = User::create([
-                'role_id' => 2,
+            $user = new User([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'password' => Hash::make($data['password']),
+                'password' => $data['password'],
             ]);
+            $user->role_id = 2;
+            $user->save();
 
             $profile = CounsellorProfile::create([
                 'user_id' => $user->id,

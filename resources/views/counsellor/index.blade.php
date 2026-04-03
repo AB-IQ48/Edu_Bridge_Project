@@ -32,30 +32,11 @@
         box-shadow: 0 8px 18px rgba(74,124,107,.12);
         transform: translateY(-1px);
     }
-    .cs-back {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 12px;
-        padding: 8px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,.28);
-        background: rgba(255,255,255,.1);
-        color: #fff;
-        text-decoration: none;
-        font-size: .84rem;
-        font-weight: 700;
-    }
-    .cs-back:hover {
-        background: rgba(255,255,255,.18);
-        text-decoration: none;
-    }
 </style>
 @endpush
 
 @section('content')
     <div class="cs-hero">
-        <a class="cs-back" href="{{ url()->previous() !== url()->current() ? url()->previous() : route('dashboard') }}">← Back</a>
         <p class="role-badge-inline" style="margin-bottom:8px; background:rgba(255,255,255,.16); color:#fff;">Counsellor</p>
         <h1>Counsellor Dashboard</h1>
         <p class="sub">Manage your public profile, verification documents, and student chat from one place.</p>
@@ -70,14 +51,22 @@
                 Verification: {{ ucfirst($profile->verification_status) }}
             </div>
             <div class="stat-mini-grid">
-                <div class="stat-mini">
-                    <div class="num">{{ $profile->experience_years }}</div>
-                    <div class="lbl">Years experience</div>
-                </div>
+                <a href="{{ route('counsellor.profile.edit') }}" class="stat-mini-link" title="Edit profile">
+                    <div class="stat-mini">
+                        <div class="num">{{ $profile->experience_years }}</div>
+                        <div class="lbl">Years experience</div>
+                    </div>
+                </a>
                 <a href="{{ route('chat.index') }}" class="stat-mini-link" title="Open chat inbox">
                     <div class="stat-mini">
                         <div class="num">{{ $unreadChatCount ?? 0 }}</div>
                         <div class="lbl">Unread chat messages</div>
+                    </div>
+                </a>
+                <a href="{{ route('counsellor.notifications.index') }}" class="stat-mini-link" title="Account notifications">
+                    <div class="stat-mini">
+                        <div class="num">{{ (int) ($counsellorUnreadNotificationsCount ?? 0) }}</div>
+                        <div class="lbl">Unread alerts</div>
                     </div>
                 </a>
             </div>
@@ -98,13 +87,20 @@
                     <span class="chip chip--danger" style="margin-left:4px; padding:2px 7px;">{{ $unreadChatCount }}</span>
                 @endif
             </a>
+            @php $ebNotify = (int) ($counsellorUnreadNotificationsCount ?? 0); @endphp
+            <a href="{{ route('counsellor.notifications.index') }}">
+                Notifications
+                @if($ebNotify > 0)
+                    <span class="chip chip--warn" style="margin-left:4px; padding:2px 7px;">{{ $ebNotify > 99 ? '99+' : $ebNotify }}</span>
+                @endif
+            </a>
+            <a href="{{ route('counsellor.complaints.index') }}">Complaints</a>
         </div>
     @else
         <div class="alert alert--error">No counsellor profile found yet.</div>
     @endif
 
-    <div class="toplinks" style="margin-top:16px">
-        <a href="{{ route('dashboard') }}">Dashboard</a>
+    <div class="toplinks" style="margin-top:16px;">
         <form method="POST" action="{{ route('logout') }}" style="display:inline">
             @csrf
             <button type="submit" class="btn btn--ghost" style="width:auto; padding:8px 16px">Logout</button>

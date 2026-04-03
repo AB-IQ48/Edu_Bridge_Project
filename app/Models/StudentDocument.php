@@ -24,4 +24,21 @@ class StudentDocument extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Student documents are visible to the owning student and their assigned counsellor only.
+     */
+    public function canBeViewedBy(User $viewer): bool
+    {
+        if ($this->user_id === $viewer->id) {
+            return true;
+        }
+
+        $owner = $this->relationLoaded('user') ? $this->user : $this->user()->first();
+        if (! $owner || ! $owner->isStudent()) {
+            return false;
+        }
+
+        return $viewer->servesAsCounsellorFor($owner);
+    }
 }

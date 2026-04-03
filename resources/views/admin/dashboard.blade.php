@@ -51,6 +51,12 @@
             <div class="label">Visa Scores</div>
         </div>
         </a>
+        <a href="{{ route('admin.complaints.index', ['status' => 'pending']) }}" style="text-decoration:none; color:inherit;">
+        <div class="stat-box pending">
+            <div class="num">{{ $stats['complaints_pending'] }}</div>
+            <div class="label">Pending complaints</div>
+        </div>
+        </a>
     </div>
 
     <div class="admin-card">

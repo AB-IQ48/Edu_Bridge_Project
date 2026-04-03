@@ -6,7 +6,7 @@
   <title>@yield('title', 'EduBridge | Verified education consultancy')</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -39,6 +39,11 @@
     .content {
       padding-top: 96px;
       min-height: 100vh;
+    }
+    .content-back-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 32px 0;
     }
     .page-shell {
       max-width: 520px;
@@ -786,6 +791,50 @@
     }
     .cta-btn-outline:hover { border-color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.08); }
 
+    /* Static content (about, legal, contact) */
+    .static-page {
+      padding: 100px 0 120px;
+      background: var(--white);
+      min-height: 45vh;
+    }
+    .static-page .static-inner { max-width: 720px; }
+    .static-page h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .static-page .static-updated {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .static-page .static-prose {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .static-page .static-prose h2 {
+      font-size: 1.08rem;
+      color: var(--ink);
+      margin: 28px 0 12px;
+      font-weight: 600;
+    }
+    .static-page .static-prose p { margin: 0 0 14px; }
+    .static-page .static-prose ul { margin: 0 0 14px; padding-left: 20px; }
+    .static-page .static-prose li { margin-bottom: 8px; }
+    .static-page .static-prose a { color: var(--sage); font-weight: 600; }
+    .static-contact-card {
+      margin-top: 24px;
+      padding: 20px 22px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: linear-gradient(180deg, #fafafa, #fff);
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--ink);
@@ -814,6 +863,32 @@
       align-items: center;
     }
     .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+    /* ── COUNSELLOR IN-APP NOTIFICATIONS ── */
+    .eb-notify-bell-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--sage);
+      text-decoration: none;
+    }
+    .eb-notify-bell-link:hover { text-decoration: underline; }
+    .eb-notify-badge {
+      min-width: 1.35rem;
+      height: 1.35rem;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: #dc2626;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
@@ -856,6 +931,9 @@
       .footer-bottom { flex-direction: column; gap: 16px; }
     }
   </style>
+  @include('partials.back-button-styles')
+  @stack('styles')
+  @stack('auth_styles')
 </head>
 <body>
   @php
@@ -890,6 +968,7 @@
             @if(auth()->user()->isAdministrator())
               <a href="{{ route('admin.index') }}" class="nav-cta">Admin</a>
             @elseif(auth()->user()->isCounsellor())
+              @include('partials.counsellor-notification-bell')
               <a href="{{ route('counsellor.index') }}" class="nav-cta">Dashboard</a>
             @elseif(auth()->user()->isStudent())
               <a href="{{ route('student.index') }}" class="nav-cta">Dashboard</a>
@@ -905,9 +984,16 @@
   </header>
 
 
-  <div class = "content">
+  <div class="content">
+    @unless(View::hasSection('no_back'))
+      @unless(request()->is('/'))
+        <div class="content-back-wrap">
+          @include('partials.back-button')
+        </div>
+      @endunless
+    @endunless
     @yield('content')
-</div>
+  </div>
 
 
   <div id="menuOverlay" class="menu-overlay"></div>
@@ -927,26 +1013,26 @@
             <a href="{{ route('pages.how-it-works') }}">How It Works</a>
             <a href="{{ route('pages.verification') }}">Verification</a>
             <a href="{{ route('pages.visa-readiness') }}">Visa Readiness</a>
-            <a href="{{ route('pages.for-you') }}">For Students</a>
-            <a href="{{ route('pages.for-you') }}">For Counsellors</a>
+            <a href="{{ route('pages.for-you') }}#for-students">For Students</a>
+            <a href="{{ route('pages.for-you') }}#for-counsellors">For Counsellors</a>
           </div>
         </div>
         <div>
           <div class="footer-col-title">Company</div>
           <div class="footer-links">
-            <a href="{{ route('pages.for-you') }}">About EduBridge</a>
-            <a href="{{ url('/') }}">Research</a>
+            <a href="{{ route('pages.about') }}">About EduBridge</a>
+            <a href="{{ route('pages.research') }}">Research</a>
             <a href="{{ route('pages.faq') }}">FAQ</a>
-            <a href="{{ route('login') }}">Contact</a>
+            <a href="{{ route('pages.contact') }}">Contact</a>
           </div>
         </div>
         <div>
           <div class="footer-col-title">Legal</div>
           <div class="footer-links">
-            <a href="{{ url('/') }}">Privacy Policy</a>
-            <a href="{{ url('/') }}">Terms of Service</a>
-            <a href="{{ url('/') }}">Data Security</a>
-            <a href="{{ url('/') }}">Complaint Policy</a>
+            <a href="{{ route('pages.privacy') }}">Privacy Policy</a>
+            <a href="{{ route('pages.terms') }}">Terms of Service</a>
+            <a href="{{ route('pages.data-security') }}">Data Security</a>
+            <a href="{{ route('pages.complaints') }}">Complaint Policy</a>
           </div>
         </div>
       </div>
