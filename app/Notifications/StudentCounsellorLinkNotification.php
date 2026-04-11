@@ -34,7 +34,7 @@ class StudentCounsellorLinkNotification extends Notification
             'category' => 'student_link',
             'title' => $this->action === 'attached' ? 'Student connected' : 'Student disconnected',
             'body' => $body,
-            'action_url' => route('counsellor.index'),
+            'action_url' => route('counsellor.index', [], false),
             'action_label' => 'Dashboard',
         ];
     }

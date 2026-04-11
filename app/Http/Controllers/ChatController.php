@@ -84,7 +84,12 @@ class ChatController extends Controller
     {
         $authUser = $request->user();
 
-        if (! $this->allowedContacts($authUser)->contains('id', $user->id)) {
+        if ($authUser->isStudent()) {
+            $assignedCounsellorUser = $authUser->assignedCounsellorProfile?->user;
+            if (! $assignedCounsellorUser || (int) $assignedCounsellorUser->id !== (int) $user->id) {
+                abort(403, 'You can only send messages to your current assigned counsellor.');
+            }
+        } elseif (! $this->allowedContacts($authUser)->contains('id', $user->id)) {
             abort(403, 'Unauthorized chat access.');
         }
 
@@ -119,12 +124,7 @@ class ChatController extends Controller
     private function allowedContacts(User $user)
     {
         if ($user->isStudent()) {
-            $profile = $user->assignedCounsellorProfile;
-            if (! $profile || ! $profile->user) {
-                return collect();
-            }
-
-            return collect([$profile->user]);
+            return $this->studentChatContacts($user);
         }
 
         if ($user->isCounsellor()) {
@@ -140,5 +140,53 @@ class ChatController extends Controller
         }
 
         return collect();
+    }
+
+    /**
+     * Counsellors the student may open in chat: current assigned counsellor plus any former counsellor
+     * they exchanged messages with (history is kept when switching counsellor).
+     */
+    private function studentChatContacts(User $student): \Illuminate\Support\Collection
+    {
+        $idsFromMessages = $this->counsellorUserIdsFromChatHistory($student);
+
+        $contacts = User::query()
+            ->whereIn('id', $idsFromMessages)
+            ->whereHas('role', fn ($q) => $q->where('name', 'counsellor'))
+            ->orderBy('name')
+            ->get();
+
+        $current = $student->assignedCounsellorProfile?->user;
+        if ($current && ! $contacts->contains('id', $current->id)) {
+            $contacts->prepend($current);
+        } elseif ($current) {
+            $contacts = $contacts->sortBy(function (User $u) use ($current) {
+                return $u->id === $current->id ? '0' : '1'.$u->name;
+            })->values();
+        }
+
+        return $contacts->unique('id')->values();
+    }
+
+    /**
+     * @return list<int>
+     */
+    private function counsellorUserIdsFromChatHistory(User $student): array
+    {
+        $peerIds = ChatMessage::query()
+            ->where(function ($q) use ($student) {
+                $q->where('sender_id', $student->id)
+                    ->orWhere('receiver_id', $student->id);
+            })
+            ->get()
+            ->map(function (ChatMessage $m) use ($student) {
+                return (int) ($m->sender_id === $student->id ? $m->receiver_id : $m->sender_id);
+            })
+            ->unique()
+            ->filter(fn (int $id) => $id !== (int) $student->id)
+            ->values()
+            ->all();
+
+        return array_values($peerIds);
     }
 }

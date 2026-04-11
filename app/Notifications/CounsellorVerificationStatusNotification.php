@@ -39,8 +39,8 @@ class CounsellorVerificationStatusNotification extends Notification
         }
 
         $actionUrl = $this->itemType === 'document'
-            ? route('documents.index')
-            : route('counsellor.index');
+            ? route('documents.index', [], false)
+            : route('counsellor.index', [], false);
 
         return [
             'category' => 'verification',

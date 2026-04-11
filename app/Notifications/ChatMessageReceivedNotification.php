@@ -27,9 +27,10 @@ class ChatMessageReceivedNotification extends Notification
      */
     public function toArray(object $notifiable): array
     {
+        // Root-relative paths survive APP_URL / subdirectory differences when opening from DB.
         $actionUrl = $this->senderUserId !== null
-            ? route('chat.show', ['user' => $this->senderUserId])
-            : route('chat.index');
+            ? route('chat.show', ['user' => $this->senderUserId], false)
+            : route('chat.index', [], false);
 
         return [
             'category' => 'chat',
