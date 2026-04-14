@@ -37,7 +37,7 @@
                             @if($c->submitter)
                                 <a href="mailto:{{ $c->submitter->email }}" class="table-link">{{ $c->submitter->name }}</a>
                             @else
-                                —
+                                {{ $c->guest_name ?? 'Guest' }}
                             @endif
                         </td>
                         <td><a href="{{ route('admin.complaints.show', $c) }}" class="table-link">{{ \Illuminate\Support\Str::limit($c->subject, 60) }}</a></td>

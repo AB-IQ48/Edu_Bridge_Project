@@ -387,6 +387,44 @@
     <p class="sd-chat-note">💬 Connect with a counsellor from the list to unlock chat and guided support.</p>
   @endif
 
+  <h2 class="sd-section-title"><span>🧾</span>Complaint history</h2>
+  @if(($recentComplaints ?? collect())->count() > 0)
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 28px;">
+      @foreach($recentComplaints as $c)
+        @php
+          $st = $c->status;
+          $chipClass = $st === 'resolved' ? 'chip--ok' : ($st === 'closed' ? 'chip--muted' : ($st === 'in_review' ? 'chip--warn' : 'chip--danger'));
+        @endphp
+        <a href="{{ route('student.complaints.show', $c) }}" style="display:block; text-decoration:none; color:inherit; background: var(--white); border: 1px solid rgba(0,0,0,0.07); border-radius: 16px; padding: 16px 16px 14px; box-shadow: 0 4px 18px rgba(0,0,0,0.05);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap: 10px;">
+            <div style="min-width:0">
+              <div style="font-weight:800; color: var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $c->subject }}</div>
+              <div class="hint" style="margin-top:6px;">
+                {{ \App\Models\Complaint::categories()[$c->category] ?? $c->category }}
+                · {{ $c->created_at->format('M j, Y') }}
+              </div>
+            </div>
+            <span class="chip {{ $chipClass }}" style="text-transform:capitalize; white-space:nowrap;">{{ str_replace('_', ' ', $st) }}</span>
+          </div>
+          @if($c->admin_response)
+            <div class="hint" style="margin-top:10px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
+              Admin response: {{ $c->admin_response }}
+            </div>
+          @endif
+        </a>
+      @endforeach
+    </div>
+    <div class="sd-quick-actions" style="margin-top:-12px">
+      <a href="{{ route('student.complaints.index') }}">View all complaints</a>
+      <a href="{{ route('student.complaints.create') }}" class="primary">New complaint</a>
+    </div>
+  @else
+    <div class="sd-empty" style="margin-bottom: 28px;">
+      <p style="margin:0 0 12px;">You have not submitted any complaints yet.</p>
+      <a href="{{ route('student.complaints.create') }}" style="display:inline-block; padding:12px 22px; border-radius:999px; background:linear-gradient(135deg,#4a7c6b,#3d6b5c); color:#fff; font-weight:700; text-decoration:none;">Make a complaint</a>
+    </div>
+  @endif
+
   <h2 class="sd-section-title"><span>📈</span>Recent scores</h2>
   @if($scores->count() > 0)
     <ul class="sd-scores-list">
@@ -432,7 +470,6 @@
 
   <div class="sd-footer-actions" style="align-items:center; flex-wrap:wrap;">
     <a href="{{ url('/') }}">Home</a>
-    <a href="{{ route('dashboard') }}">Account</a>
     <form method="POST" action="{{ route('logout') }}">@csrf<button type="submit" class="btn-logout">Log out</button></form>
   </div>
 </div>

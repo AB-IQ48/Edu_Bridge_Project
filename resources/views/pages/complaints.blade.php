@@ -16,6 +16,7 @@
         <li>Other behaviour that violates our <a href="{{ route('pages.terms') }}">Terms of Service</a> or community expectations.</li>
     </ul>
     <h2>How to report</h2>
+    <p><strong>Without logging in:</strong> you can submit a complaint using the public form on our homepage: <a href="{{ route('home') }}#make-complaint">Make a complaint</a>.</p>
     @auth
         @if(auth()->user()->isStudent())
             <p><strong>Signed in as a student:</strong> use <a href="{{ route('student.complaints.create') }}">Make a complaint</a> in your account (also linked from your dashboard). That sends your report securely with your account details.</p>
@@ -25,6 +26,12 @@
     @endauth
     <p>You can also email <a href="mailto:support@edubridge.pk">support@edubridge.pk</a> with a clear description, dates, and any relevant screenshots or message IDs. Include your account email if you are logged in.</p>
     <p>For general enquiries, see <a href="{{ route('pages.contact') }}">Contact</a>.</p>
+    <h2>Who can see your complaint</h2>
+    <ul>
+        <li><strong>Students and counsellors:</strong> only you can view your submitted complaints and the admin response inside your panel.</li>
+        <li><strong>Administrators:</strong> can view complaints to review and update status.</li>
+        <li><strong>Public submissions:</strong> do not create a public tracking page; for updates, please submit through your account if possible.</li>
+    </ul>
     <h2>What we do next</h2>
     <p>We acknowledge receipt when possible, review facts in line with our moderation capacity, and may take action such as warnings, suspension, or removal from the platform, or escalation to authorities where required.</p>
     <h2>Visa and legal disputes</h2>

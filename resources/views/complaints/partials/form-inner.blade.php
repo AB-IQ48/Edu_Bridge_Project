@@ -6,7 +6,7 @@
     @csrf
     <div>
         <label for="category">Category</label>
-        <select id="category" name="category" required style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.14);">
+        <select id="category" name="category" required>
             <option value="" disabled {{ old('category') ? '' : 'selected' }}>Choose one</option>
             @foreach($categories as $key => $label)
                 <option value="{{ $key }}" @selected(old('category') === $key)>{{ $label }}</option>
@@ -15,11 +15,11 @@
     </div>
     <div>
         <label for="subject">Subject</label>
-        <input id="subject" name="subject" type="text" required maxlength="255" value="{{ old('subject') }}" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.14);">
+        <input id="subject" name="subject" type="text" required maxlength="255" value="{{ old('subject') }}">
     </div>
     <div>
         <label for="body">Details</label>
-        <textarea id="body" name="body" rows="8" required maxlength="8000" style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,0.14); resize:vertical;">{{ old('body') }}</textarea>
+        <textarea id="body" name="body" rows="8" required maxlength="8000">{{ old('body') }}</textarea>
     </div>
     <div style="display:flex; flex-wrap:wrap; gap:10px;">
         <button type="submit" class="btn btn--sage" style="width:auto; padding:11px 20px;">Submit complaint</button>

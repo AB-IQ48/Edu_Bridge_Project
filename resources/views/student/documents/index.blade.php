@@ -32,6 +32,7 @@
                         · {{ $d->created_at->format('M j, Y') }}
                     </div>
                 </div>
+                <a href="{{ route('student.documents.download', $d) }}" class="btn btn--ghost" style="width:auto; padding:10px 16px; font-size:0.88rem; text-decoration:none;">Open</a>
             </li>
         @empty
             <li style="text-align:center; padding:40px 20px; border-radius:14px; border:2px dashed rgba(0,0,0,0.1); background:rgba(255,255,255,0.7);">

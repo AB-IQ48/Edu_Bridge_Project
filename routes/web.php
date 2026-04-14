@@ -17,6 +17,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentDocumentController;
+use App\Http\Controllers\CounsellorStudentDocumentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('home');
+
+// Public complaint submission (no login required)
+Route::post('/complaints/public', [\App\Http\Controllers\PublicComplaintController::class, 'store'])
+    ->middleware('throttle:10,60')
+    ->name('complaints.public.store');
 
 // Public info pages (header tabs)
 Route::get('/how-it-works', fn () => view('pages.how-it-works'))->name('pages.how-it-works');
@@ -112,6 +118,12 @@ Route::middleware(['auth', 'role:counsellor'])->prefix('counsellor')->name('coun
         ->defaults('panel', 'counsellor')
         ->name('complaints.store');
     Route::get('/complaints/{complaint}', [ComplaintController::class, 'show'])->defaults('panel', 'counsellor')->name('complaints.show');
+
+    // Student documents (assigned students only)
+    Route::get('/assigned-students/{student}/documents', [CounsellorStudentDocumentController::class, 'index'])
+        ->name('assigned-students.documents');
+    Route::get('/student-documents/{studentDocument}/download', [CounsellorStudentDocumentController::class, 'download'])
+        ->name('student-documents.download');
 });
 
 Route::middleware(['auth', 'role:counsellor'])->resource('documents', DocumentController::class)->only(['index', 'create', 'store', 'show']);
@@ -123,6 +135,7 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
     Route::get('/documents', [StudentDocumentController::class, 'index'])->name('documents.index');
     Route::get('/documents/create', [StudentDocumentController::class, 'create'])->name('documents.create');
     Route::post('/documents', [StudentDocumentController::class, 'store'])->name('documents.store');
+    Route::get('/documents/{document}/download', [StudentDocumentController::class, 'download'])->name('documents.download');
     Route::get('/complaints', [ComplaintController::class, 'index'])->defaults('panel', 'student')->name('complaints.index');
     Route::get('/complaints/create', [ComplaintController::class, 'create'])->defaults('panel', 'student')->name('complaints.create');
     Route::post('/complaints', [ComplaintController::class, 'store'])

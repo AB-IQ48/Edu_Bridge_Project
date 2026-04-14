@@ -11,6 +11,9 @@
             @if($complaint->submitter)
                 · <a href="mailto:{{ $complaint->submitter->email }}" class="table-link">{{ $complaint->submitter->name }}</a>
                 ({{ $complaint->submitter->email }})
+            @elseif($complaint->guest_email)
+                · <a href="mailto:{{ $complaint->guest_email }}" class="table-link">{{ $complaint->guest_name ?? 'Guest' }}</a>
+                ({{ $complaint->guest_email }})
             @endif
         </p>
         <h2 style="font-size: 1.05rem; margin-bottom: 8px;">{{ $complaint->subject }}</h2>

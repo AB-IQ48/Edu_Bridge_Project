@@ -1,6 +1,7 @@
 @extends($panel === 'student' ? 'layout.panel' : 'layout.auth')
 
 @section('title', 'My complaints')
+@section('card_class', 'card--wide')
 
 @if($panel === 'student')
 @section('card_class', 'card--wide')

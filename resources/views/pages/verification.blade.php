@@ -53,36 +53,7 @@
       </div>
       <div class="veri-visual">
         <div class="veri-visual-title">Sample Verified Profile</div>
-        <div class="counsellor-card-demo">
-          <div class="counsellor-head">
-            <div class="counsellor-avatar">AR</div>
-            <div>
-              <div class="counsellor-name">Aisha Rahman</div>
-              <div class="counsellor-org">Global Study Advisors · Singapore</div>
-            </div>
-          </div>
-          <div style="margin-bottom:16px">
-            <span class="badge-verified-full">✓ Identity Verified</span>
-            <span class="badge-verified-full" style="margin-left:8px;background:rgba(200,168,75,0.15);border-color:rgba(200,168,75,0.4);color:#e8d49a">★ 4.9 Rating</span>
-          </div>
-          <div class="counsellor-metrics">
-            <div class="metric">
-              <div class="metric-val">7 yrs</div>
-              <div class="metric-key">Experience</div>
-            </div>
-            <div class="metric">
-              <div class="metric-val">340</div>
-              <div class="metric-key">Students Placed</div>
-            </div>
-            <div class="metric">
-              <div class="metric-val">94%</div>
-              <div class="metric-key">Visa Success</div>
-            </div>
-          </div>
-        </div>
-        <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);line-height:1.6">
-          Verified on EduBridge · Last review: Jan 2026 · Profile ID: EB-2024-0341
-        </div>
+        @include('partials.marketing-verified-profile-card')
       </div>
     </div>
   </div>
@@ -109,8 +80,8 @@
 
 <section class="cta-section">
   <div class="container">
-    <h2>Work with verified counsellors</h2>
-    <p>Apply as a counsellor or find one that's right for you.</p>
+    <h2>Get verified guidance — or become verified</h2>
+    <p>Students can work with trusted counsellors. Counsellors can apply and earn the verified badge.</p>
     <div class="cta-actions">
       <a href="{{ route('register.company') }}" class="cta-btn-white">Apply as Counsellor</a>
       <a href="{{ route('register.student') }}" class="cta-btn-outline">Register as Student</a>

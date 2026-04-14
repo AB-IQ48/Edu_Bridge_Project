@@ -107,6 +107,31 @@
         .alert-danger { background: rgba(220,38,38,0.08); color: var(--danger); border: 1px solid rgba(220,38,38,0.25); }
         .filter-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
         .filter-bar select { padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.14); font-size: 0.9rem; }
+        /* Consistent form controls in admin panel */
+        .admin-card label { font-size: 0.88rem; font-weight: 600; color: var(--ink); }
+        .admin-card input[type="text"],
+        .admin-card input[type="email"],
+        .admin-card input[type="password"],
+        .admin-card input[type="number"],
+        .admin-card select,
+        .admin-card textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.14);
+            background: #fff;
+            outline: none;
+            font-family: var(--font-sans);
+            font-size: 0.92rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .admin-card input:focus,
+        .admin-card select:focus,
+        .admin-card textarea:focus {
+            border-color: rgba(74,124,107,0.7);
+            box-shadow: 0 0 0 3px rgba(74,124,107,0.14);
+        }
+        .admin-card textarea { resize: vertical; }
         .pagination { display: flex; gap: 6px; margin-top: 20px; flex-wrap: wrap; }
         .pagination a, .pagination span { padding: 8px 12px; border-radius: 6px; font-size: 0.875rem; text-decoration: none; color: var(--ink); background: var(--white); border: 1px solid rgba(0,0,0,0.1); }
         .pagination a:hover { background: var(--cream); }

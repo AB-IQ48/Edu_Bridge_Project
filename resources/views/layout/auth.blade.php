@@ -59,7 +59,7 @@
         @hasSection('trust_footer')
             <p class="trust-note">@yield('trust_footer')</p>
         @else
-            <p class="trust-note">Secure login. Clear rules for verification and visa scoring. No black-box AI.</p>
+            <p class="trust-note">Secure login. Clear rules for verification and visa scoring.</p>
         @endif
     </div>
 </div>

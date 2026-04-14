@@ -22,8 +22,8 @@
             <span class="score-num">85</span>
           </div>
           <div class="score-meta">
-            <h4>Aisha Rahman</h4>
-            <p>Senior Education Advisor · London, UK</p>
+            <h4>{{ $featuredCounsellor->name }}</h4>
+            <p>{{ $featuredCounsellor->organization }} · {{ $featuredCounsellor->city }}</p>
             <div class="badge-verified-full" style="margin-top:8px">✓ Verified</div>
           </div>
         </div>
@@ -183,36 +183,7 @@
         </div>
         <div class="veri-visual">
           <div class="veri-visual-title">Sample Verified Profile</div>
-          <div class="counsellor-card-demo">
-            <div class="counsellor-head">
-              <div class="counsellor-avatar">AR</div>
-              <div>
-                <div class="counsellor-name">Aisha Rahman</div>
-                <div class="counsellor-org">Global Study Advisors · Toronto, Canada</div>
-              </div>
-            </div>
-            <div style="margin-bottom:16px">
-              <span class="badge-verified-full">✓ Identity Verified</span>
-              <span class="badge-verified-full" style="margin-left:8px;background:rgba(200,168,75,0.15);border-color:rgba(200,168,75,0.4);color:#e8d49a">★ 4.9 Rating</span>
-            </div>
-            <div class="counsellor-metrics">
-              <div class="metric">
-                <div class="metric-val">7 yrs</div>
-                <div class="metric-key">Experience</div>
-              </div>
-              <div class="metric">
-                <div class="metric-val">340</div>
-                <div class="metric-key">Students Placed</div>
-              </div>
-              <div class="metric">
-                <div class="metric-val">94%</div>
-                <div class="metric-key">Visa Success</div>
-              </div>
-            </div>
-          </div>
-          <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);line-height:1.6">
-            Verified on EduBridge · Last review: Jan 2026 · Profile ID: EB-2024-0341
-          </div>
+          @include('partials.marketing-verified-profile-card')
         </div>
       </div>
     </div>
@@ -495,6 +466,64 @@
         <a href="{{ route('counsellors.index') }}" class="cta-btn-white">Find a Verified Counsellor</a>
         <a href="{{ route('register.company') }}" class="cta-btn-outline">Apply as a Counsellor</a>
       </div>
+    </div>
+  </section>
+
+  <!-- Public complaint form -->
+  <section class="trust-section" id="make-complaint" style="padding-top:70px">
+    <div class="container">
+      <div class="section-eyebrow">
+        <span class="eyebrow-num">•</span>
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-tag">Complaints</span>
+      </div>
+      <h2 class="section-title">Make a complaint</h2>
+      <p class="section-sub">Report fraud, misconduct, or a safety issue. You do not need an account to submit a complaint.</p>
+
+      @if(session('complaint_submitted'))
+        <div class="alert alert--success" style="margin-top:18px">Complaint submitted. Our team will review it.</div>
+      @endif
+
+      <form method="POST" action="{{ route('complaints.public.store') }}" class="eb-form" style="margin-top:22px">
+        @csrf
+        <div class="eb-row">
+          <div class="eb-field">
+            <label class="eb-label" for="guest_name">Your name</label>
+            <input id="guest_name" type="text" name="guest_name" value="{{ old('guest_name') }}" required maxlength="120">
+          </div>
+          <div class="eb-field">
+            <label class="eb-label" for="guest_email">Your email</label>
+            <input id="guest_email" type="email" name="guest_email" value="{{ old('guest_email') }}" required maxlength="255">
+          </div>
+        </div>
+
+        <div class="eb-row" style="margin-top:14px">
+          <div class="eb-field">
+            <label class="eb-label" for="category">Category</label>
+            <select id="category" name="category" required>
+              <option value="" disabled {{ old('category') ? '' : 'selected' }}>Choose one</option>
+              @foreach(\App\Models\Complaint::categories() as $key => $label)
+                <option value="{{ $key }}" @selected(old('category') === $key)>{{ $label }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="eb-field">
+            <label class="eb-label" for="subject">Subject</label>
+            <input id="subject" type="text" name="subject" value="{{ old('subject') }}" required maxlength="255">
+          </div>
+        </div>
+
+        <div class="eb-field" style="margin-top:14px">
+          <label class="eb-label" for="body">Details</label>
+          <textarea id="body" name="body" rows="5" required maxlength="8000" placeholder="Explain what happened, when, and who was involved. If relevant, include counsellor name, message timestamps, and any reference numbers.">{{ old('body') }}</textarea>
+          <div class="eb-help">Please don’t share passwords. If you have screenshots, keep them ready—our team may request them.</div>
+        </div>
+
+        <div class="eb-actions">
+          <button type="submit" class="btn-primary-hero" style="border:none">Submit complaint</button>
+          <a href="{{ route('pages.complaints') }}" class="btn-ghost-hero">Read complaint policy</a>
+        </div>
+      </form>
     </div>
   </section>
 

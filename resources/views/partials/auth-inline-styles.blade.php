@@ -238,6 +238,86 @@
         .toplinks a:not(.eb-back):hover { border-color: rgba(74,124,107,.45); text-decoration: none; background: rgba(74,124,107,.05); }
         .hint { color: var(--muted); font-size: 0.86rem; margin-top: 4px; line-height: 1.45; }
         .inline { display: flex; align-items: center; gap: 10px; }
+        /* Complaints UI */
+        .eb-complaints-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .eb-complaints-list {
+            display: grid;
+            gap: 12px;
+            margin: 0;
+            padding: 0;
+        }
+        .eb-complaint-card {
+            display: block;
+            padding: 16px 18px;
+            border-radius: 14px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: #fff;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        }
+        .eb-complaint-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+            border-color: rgba(74,124,107,0.28);
+        }
+        .eb-complaint-top {
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .eb-complaint-title {
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.25;
+        }
+        .eb-complaint-meta {
+            font-size: 0.84rem;
+            color: var(--muted);
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+        .eb-complaint-body {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            color: #374151;
+            font-size: 0.9rem;
+            line-height: 1.55;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .eb-complaint-box {
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: #fafafa;
+            margin-bottom: 16px;
+        }
+        .eb-complaint-box--response {
+            border-color: rgba(74,124,107,0.25);
+            background: rgba(74,124,107,0.06);
+        }
+        .eb-complaint-box__label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+        .eb-complaint-box--response .eb-complaint-box__label { color: var(--sage, #4a7c6b); }
+        .eb-complaint-box__text { white-space: pre-wrap; font-size: 0.92rem; line-height: 1.6; }
+        .eb-complaint-note { color: var(--muted); font-size: 0.9rem; margin-bottom: 16px; }
         /* Form section cards (visa assess) */
         .form-section {
             margin-bottom: 22px;
