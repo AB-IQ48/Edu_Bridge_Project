@@ -79,8 +79,8 @@
             @if($profile->verification_status === 'approved')
                 <a href="{{ route('counsellors.show', $profile) }}">View public profile page</a>
             @endif
-            <a href="{{ route('documents.index') }}">My documents</a>
-            <a href="{{ route('documents.create') }}">Upload document</a>
+            <a href="{{ route('documents.index') }}">My verification documents</a>
+            <a href="{{ route('documents.create') }}">Upload verification document</a>
             <a href="{{ route('chat.index') }}">
                 Chat with students
                 @if(($unreadChatCount ?? 0) > 0)
@@ -96,6 +96,28 @@
             </a>
             <a href="{{ route('counsellor.complaints.index') }}">Complaints</a>
         </div>
+
+        @php $assignedStudents = $assignedStudents ?? collect(); @endphp
+        @if($assignedStudents->isNotEmpty())
+            <h2 style="font-size:1rem; margin-top:26px; margin-bottom:8px;">Assigned students — documents</h2>
+            <p class="hint" style="margin-bottom:12px;">Review files each student uploaded for their application. Only their assigned counsellor can open these.</p>
+            <ul class="cs-students-list">
+                @foreach($assignedStudents as $stu)
+                    <li class="cs-students-item">
+                        <div class="cs-students-meta">
+                            <strong class="cs-students-name">{{ $stu->name }}</strong>
+                            <span class="hint cs-students-count">
+                                {{ (int) ($stu->student_documents_count ?? 0) }} document{{ ((int) ($stu->student_documents_count ?? 0)) === 1 ? '' : 's' }}
+                            </span>
+                        </div>
+                        <div class="cs-students-actions">
+                            <a href="{{ route('counsellor.assigned-students.documents', $stu) }}" class="btn btn--sage cs-students-btn">View documents</a>
+                            <a href="{{ route('chat.show', $stu) }}" class="btn btn--ghost cs-students-btn">Open chat</a>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
     @else
         <div class="alert alert--error">No counsellor profile found yet.</div>
     @endif

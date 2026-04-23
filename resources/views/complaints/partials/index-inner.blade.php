@@ -3,8 +3,8 @@
 <p class="sub">Reports you have sent to EduBridge. We review them in line with our <a href="{{ route('pages.complaints') }}">complaint policy</a>.</p>
 
 <div class="eb-complaints-actions">
-    <a href="{{ route($panel.'.complaints.create') }}" class="btn btn--sage" style="width:auto; padding:10px 18px; font-size:0.88rem;">+ New complaint</a>
-    <a href="{{ $panel === 'student' ? route('student.index') : route('counsellor.index') }}" class="toplinks" style="margin:0; align-self:center;">Back to dashboard</a>
+    <a href="{{ route($panel.'.complaints.create') }}" class="btn btn--sage eb-complaint-action-btn">New complaint</a>
+    <a href="{{ $panel === 'student' ? route('student.index') : route('counsellor.index') }}" class="btn btn--ghost eb-complaint-action-btn">Back to dashboard</a>
 </div>
 
 @forelse($complaints as $c)

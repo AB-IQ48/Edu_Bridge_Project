@@ -126,12 +126,16 @@
             cursor: pointer;
             box-shadow: 0 4px 14px rgba(13,17,23,0.25);
             transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+            text-decoration: none;
         }
         .btn:hover {
             opacity: 0.95;
             transform: translateY(-1px);
             box-shadow: 0 8px 22px rgba(13,17,23,0.28);
+            text-decoration: none;
         }
+        a.btn { text-decoration: none; }
+        a.btn:hover { text-decoration: none; }
         .btn--sage {
             background: linear-gradient(135deg, #5a9480 0%, var(--sage) 100%);
             box-shadow: 0 4px 14px rgba(74,124,107,0.35);
@@ -229,21 +233,89 @@
             margin-top: 18px;
             font-size: 0.9rem;
         }
-        .toplinks a:not(.eb-back) {
+        .toplinks a:not(.eb-back),
+        a.toplinks {
             padding: 8px 12px;
             border-radius: 999px;
             border: 1px solid rgba(0,0,0,0.12);
             background: #fff;
+            transition: transform .15s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+            box-shadow: 0 3px 10px rgba(13,17,23,0.06);
         }
-        .toplinks a:not(.eb-back):hover { border-color: rgba(74,124,107,.45); text-decoration: none; background: rgba(74,124,107,.05); }
+        .toplinks a:not(.eb-back):hover,
+        a.toplinks:hover {
+            border-color: rgba(74,124,107,.45);
+            text-decoration: none;
+            background: rgba(74,124,107,.05);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(74,124,107,.14);
+        }
+        .toplinks a:not(.eb-back):active,
+        a.toplinks:active { transform: translateY(0); box-shadow: 0 6px 16px rgba(13,17,23,0.10); }
         .hint { color: var(--muted); font-size: 0.86rem; margin-top: 4px; line-height: 1.45; }
         .inline { display: flex; align-items: center; gap: 10px; }
+
+        /* Counsellor dashboard: assigned students list */
+        .cs-students-list {
+            margin: 0 0 8px;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 10px;
+        }
+        .cs-students-item {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px 14px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: #fff;
+            box-shadow: 0 6px 18px rgba(13,17,23,0.06);
+            transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+        }
+        .cs-students-item:hover {
+            transform: translateY(-1px);
+            border-color: rgba(74,124,107,.28);
+            box-shadow: 0 10px 28px rgba(74,124,107,.10);
+        }
+        .cs-students-meta { min-width: 220px; flex: 1; }
+        .cs-students-name { font-size: 0.95rem; }
+        .cs-students-count { margin-left: 8px; font-size: 0.82rem; }
+        .cs-students-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+        a.cs-students-btn {
+            width: auto !important;
+            padding: 10px 16px !important;
+            font-size: 0.88rem !important;
+            min-height: 42px;
+            text-decoration: none;
+        }
+        @media (max-width: 560px) {
+            .cs-students-actions { width: 100%; }
+            a.cs-students-btn { flex: 1; }
+        }
+
         /* Complaints UI */
         .eb-complaints-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            align-items: center;
             margin-bottom: 18px;
+        }
+        a.eb-complaint-action-btn,
+        button.eb-complaint-action-btn {
+            width: auto !important;
+            padding: 10px 18px !important;
+            font-size: 0.88rem !important;
+            min-height: 44px;
+        }
+        @media (max-width: 560px) {
+            .eb-complaints-actions { gap: 8px; }
+            a.eb-complaint-action-btn,
+            button.eb-complaint-action-btn { flex: 1; }
         }
         .eb-complaints-list {
             display: grid;

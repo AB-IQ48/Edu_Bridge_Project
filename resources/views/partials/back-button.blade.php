@@ -3,6 +3,43 @@
     $variant = $variant ?? 'default';
     $titleAttr = $title ?? null;
 
+    $pathNorm = static function (?string $url): string {
+        if ($url === null || $url === '') {
+            return '';
+        }
+        $p = parse_url($url, PHP_URL_PATH);
+
+        return $p !== null && $p !== '' ? rtrim($p, '/') : '';
+    };
+
+    /** Counsellor in-app screens: avoid sending "Back" to public marketing pages or auth screens. */
+    $counsellorWorkflowUrl = static function (?string $url): bool {
+        if ($url === null || $url === '') {
+            return false;
+        }
+        $path = parse_url($url, PHP_URL_PATH) ?? '';
+        if ($path === '') {
+            return false;
+        }
+        if (str_contains($path, '/counsellor')) {
+            return true;
+        }
+        if (str_contains($path, '/chat')) {
+            return true;
+        }
+        if (str_contains($path, '/student')) {
+            return false;
+        }
+        if (str_contains($path, '/admin')) {
+            return false;
+        }
+        if (str_contains($path, '/documents')) {
+            return true;
+        }
+
+        return false;
+    };
+
     if (isset($href) && $href !== '') {
         $target = $href;
     } else {
@@ -15,10 +52,17 @@
             || str_contains($prevPath, 'forgot-password')
             || str_contains($prevPath, 'reset-password')
         );
+
         if (isset($backUrl) && $backUrl !== '') {
             $target = $backUrl;
         } elseif ($prev && $prev !== $curr && ! $skipPrev) {
-            $target = $prev;
+            if (auth()->check() && auth()->user()->isCounsellor() && ! $counsellorWorkflowUrl($prev)) {
+                $target = isset($fallbackUrl) && $fallbackUrl !== ''
+                    ? $fallbackUrl
+                    : route('counsellor.index');
+            } else {
+                $target = $prev;
+            }
         } else {
             if (auth()->check()) {
                 $u = auth()->user();
@@ -33,6 +77,14 @@
                 $roleHome = url('/');
             }
             $target = $fallbackUrl ?? $roleHome;
+        }
+    }
+
+    if (($backLabel ?? null) === null && auth()->check() && auth()->user()->isCounsellor()) {
+        $dashPath = $pathNorm(route('counsellor.index'));
+        $targetPath = $pathNorm($target);
+        if ($dashPath !== '' && $targetPath === $dashPath) {
+            $label = 'Dashboard';
         }
     }
 

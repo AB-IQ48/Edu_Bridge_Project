@@ -25,6 +25,17 @@
     margin-bottom: 28px;
     box-shadow: 0 24px 60px rgba(13,17,23,0.28);
   }
+  .cp-hero::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(900px 360px at 10% 0%, rgba(74,124,107,0.30), transparent 60%),
+      radial-gradient(820px 340px at 90% 10%, rgba(200,168,75,0.20), transparent 58%),
+      radial-gradient(680px 280px at 50% 120%, rgba(224,122,95,0.14), transparent 60%);
+    pointer-events:none;
+    opacity:.95;
+  }
   .cp-hero::before {
     content: '';
     position: absolute;
@@ -43,6 +54,7 @@
     letter-spacing: 0.02em;
     flex-shrink: 0;
     border: 3px solid rgba(255,255,255,0.2);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.25);
   }
   .cp-hero h1 {
     font-family: var(--font-serif, Georgia, serif);
@@ -61,6 +73,7 @@
     border: 1px solid rgba(255,255,255,0.25);
       color: #b8e6d4;
   }
+  .cp-badge strong { color:#fff; }
   .cp-pill { font-size: 0.85rem; opacity: 0.88; }
   .cp-actions { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
   .cp-btn-primary {
@@ -74,7 +87,10 @@
     font-size: 0.88rem;
     cursor: pointer;
     text-decoration: none;
+    box-shadow: 0 14px 34px rgba(200,168,75,0.18);
+    transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
   }
+  .cp-btn-primary:hover { transform: translateY(-1px); filter: brightness(1.02); box-shadow: 0 18px 42px rgba(200,168,75,0.24); text-decoration: none; }
   .cp-btn-outline {
     display: inline-flex;
     padding: 12px 20px;
@@ -85,7 +101,9 @@
     font-size: 0.88rem;
     text-decoration: none;
     background: rgba(255,255,255,0.06);
+    transition: transform .15s ease, background .2s ease, border-color .2s ease;
   }
+  .cp-btn-outline:hover { transform: translateY(-1px); background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.55); text-decoration: none; }
   .cp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   @media (max-width: 720px) { .cp-grid { grid-template-columns: 1fr; } }
   .cp-card {
@@ -94,7 +112,9 @@
     border-radius: 16px;
     padding: 22px 22px 20px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
   }
+  .cp-card:hover { transform: translateY(-1px); border-color: rgba(74,124,107,0.22); box-shadow: 0 12px 30px rgba(74,124,107,0.10); }
   .cp-card h2 {
     font-size: 0.8rem;
     font-weight: 700;
@@ -125,6 +145,20 @@
   .cp-alert { margin-bottom: 20px; padding: 14px 18px; border-radius: 12px; font-size: 0.9rem; }
   .cp-alert--ok { background: rgba(74,124,107,0.12); border: 1px solid rgba(74,124,107,0.3); color: var(--sage); }
   .cp-alert--err { background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.25); color: var(--danger); }
+  .cp-note {
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.20);
+    background: rgba(255,255,255,0.08);
+    margin-top: 14px;
+    color: rgba(255,255,255,0.88);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .cp-note strong { color:#fff; }
 </style>
 
 <div class="cp-wrap">
@@ -135,7 +169,7 @@
         <h1>{{ $u->name }}</h1>
         <p class="cp-org">{{ $profile->organization_name }}</p>
         <div class="cp-meta">
-          <span class="cp-badge">✓ EduBridge verified</span>
+          <span class="cp-badge">✓ <strong>EduBridge verified</strong></span>
           </div>
         <div class="cp-meta" style="margin-top:10px;">
           <span class="cp-pill">📍 {{ $profile->city ?: 'Location not specified' }}</span>
@@ -159,6 +193,12 @@
             <a href="{{ route('login') }}" class="cp-btn-primary">Login to connect</a>
           @endauth
           <a href="{{ route('counsellors.index') }}" class="cp-btn-outline">All counsellors</a>
+        </div>
+        <div class="cp-note">
+          <div aria-hidden="true">🔒</div>
+          <div>
+            <strong>Trust note:</strong> Verified counsellors have completed the platform’s review checks. Before approval, EduBridge may perform additional checks on a case-by-case basis.
+          </div>
         </div>
       </div>
     </div>
@@ -233,6 +273,9 @@
       <h2>✅ Why verified</h2>
       <p style="margin:0; font-size:0.92rem; line-height:1.65; color:var(--muted);">
         EduBridge reviews counsellor credentials before they appear here. Compare profiles, read focus areas, then connect with someone who fits your destination and study level.
+      </p>
+      <p style="margin:10px 0 0; font-size:0.9rem; line-height:1.65; color:var(--muted);">
+        Before approval, EduBridge may perform additional checks on a case-by-case basis.
       </p>
     </div>
   </div>

@@ -37,7 +37,7 @@
     <p class="sub">Chat, student connections, and verification updates. Unread items are highlighted.</p>
 
     <div class="eb-notify-toolbar">
-        <a href="{{ route('counsellor.index') }}" class="toplinks" style="margin:0">Dashboard</a>
+        <a href="{{ route('counsellor.index') }}" class="btn btn--ghost" style="width:auto; padding:10px 16px; text-decoration:none;">Dashboard</a>
         @if(($counsellorUnreadNotificationsCount ?? 0) > 0)
             <form method="POST" action="{{ route('counsellor.notifications.read-all') }}" style="display:inline">
                 @csrf

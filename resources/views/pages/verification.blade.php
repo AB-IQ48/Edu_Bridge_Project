@@ -11,7 +11,7 @@
       <span class="eyebrow-tag">Verification</span>
     </div>
     <h2 class="section-title">Rigorous counsellor verification</h2>
-    <p class="section-sub">Every counsellor undergoes a five-layer verification process before they can advise a single student. No exceptions.</p>
+    <p class="section-sub">Every counsellor undergoes a five-layer verification process before they can advise a single student. Additional checks may also be performed case by case before approval.</p>
     <p style="max-width:640px;margin-top:20px;font-size:0.95rem;color:rgba(255,255,255,0.6);line-height:1.7">In many markets, anyone can call themselves an education consultant. EduBridge changes that: we verify identity, credentials, and business registration, and we keep monitoring outcomes so the badge on a profile reflects real, up-to-date trust.</p>
     <div class="veri-grid">
       <div class="veri-checks">

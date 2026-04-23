@@ -28,4 +28,7 @@
     <p class="eb-complaint-note">No admin response yet. We will update this when we have reviewed your report.</p>
 @endif
 
-<a href="{{ route($panel.'.complaints.index') }}" class="toplinks">← All complaints</a>
+<div class="eb-complaints-actions" style="margin-top:20px;">
+    <a href="{{ route($panel.'.complaints.index') }}" class="btn btn--ghost eb-complaint-action-btn">Back to all complaints</a>
+    <a href="{{ $panel === 'student' ? route('student.index') : route('counsellor.index') }}" class="btn btn--ghost eb-complaint-action-btn">Dashboard</a>
+</div>

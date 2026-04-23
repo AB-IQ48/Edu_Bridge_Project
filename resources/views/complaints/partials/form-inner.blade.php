@@ -21,8 +21,8 @@
         <label for="body">Details</label>
         <textarea id="body" name="body" rows="8" required maxlength="8000">{{ old('body') }}</textarea>
     </div>
-    <div style="display:flex; flex-wrap:wrap; gap:10px;">
-        <button type="submit" class="btn btn--sage" style="width:auto; padding:11px 20px;">Submit complaint</button>
-        <a href="{{ route($panel.'.complaints.index') }}" class="toplinks" style="margin:0; align-self:center;">Cancel</a>
+    <div class="eb-complaints-actions" style="margin-top:4px;">
+        <button type="submit" class="btn btn--sage eb-complaint-action-btn">Submit complaint</button>
+        <a href="{{ route($panel.'.complaints.index') }}" class="btn btn--ghost eb-complaint-action-btn">Cancel — back to list</a>
     </div>
 </form>
